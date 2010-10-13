@@ -21,16 +21,26 @@
 # - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
 # - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/ree.rb
 
-%w{build-essential bison openssl libreadline6 libreadline6-dev 
-    zlib1g zlib1g-dev libssl-dev vim libsqlite3-0 libsqlite3-dev sqlite3 
-    libxml2-dev subversion autoconf ssl-cert}.each do |pkg|
-  package pkg
-end
 
 node[:rvm][:rubies].each do |ruby|
+  if ruby =~ /^1\.[89]\../ || ruby =~ /^ree/
+    pkgs = %w{build-essential bison openssl libreadline5 libreadline-dev 
+        zlib1g zlib1g-dev libssl-dev vim libsqlite3-0 libsqlite3-dev sqlite3 
+        libxml2-dev ssl-cert}
+  elsif ruby =~ /^jruby/
+    pkgs = %w{curl sun-java6-bin sun-java6-jre sun-java6-jdk}
+
+  if ruby =~ /^ruby-head$/
+    pkgs << %w{git subversion autoconf}
+  end
+
+  pkgs.each do |pkg|
+    package pkg
+  end
+
   bash "install #{ruby}" do
     user "root"
     code "rvm install #{ruby}"
-    not_if %{rvm list strings | grep -q "#{ruby}" >/dev/null}
+    not_if %{rvm list strings | grep -q "^#{ruby}" >/dev/null}
   end
 end
