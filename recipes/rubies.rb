@@ -29,6 +29,7 @@ node[:rvm][:rubies].each do |ruby|
         libxml2-dev ssl-cert}
   elsif ruby =~ /^jruby/
     pkgs = %w{curl sun-java6-bin sun-java6-jre sun-java6-jdk}
+  end
 
   if ruby =~ /^ruby-head$/
     pkgs << %w{git subversion autoconf}
@@ -40,7 +41,7 @@ node[:rvm][:rubies].each do |ruby|
 
   bash "install #{ruby}" do
     user "root"
-    code "rvm install #{ruby}"
+    code %{rvm install #{ruby}}
     not_if %{rvm list strings | grep -q "^#{ruby}" >/dev/null}
   end
 end
