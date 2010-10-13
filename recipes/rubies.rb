@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rvm
-# Recipe:: default
+# Recipe:: rubies
 #
 # Copyright 2010, Fletcher Nichol
 #
@@ -19,16 +19,18 @@
 
 # thanks to:
 # - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
-# - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
+# - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/ree.rb
 
-%w{sed grep tar gzip bzip2 bash curl git-core}.each do |pkg|
+%w{build-essential bison openssl libreadline6 libreadline6-dev 
+    zlib1g zlib1g-dev libssl-dev vim libsqlite3-0 libsqlite3-dev sqlite3 
+    libxml2-dev subversion autoconf ssl-cert}.each do |pkg|
   package pkg
 end
 
-bash "install system-wide RVM" do
-  user "root"
-  code %{bash < <( curl -L http://bit.ly/rvm-install-system-wide )}
-  not_if %{rvm --version}
+node[:rvm][:rubies].each do |ruby|
+  bash "install #{ruby}" do
+    user "root"
+    code "rvm install #{ruby}"
+    not_if %{rvm list strings | grep -q "#{ruby}" >/dev/null}
+  end
 end
-
-cookbook_file "/etc/profile.d/rvm.sh"
