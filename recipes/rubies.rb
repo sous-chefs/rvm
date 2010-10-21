@@ -42,7 +42,7 @@ node[:rvm][:rubies].each do |ruby|
   bash "install RVM ruby: #{ruby}" do
     user "root"
     code %{source /etc/profile.d/rvm.sh && rvm install #{ruby}}
-    not_if %{source /etc/profile.d/rvm.sh && rvm list strings | grep -q "^#{ruby}" >/dev/null}
+    not_if %{bash -c "source /etc/profile.d/rvm.sh && rvm list strings | grep -q '^#{ruby}' >/dev/null"}
   end
 end
 

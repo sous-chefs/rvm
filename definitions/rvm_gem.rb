@@ -24,7 +24,7 @@
 
 define :rvm_gem, :ruby => "default", :source => nil, :version => nil do
   gem_package params[:name] do
-    gem_binary "source /etc/profile.d/rvm.sh && rvm #{params[:ruby]} gem"
+    gem_binary "rvm #{params[:ruby]} gem"
     source params[:source] if params[:source]
     version params[:version] if params[:version]
   end
