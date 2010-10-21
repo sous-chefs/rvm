@@ -28,7 +28,7 @@ end
 bash "install system-wide RVM" do
   user "root"
   code %{bash < <( curl -L http://bit.ly/rvm-install-system-wide )}
-  not_if %{rvm --version}
+  not_if %{source /etc/profile.d/rvm.sh && rvm --version}
 end
 
 cookbook_file "/etc/profile.d/rvm.sh"

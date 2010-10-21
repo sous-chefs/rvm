@@ -1,7 +1,12 @@
 #
-# Cookbook Name:: rvm
-# Recipe:: default_ruby
+# Cookbook Name:: ruby_enterprise
+# Based on ruby_enterprise (ree_gem).
+# Recipe:: rvm_gem
 #
+# Author:: Joshua Timberman (<joshua@opscode.com>)
+# Author:: Fletcher Nichol (<fnichol@nichol.ca>)
+#
+# Copyright 2009, Opscode, Inc.
 # Copyright 2010, Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +22,11 @@
 # limitations under the License.
 #
 
-bash "set default RVM ruby to #{node[:rvm][:default_ruby]}" do
-  user "root"
-  code %{source /etc/profile.d/rvm.sh && rvm #{node[:rvm][:default_ruby]} --default}
-  not_if %{source /etc/profile.d/rvm.sh && rvm list default string | grep -q "^#{node[:rvm][:default_ruby]}"}
+define :rvm_gem, :ruby => "default", :source => nil, :version => nil do
+  gem_package params[:name] do
+    gem_binary "source /etc/profile.d/rvm.sh && rvm #{params[:ruby]} gem"
+    source params[:source] if params[:source]
+    version params[:version] if params[:version]
+  end
 end
+
