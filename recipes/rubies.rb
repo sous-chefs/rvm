@@ -39,9 +39,10 @@ node[:rvm][:rubies].each do |ruby|
     package pkg
   end
 
-  bash "install #{ruby}" do
+  bash "install RVM ruby: #{ruby}" do
     user "root"
     code %{rvm install #{ruby}}
     not_if %{rvm list strings | grep -q "^#{ruby}" >/dev/null}
   end
 end
+

@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-bash "set default RVM ruby" do
+bash "set default RVM ruby to #{node[:rvm][:default_ruby]}" do
   user "root"
   code %{rvm #{node[:rvm][:default_ruby]} --default}
   not_if %{rvm list default string | grep -q "^#{node[:rvm][:default_ruby]}"}
