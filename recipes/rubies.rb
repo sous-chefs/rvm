@@ -23,6 +23,7 @@
 
 
 node[:rvm][:rubies].each do |ruby|
+  pkgs = []
   if ruby =~ /^1\.[89]\../ || ruby =~ /^ree/
     pkgs = %w{build-essential bison openssl libreadline5 libreadline-dev 
         zlib1g zlib1g-dev libssl-dev vim libsqlite3-0 libsqlite3-dev sqlite3 
