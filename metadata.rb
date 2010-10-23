@@ -13,6 +13,11 @@ recipe "rvm::default_ruby", "Sets a default RVM ruby"
   supports os
 end
 
+attribute "rvm/root_path",
+  :display_name => "RVM root path",
+  :description => "Root path for RVM installation",
+  :default => "/usr/local/rvm"
+
 attribute "rvm/default_ruby",
   :display_name => "Default ruby",
   :description => "Default ruby for new shells",
