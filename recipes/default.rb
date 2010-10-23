@@ -31,6 +31,4 @@ bash "install system-wide RVM" do
   not_if %{bash -c "source /etc/profile.d/rvm.sh && rvm --version"}
 end
 
-template "/etc/profile.d/rvm.sh" do
-  source "rvm.sh.erb"
-end
+cookbook_file "/etc/profile.d/rvm.sh"
