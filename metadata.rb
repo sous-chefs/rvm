@@ -5,8 +5,9 @@ description      "Installs/Configures rvm"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
 
-recipe "rvm", "Installs system-wide RVM"
-recipe "rvm::rubies", "Installs RVM rubies"
+recipe "rvm",               "Includes all recipes"
+recipe "rvm::system",       "Installs system-wide RVM"
+recipe "rvm::rubies",       "Installs RVM rubies"
 recipe "rvm::default_ruby", "Sets a default RVM ruby"
 
 %w{ ubuntu }.each do |os|
