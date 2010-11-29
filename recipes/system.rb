@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rvm
-# Recipe:: default
+# Recipe:: system
 #
 # Copyright 2010, Fletcher Nichol
 #
@@ -17,6 +17,18 @@
 # limitations under the License.
 #
 
-include_recipe "rvm::system"
-include_recipe "rvm::rubies"
-include_recipe "rvm::default_ruby"
+# thanks to:
+# - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
+# - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
+
+%w{sed grep tar gzip bzip2 bash curl git-core}.each do |pkg|
+  package pkg
+end
+
+bash "install system-wide RVM" do
+  user "root"
+  code %{bash < <( curl -L http://bit.ly/rvm-install-system-wide )}
+  not_if %{bash -c "source /etc/profile.d/rvm.sh && rvm --version"}
+end
+
+cookbook_file "/etc/profile.d/rvm.sh"

@@ -1,0 +1,1 @@
+default[:rvm][:rubies] = ["ree"]
