@@ -19,6 +19,11 @@ attribute "rvm/root_path",
   :description => "Root path for RVM installation",
   :default => "/usr/local/rvm"
 
+attribute "rvm/group_users",
+  :display_name => "Additional users in rvm group",
+  :description => "Additional users in rvm group that can manage rvm in a system-wide installation.",
+  :default => []
+
 attribute "rvm/default_ruby",
   :display_name => "Default ruby",
   :description => "Default ruby for new shells",

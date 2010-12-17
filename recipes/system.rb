@@ -32,3 +32,8 @@ bash "install system-wide RVM" do
 end
 
 cookbook_file "/etc/profile.d/rvm.sh"
+
+group "rvm" do
+  members node[:rvm][:group_users]
+  append  true
+end
