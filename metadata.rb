@@ -35,3 +35,9 @@ attribute "rvm/rubies",
   :type => "array",
   :default => [ "ree" ]
 
+attribute "rvm/rvmrc/lines",
+  :display_name => "List of key/value hashes of rvmrc lines"
+  :description => "List of key/value hashes of rvmrc lines.",
+  :type => "array",
+  :default => []
+

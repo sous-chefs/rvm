@@ -37,3 +37,15 @@ group "rvm" do
   members node[:rvm][:group_users]
   append  true
 end
+
+unless node[:rvm][:rvmrc][:lines].empty?
+  template  "/etc/rvmrc" do
+    source  "rvmrc.erb"
+    owner   "root"
+    group   "root"
+    mode    "0644"
+    variables(
+      :lines => node[:rvm][:rvmrc][:lines]
+    )
+  end
+end
