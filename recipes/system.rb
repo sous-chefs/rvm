@@ -39,13 +39,14 @@ group "rvm" do
 end
 
 unless node[:rvm][:rvmrc][:lines].empty?
+  lines = []
+  node[:rvm][:rvmrc].each_pair { |k,v|  lines << "#{k.to_s}=#{v.to_s}" }
+
   template  "/etc/rvmrc" do
     source  "rvmrc.erb"
     owner   "root"
     group   "root"
     mode    "0644"
-    variables(
-      :lines => node[:rvm][:rvmrc][:lines]
-    )
+    variables(:lines => lines)
   end
 end
