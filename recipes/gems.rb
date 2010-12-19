@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rvm
-# Recipe:: default
+# Recipe:: gems
 #
 # Copyright 2010, Fletcher Nichol
 #
@@ -17,7 +17,11 @@
 # limitations under the License.
 #
 
-include_recipe "rvm::system"
-include_recipe "rvm::rubies"
-include_recipe "rvm::default_ruby"
-include_recipe "rvm::gems"
+node[:rvm][:gems].each_pair do |ruby_gemset, gems|
+  gems.each do |gem|
+    rvm gem[:name] do
+      ruby      ruby_gemset
+      version   gem[:version] if gem[:version]
+    end
+  end
+end

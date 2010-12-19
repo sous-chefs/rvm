@@ -41,3 +41,9 @@ attribute "rvm/rvmrc",
   :type => "hash",
   :default => Hash.new
 
+attribute "rvm/gems",
+  :display_name => "Hash of ruby/gemset gem manifests"
+  :description => "Facility to declare the presence of certain gems in gemsets, like bundler.",
+  :type => "hash",
+  :default => { :'default@global' => [ { :name => "bundler" } ] }
+
