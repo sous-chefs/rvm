@@ -47,6 +47,6 @@ unless node[:rvm][:rvmrc].empty?
     owner   "root"
     group   "root"
     mode    "0644"
-    variables(:lines => lines.sort)
+    variables(:lines => lines.sort.join("\n"))
   end
 end
