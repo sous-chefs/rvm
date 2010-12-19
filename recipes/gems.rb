@@ -19,7 +19,7 @@
 
 node[:rvm][:gems].each_pair do |ruby_gemset, gems|
   gems.each do |gem|
-    rvm gem[:name] do
+    rvm_gem[:name] do
       ruby      ruby_gemset
       version   gem[:version] if gem[:version]
     end
