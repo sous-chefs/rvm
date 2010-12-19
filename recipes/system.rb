@@ -38,7 +38,7 @@ group "rvm" do
   append  true
 end
 
-unless node[:rvm][:rvmrc][:lines].empty?
+unless node[:rvm][:rvmrc].empty?
   lines = []
   node[:rvm][:rvmrc].each_pair { |k,v|  lines << "#{k.to_s}=#{v.to_s}" }
 
