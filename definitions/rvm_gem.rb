@@ -22,11 +22,14 @@
 # limitations under the License.
 #
 
-define :rvm_gem, :ruby => "default", :source => nil, :version => nil do
+define :rvm_gem, :ruby => "default", :source => nil, :version => nil ,
+    :options => nil, :action => :install do
   gem_package params[:name] do
-    gem_binary "rvm #{params[:ruby]} gem"
-    source params[:source] if params[:source]
-    version params[:version] if params[:version]
+    gem_binary  "rvm #{params[:ruby]} gem"
+    action      params[:action]
+    source      params[:source] if params[:source]
+    options     params[:options] if params[:options]
+    version     params[:version] if params[:version]
   end
 end
 
