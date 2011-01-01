@@ -17,8 +17,10 @@
 # limitations under the License.
 #
 
-bash "set default RVM ruby to #{node[:rvm][:default_ruby]}" do
-  user "root"
-  code %{source /etc/profile.d/rvm.sh && rvm #{node[:rvm][:default_ruby]} --default}
-  not_if %{bash -c "source /etc/profile.d/rvm.sh && rvm list default string | grep -q '^#{node[:rvm][:default_ruby]}'"}
+unless node[:rvm][:rubies].empty?
+  bash "set default RVM ruby to #{node[:rvm][:default_ruby]}" do
+    user "root"
+    code %{source /etc/profile.d/rvm.sh && rvm #{node[:rvm][:default_ruby]} --default}
+    not_if %{bash -c "source /etc/profile.d/rvm.sh && rvm list default string | grep -q '^#{node[:rvm][:default_ruby]}'"}
+  end
 end
