@@ -31,7 +31,11 @@ bash "install system-wide RVM" do
   not_if %{bash -c "source /etc/profile.d/rvm.sh && rvm --version"}
 end
 
-cookbook_file "/etc/profile.d/rvm.sh"
+cookbook_file "/etc/profile.d/rvm.sh" do
+  owner   "root"
+  group   "root"
+  mode    "0644"
+end
 
 group "rvm" do
   members node[:rvm][:group_users]
