@@ -24,10 +24,10 @@
 
 node[:rvm][:rubies].each do |ruby|
   pkgs = []
-  if ruby =~ /^1\.[89]\../ || ruby =~ /^ree/
-    pkgs = %w{build-essential bison openssl libreadline5 libreadline-dev 
-        zlib1g zlib1g-dev libssl-dev vim libsqlite3-0 libsqlite3-dev sqlite3 
-        libxml2-dev ssl-cert}
+  if ruby =~ /^1\.[89]\../ || ruby =~ /^ree/ || ruby =~ /^ruby-/
+    pkgs = %w{build-essential bison openssl libreadline6 libreadline6-dev
+        zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev
+        sqlite3 libxml2-dev libxslt1-dev ssl-cert}
   elsif ruby =~ /^jruby/
     pkgs = %w{curl sun-java6-bin sun-java6-jre sun-java6-jdk}
   end
