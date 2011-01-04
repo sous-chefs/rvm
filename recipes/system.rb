@@ -21,7 +21,15 @@
 # - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
 # - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
 
-%w{sed grep tar gzip bzip2 bash curl git-core}.each do |pkg|
+pkgs = %w{ sed grep tar gzip bzip2 bash curl }
+case node[:platform]
+  when "centos","redhat","fedora","suse"
+    pkgs << "git"
+  when "debian","ubuntu"
+    pkgs << "git-core"
+end
+
+pkgs.each do |pkg|
   package pkg
 end
 
