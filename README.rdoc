@@ -18,6 +18,7 @@ For the moment this is targeted at Ubuntu, other platforms to be tested.
 = LICENSE and AUTHOR:
 
 Author:: Fletcher Nichol (<fnichol@nichol.ca>)
+Contributors:: Bram Swenson (<bram@craniumisajar.com>)
 
 Copyright:: 2010, Fletcher Nichol
 
