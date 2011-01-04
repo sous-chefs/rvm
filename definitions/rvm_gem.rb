@@ -25,7 +25,7 @@
 define :rvm_gem, :ruby => "default", :source => nil, :version => nil ,
     :options => nil, :action => :install do
   gem_package params[:name] do
-    gem_binary  "rvm #{params[:ruby]} gem"
+    gem_binary  "rvm #{params[:ruby]} exec gem"
     action      params[:action]
     source      params[:source] if params[:source]
     options     params[:options] if params[:options]
