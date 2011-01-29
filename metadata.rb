@@ -36,13 +36,13 @@ attribute "rvm/rubies",
   :default => [ "ree" ]
 
 attribute "rvm/rvmrc",
-  :display_name => "Hash of rvmrc options"
+  :display_name => "Hash of rvmrc options",
   :description => "Hash of rvmrc options. See RVM documentation for rvmrc options.",
   :type => "hash",
   :default => Hash.new
 
 attribute "rvm/gems",
-  :display_name => "Hash of ruby/gemset gem manifests"
+  :display_name => "Hash of ruby/gemset gem manifests",
   :description => "Facility to declare the presence of certain gems in gemsets, like bundler.",
   :type => "hash",
   :default => { :'default@global' => [ { :name => "bundler" } ] }
