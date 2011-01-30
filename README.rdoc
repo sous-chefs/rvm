@@ -19,6 +19,7 @@ For the moment this is targeted at Ubuntu, other platforms to be tested.
 
 Author:: Fletcher Nichol (<fnichol@nichol.ca>)
 Contributors:: Bram Swenson (<bram@craniumisajar.com>)
+Contributors:: Phil Cohen (http://phlippers.net/)
 
 Copyright:: 2010, Fletcher Nichol
 
