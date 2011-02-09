@@ -76,7 +76,9 @@ end
 def ruby_default?(rubie)
   return false unless ruby_string_sane?(rubie)
 
-  RVM.list_default.start_with?(rubie)
+  current_default = RVM.list_default
+  return false if current_default.nil?
+  current_default.start_with?(rubie)
 end
 
 ##
