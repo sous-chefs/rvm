@@ -25,14 +25,19 @@ action :install do
   if ruby_installed?(rubie)
     Chef::Log.debug("RVM ruby #{rubie} is already installed, so skipping")
   else
-    Chef::Log.info("RVM ruby #{rubie} installation in progress. " +
-      "This could take awhile...")
+    install_start = Time.now
+
+    Chef::Log.info("Building rvm_ruby[#{rubie}], " +
+      "this could take awhile...")
 
     if RVM.install(rubie)
-      Chef::Log.info("Successful installation of RVM ruby #{rubie}")
+      Chef::Log.info("Installation of rvm_ruby[#{rubie}] was successful.")
     else
       Chef::Log.warn("Failed to install RVM ruby #{rubie}. " +
         "Check RVM logs here: #{RVM.path}/log/#{rubie}")
     end
+
+    Chef::Log.debug("rvm_ruby[#{rubie}] build time was " +
+      "#{(Time.now - install_start)/60.0} minutes.")
   end
 end
