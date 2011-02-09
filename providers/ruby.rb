@@ -41,3 +41,20 @@ action :install do
       "#{(Time.now - install_start)/60.0} minutes.")
   end
 end
+
+action :uninstall do
+  rubie = new_resource.ruby_string
+
+  if ruby_installed?(rubie)
+    Chef::Log.info("Uninstalling rvm_ruby[#{rubie}]")
+
+    if RVM.uninstall(rubie)
+      Chef::Log.info("Uninstallation of rvm_ruby[#{rubie}] was successful.")
+    else
+      Chef::Log.warn("Failed to uninstall rvm_ruby[#{rubie}]. " +
+        "Check logs in #{RVM.path}/log/#{rubie}")
+    end
+  else
+    Chef::Log.debug("rvm_ruby[#{rubie}] was not installed, so skipping")
+  end
+end
