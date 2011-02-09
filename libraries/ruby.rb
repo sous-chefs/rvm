@@ -78,3 +78,19 @@ def ruby_default?(rubie)
 
   RVM.list_default.start_with?(rubie)
 end
+
+##
+# Determines whether or not a gemset exists for a given ruby
+#
+# @param [Hash] the options to query a gemset with
+# @option opts [String] :ruby the ruby the query within
+# @option opts [String] :gemset the gemset to look for
+def gemset_exists?(opts={})
+  return false if opts[:ruby].nil? || opts[:gemset].nil?
+  return false unless ruby_string_sane?(opts[:ruby])
+  return false unless ruby_installed?(opts[:ruby])
+
+  env = RVM::Environment.new
+  env.use opts[:ruby]
+  env.gemset_list.include?(opts[:gemset])
+end
