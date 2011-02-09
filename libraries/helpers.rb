@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rvm
-# Library:: ruby
+# Library:: helpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
