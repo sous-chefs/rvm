@@ -67,3 +67,14 @@ end
 def ruby_unknown?(rubie)
   !ruby_known?(rubie)
 end
+
+##
+# Determines whether or not the given ruby is the default one
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Boolean] is this ruby the default one?
+def ruby_default?(rubie)
+  return false unless ruby_string_sane?(rubie)
+
+  RVM.list_default.start_with?(rubie)
+end

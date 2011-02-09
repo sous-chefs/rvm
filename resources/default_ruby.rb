@@ -1,15 +1,17 @@
 #
 # Cookbook Name:: rvm
-# Recipe:: default_ruby
+# Resource:: default_ruby
 #
-# Copyright 2010, Fletcher Nichol
+# Author:: Fletcher Nichol <fnichol@nichol.ca>
+#
+# Copyright 2011, Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#
+# 
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,6 +19,12 @@
 # limitations under the License.
 #
 
-unless node[:rvm][:rubies].empty?
-  rvm_default_ruby node[:rvm][:default_ruby]
+actions :create
+
+attribute :ruby_string, :kind_of => String, :name_attribute => true
+
+def initialize(name, run_context=nil)
+  super
+  @action = :create
+  @command = name
 end
