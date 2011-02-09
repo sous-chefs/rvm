@@ -54,7 +54,7 @@ action :uninstall do
     Chef::Log.info("Uninstalling rvm_ruby[#{rubie}]")
 
     if RVM.uninstall(rubie)
-      Chef::Log.info("Uninstallation of rvm_ruby[#{rubie}] was successful.")
+      Chef::Log.debug("Uninstallation of rvm_ruby[#{rubie}] was successful.")
     else
       Chef::Log.warn("Failed to uninstall rvm_ruby[#{rubie}]. " +
         "Check logs in #{RVM.path}/log/#{rubie}")
@@ -74,7 +74,7 @@ action :remove do
     Chef::Log.info("Removing rvm_ruby[#{rubie}]")
 
     if RVM.remove(rubie)
-      Chef::Log.info("Removal of rvm_ruby[#{rubie}] was successful.")
+      Chef::Log.debug("Removal of rvm_ruby[#{rubie}] was successful.")
     else
       Chef::Log.warn("Failed to remove rvm_ruby[#{rubie}]. " +
         "Check logs in #{RVM.path}/log/#{rubie}")
