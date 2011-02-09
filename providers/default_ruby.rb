@@ -20,21 +20,40 @@
 #
 
 action :create do
-  rubie = new_resource.ruby_string
+  ruby_string = new_resource.ruby_string
+  if ruby_string.include?('@')
+    rubie   = ruby_string.split('@').first
+    gemset  = ruby_string.split('@').last
+  else
+    rubie   = ruby_string
+    gemset  = nil
+  end
 
   if ruby_unknown?(rubie)
     Chef::Log.warn("rvm_default_ruby[#{rubie}] is either not fully " +
       "qualified or not known . Use `rvm list known` to get a full list.")
-  elsif ruby_default?(rubie)
-    Chef::Log.debug("rvm_ruby[#{rubie}] is already default, so skipping")
+  elsif ruby_default?(ruby_string)
+    Chef::Log.debug("rvm_ruby[#{ruby_string}] is already default, so skipping")
   else
-    if ruby_installed?(rubie)
-      Chef::Log.info("Setting default ruby to rvm_ruby[#{rubie}]")
-      env = RVM::Environment.new
-      env.rvm :use, rubie, :default => true
-    else
-      Chef::Log.warn("rvm_ruby[#{rubie}] was not installed, so could not " +
-        "be set as default ruby")
+    # install ruby if it is not installed
+    unless ruby_installed?(rubie)
+      r = rvm_ruby rubie do
+        action :nothing
+      end
+      r.run_action(:install)
     end
+
+    # create gemset if it is not created
+    unless gemset_exists?(:ruby => rubie, :gemset => gemset)
+      g = rvm_gemset gemset do
+        ruby_string   rubie
+        action        :nothing
+      end
+      g.run_action(:create)
+    end
+
+    Chef::Log.info("Setting default ruby to rvm_ruby[#{ruby_string}]")
+    env = RVM::Environment.new
+    env.rvm :use, ruby_string, :default => true
   end
 end
