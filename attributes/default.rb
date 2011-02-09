@@ -29,9 +29,11 @@ default[:rvm][:default_ruby] = "ree-1.8.7"
 # list of rubies that will be installed
 default[:rvm][:rubies] = [ rvm[:default_ruby] ]
 
-# hash of gemsets and their list of gems to be installed
+# hash of gemsets and their list of gems to be installed. If default_ruby
+# contains a gemset like ree-1.8.7@awesome then strip the gemset to get at the
+# global gemset for that ruby.
 default[:rvm][:gems] = {
-  "#{rvm[:default_ruby]}@global" => [
+  "#{rvm[:default_ruby].split('@').first}@global" => [
     { :name => "bundler" }
   ]
 }
