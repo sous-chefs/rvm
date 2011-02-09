@@ -22,13 +22,15 @@
 action :install do
   rubie = new_resource.ruby_string
 
-  if ruby_installed?(rubie)
+  if ruby_unknown?(rubie)
+    Chef::Log.warn("rvm_ruby[#{rubie}] is either not fully qualified or not " +
+      "known . Use `rvm list known` to get a full list.")
+  elsif ruby_installed?(rubie)
     Chef::Log.debug("rvm_ruby[#{rubie}] is already installed, so skipping")
   else
     install_start = Time.now
 
-    Chef::Log.info("Building rvm_ruby[#{rubie}], " +
-      "this could take awhile...")
+    Chef::Log.info("Building rvm_ruby[#{rubie}], this could take awhile...")
 
     if RVM.install(rubie)
       Chef::Log.info("Installation of rvm_ruby[#{rubie}] was successful.")
@@ -45,7 +47,10 @@ end
 action :uninstall do
   rubie = new_resource.ruby_string
 
-  if ruby_installed?(rubie)
+  if ruby_unknown?(rubie)
+    Chef::Log.warn("rvm_ruby[#{rubie}] is either not fully qualified or not " +
+      "known . Use `rvm list known` to get a full list.")
+  elsif ruby_installed?(rubie)
     Chef::Log.info("Uninstalling rvm_ruby[#{rubie}]")
 
     if RVM.uninstall(rubie)
@@ -62,7 +67,10 @@ end
 action :remove do
   rubie = new_resource.ruby_string
 
-  if ruby_installed?(rubie)
+  if ruby_unknown?(rubie)
+    Chef::Log.warn("rvm_ruby[#{rubie}] is either not fully qualified or not " +
+      "known . Use `rvm list known` to get a full list.")
+  elsif ruby_installed?(rubie)
     Chef::Log.info("Removing rvm_ruby[#{rubie}]")
 
     if RVM.remove(rubie)

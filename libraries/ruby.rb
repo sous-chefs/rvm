@@ -33,3 +33,21 @@ end
 def ruby_installed?(rubie)
   RVM.list_strings.include?(rubie)
 end
+
+##
+# Determines whether or not the given ruby is a known ruby string
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Boolean] is this ruby in the known ruby string list?
+def ruby_known?(rubie)
+  RVM.list_known_strings.include?(rubie)
+end
+
+##
+# Inverse of #ruby_known?
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Boolean] is this ruby an unknown ruby string?
+def ruby_unknown?(rubie)
+  !ruby_known?(rubie)
+end
