@@ -26,12 +26,25 @@ rescue LoadError
 end
 
 ##
+# Determines if given ruby string is moderatley sane and potentially legal
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Boolean] is this ruby string sane?
+def ruby_string_sane?(rubie)
+  return true if "goruby" == rubie        # gorubie has no versions yet
+  return true if rubie =~ /^[^-]+-[^-]+/  # must be xxx-vvv at least
+end
+
+##
 # Determines whether or not the given ruby is already installed
 #
 # @param [String, #to_s] the fully qualified RVM ruby string
 # @return [Boolean] is this ruby installed?
 def ruby_installed?(rubie)
-  RVM.list_strings.include?(rubie)
+  return false unless ruby_string_sane?(rubie)
+
+  installed = RVM.list_strings
+  ! installed.select { |r| r.start_with?(rubie) }.empty?
 end
 
 ##
@@ -40,7 +53,10 @@ end
 # @param [String, #to_s] the fully qualified RVM ruby string
 # @return [Boolean] is this ruby in the known ruby string list?
 def ruby_known?(rubie)
-  RVM.list_known_strings.include?(rubie)
+  return false unless ruby_string_sane?(rubie)
+
+  installed = RVM.list_known_strings
+  ! installed.select { |r| r.start_with?(rubie) }.empty?
 end
 
 ##
