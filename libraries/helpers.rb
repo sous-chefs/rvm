@@ -147,7 +147,9 @@ def install_ruby_dependencies(rubie)
         pkgs << %w{ git-core subversion autoconf } if rubie =~ /^ruby-head$/
     end
   elsif rubie =~ /^jruby/
-    include_recipe "java"
+    # TODO: need to figure out how to pull in java recipe only when needed. For
+    # now, users of jruby will have to add the "java" recipe to their run_list.
+    #include_recipe "java"
     pkgs << "g++"
   end
 
