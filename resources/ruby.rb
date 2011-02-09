@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-actions :install, :uninstall
+actions :install, :uninstall, :remove
 
 attribute :ruby_string, :kind_of => String, :name_attribute => true
 

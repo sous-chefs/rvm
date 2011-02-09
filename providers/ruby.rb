@@ -58,3 +58,20 @@ action :uninstall do
     Chef::Log.debug("rvm_ruby[#{rubie}] was not installed, so skipping")
   end
 end
+
+action :remove do
+  rubie = new_resource.ruby_string
+
+  if ruby_installed?(rubie)
+    Chef::Log.info("Removing rvm_ruby[#{rubie}]")
+
+    if RVM.remove(rubie)
+      Chef::Log.info("Removal of rvm_ruby[#{rubie}] was successful.")
+    else
+      Chef::Log.warn("Failed to remove rvm_ruby[#{rubie}]. " +
+        "Check logs in #{RVM.path}/log/#{rubie}")
+    end
+  else
+    Chef::Log.debug("rvm_ruby[#{rubie}] was not installed, so skipping")
+  end
+end
