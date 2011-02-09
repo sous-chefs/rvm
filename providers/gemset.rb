@@ -24,8 +24,8 @@ action :create do
     rubie   = new_resource.ruby_string
     gemset  = new_resource.gemset
   else
-    rubie   = new_resource.gemset.split('@').first
-    gemset  = new_resource.gemset.split('@').last
+    rubie   = select_ruby(new_resource.gemset)
+    gemset  = select_gemset(new_resource.gemset)
   end
   full_name = "#{rubie}@#{gemset}"
 

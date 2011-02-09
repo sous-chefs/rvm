@@ -96,3 +96,69 @@ def gemset_exists?(opts={})
   env.use opts[:ruby]
   env.gemset_list.include?(opts[:gemset])
 end
+
+##
+# Determines whether or not there is a gemset defined in a given ruby string
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Boolean] does the ruby string appear to have a gemset included?
+def string_include_gemset?(ruby_string)
+  ruby_string.include?('@')
+end
+
+##
+# Filters out any gemset declarations in an RVM ruby string
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [String] the ruby string, minus gemset
+def select_ruby(ruby_string)
+  ruby_string.split('@').first
+end
+
+##
+# Filters out any ruby declaration in an RVM ruby string
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [String] the gemset string, minus ruby or nil if no gemset given
+def select_gemset(ruby_string)
+  if string_include_gemset?(ruby_string)
+    ruby_string.split('@').last
+  else
+    nil
+  end
+end
+
+##
+# Installs any package dependencies needed by a given ruby
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+def install_ruby_dependencies(rubie)
+  pkgs = []
+  if rubie =~ /^1\.[89]\../ || rubie =~ /^ree/ || rubie =~ /^ruby-/
+    case node[:platform]
+      when "centos","redhat","fedora","suse"
+        pkgs = %w{ gcc-c++ patch readline readline-devel zlib zlib-devel
+                   libyaml-devel libffi-devel openssl-devel } #iconv-devel }
+        # TODO: Figure out the real state of iconv-devel and fixup the next few lines
+        # NOTE: For centos 5.4 final iconv-devel might not be available :(
+        #pkgs.delete('iconv-devel') if (node[:platform] == "centos" &&
+        #                                !node[:platform_version] == '5.5')
+        pkgs << %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
+      when "debian","ubuntu"
+        pkgs = %w{ build-essential bison openssl libreadline6 libreadline6-dev
+                   zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0
+                   libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev ssl-cert }
+        pkgs << %w{ git-core subversion autoconf } if rubie =~ /^ruby-head$/
+    end
+  elsif rubie =~ /^jruby/
+    include_recipe "java"
+    pkgs << "g++"
+  end
+
+  pkgs.each do |pkg|
+    p = package pkg do
+      action :nothing
+    end
+    p.run_action(:install)
+  end
+end

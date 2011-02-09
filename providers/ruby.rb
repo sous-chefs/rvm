@@ -20,7 +20,7 @@
 #
 
 action :install do
-  rubie = new_resource.ruby_string
+  rubie = select_ruby(new_resource.ruby_string)
 
   if ruby_unknown?(rubie)
     Chef::Log.warn("rvm_ruby[#{rubie}] is either not fully qualified or not " +
@@ -29,6 +29,8 @@ action :install do
     Chef::Log.debug("rvm_ruby[#{rubie}] is already installed, so skipping")
   else
     install_start = Time.now
+
+    install_ruby_dependencies rubie
 
     Chef::Log.info("Building rvm_ruby[#{rubie}], this could take awhile...")
 

@@ -21,13 +21,8 @@
 
 action :create do
   ruby_string = new_resource.ruby_string
-  if ruby_string.include?('@')
-    rubie   = ruby_string.split('@').first
-    gemset  = ruby_string.split('@').last
-  else
-    rubie   = ruby_string
-    gemset  = nil
-  end
+  rubie   = select_ruby(ruby_string)
+  gemset  = select_gemset(ruby_string)
 
   if ruby_unknown?(rubie)
     Chef::Log.warn("rvm_default_ruby[#{rubie}] is either not fully " +
