@@ -42,6 +42,7 @@ node[:rvm][:rubies].each do |ruby|
     end
   elsif ruby =~ /^jruby/
     include_recipe "java"
+    pkgs << "g++"
   end
 
   pkgs.each do |pkg|
