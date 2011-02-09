@@ -2,14 +2,14 @@
 # Cookbook Name:: rvm
 # Recipe:: rubies
 #
-# Copyright 2010, Fletcher Nichol
+# Copyright 2010, 2011, Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,10 +48,6 @@ node[:rvm][:rubies].each do |ruby|
     package pkg
   end
 
-  bash "install RVM ruby: #{ruby}" do
-    user "root"
-    code %{source /etc/profile.d/rvm.sh && rvm install #{ruby}}
-    not_if %{bash -c "source /etc/profile.d/rvm.sh && rvm list strings | grep -q '^#{ruby}' >/dev/null"}
-  end
+  rvm_ruby ruby
 end
 

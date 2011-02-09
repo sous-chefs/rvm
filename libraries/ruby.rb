@@ -1,10 +1,10 @@
 #
 # Cookbook Name:: rvm
-# Attributes:: default
+# Library:: ruby
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
-# Copyright 2010, 2011, Fletcher Nichol
+# Copyright 2011, Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,20 +19,17 @@
 # limitations under the License.
 #
 
-default[:rvm][:root_path] = "/usr/local/rvm"
-default[:rvm][:group_users] = []
-default[:rvm][:rvmrc] = Hash.new
+begin
+  require 'rvm'
+rescue LoadError
+  Chef::Log.warn("Missing gem 'rvm'")
+end
 
-# ruby that will get set to `rvm use default`. Use fully qualified ruby names.
-default[:rvm][:default_ruby] = "ree-1.8.7-2010.02"
-
-# list of rubies that will be installed
-default[:rvm][:rubies] = [ rvm[:default_ruby] ]
-
-# hash of gemsets and their list of gems to be installed
-default[:rvm][:gems] = {
-  "#{rvm[:default_ruby]}@global" => [
-    { :name => "bundler" }
-  ]
-}
-
+##
+# Determines whether or not the given ruby is already installed
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Boolean] is this ruby installed?
+def ruby_installed?(rubie)
+  RVM.list_strings.include?(rubie)
+end

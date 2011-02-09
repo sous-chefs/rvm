@@ -1,17 +1,17 @@
 #
 # Cookbook Name:: rvm
-# Attributes:: default
+# Resource:: ruby
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
-# Copyright 2010, 2011, Fletcher Nichol
+# Copyright 2011, Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#
+# 
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,20 +19,12 @@
 # limitations under the License.
 #
 
-default[:rvm][:root_path] = "/usr/local/rvm"
-default[:rvm][:group_users] = []
-default[:rvm][:rvmrc] = Hash.new
+actions :install
 
-# ruby that will get set to `rvm use default`. Use fully qualified ruby names.
-default[:rvm][:default_ruby] = "ree-1.8.7-2010.02"
+attribute :ruby_string, :kind_of => String, :name_attribute => true
 
-# list of rubies that will be installed
-default[:rvm][:rubies] = [ rvm[:default_ruby] ]
-
-# hash of gemsets and their list of gems to be installed
-default[:rvm][:gems] = {
-  "#{rvm[:default_ruby]}@global" => [
-    { :name => "bundler" }
-  ]
-}
-
+def initialize(name, run_context=nil)
+  super
+  @action = :install
+  @command = name
+end
