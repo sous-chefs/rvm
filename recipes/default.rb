@@ -2,7 +2,7 @@
 # Cookbook Name:: rvm
 # Recipe:: default
 #
-# Copyright 2010, Fletcher Nichol
+# Copyright 2010, 2011, Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,6 +35,26 @@ else
 end
 
 include_recipe "rvm::system"
-include_recipe "rvm::rubies"
-include_recipe "rvm::default_ruby"
-include_recipe "rvm::gems"
+
+# installs rubies
+node[:rvm][:rubies].each do |rubie|
+  rvm_ruby rubie
+end
+
+# sets a default ruby
+unless node[:rvm][:rubies].empty?
+  rvm_default_ruby node[:rvm][:default_ruby]
+end
+
+# installs gems
+node[:rvm][:gems].each_pair do |ruby_gemset, gems|
+  gems.each do |gem|
+    rvm_gem gem[:name] do
+      ruby      ruby_gemset
+      version   gem[:version] if gem[:version]
+      action    gem[:action] if gem[:action]
+      options   gem[:options] if gem[:options]
+      source    gem[:source] if gem[:source]
+    end
+  end
+end
