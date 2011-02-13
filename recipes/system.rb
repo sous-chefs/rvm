@@ -23,9 +23,9 @@
 
 pkgs = %w{ sed grep tar gzip bzip2 bash curl }
 case node[:platform]
-  when "centos","redhat","fedora","suse"
+  when "centos","redhat","fedora"
     pkgs << "git"
-  when "debian","ubuntu"
+  when "debian","ubuntu","suse"
     pkgs << "git-core"
 end
 
