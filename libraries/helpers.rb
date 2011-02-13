@@ -36,6 +36,14 @@ def ruby_string_sane?(rubie)
 end
 
 ##
+# Returns a list of installed rvm rubies on the system
+#
+# @return [Array] the list of currently installed rvm rubies
+def installed_rubies
+  RVM.list_strings
+end
+
+##
 # Determines whether or not the given ruby is already installed
 #
 # @param [String, #to_s] the fully qualified RVM ruby string
@@ -43,8 +51,7 @@ end
 def ruby_installed?(rubie)
   return false unless ruby_string_sane?(rubie)
 
-  installed = RVM.list_strings
-  ! installed.select { |r| r.start_with?(rubie) }.empty?
+  ! installed_rubies.select { |r| r.start_with?(rubie) }.empty?
 end
 
 ##

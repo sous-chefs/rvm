@@ -23,6 +23,7 @@ actions :install
 
 attribute :gem, :kind_of => String, :name_attribute => true
 attribute :ruby_string, :kind_of => String, :default => "default"
+attribute :global, :default => false
 attribute :source, :kind_of => String
 attribute :options, :kind_of => Hash
 attribute :version, :kind_of => String

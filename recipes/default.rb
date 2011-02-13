@@ -46,6 +46,17 @@ unless node[:rvm][:rubies].empty?
   rvm_default_ruby node[:rvm][:default_ruby]
 end
 
+# installs global gems
+node[:rvm][:global_gems].each do |gem|
+  rvm_gem gem[:name] do
+    global    true
+    version   gem[:version] if gem[:version]
+    action    gem[:action]  if gem[:action]
+    options   gem[:options] if gem[:options]
+    source    gem[:source]  if gem[:source]
+  end
+end
+
 # installs gems
 node[:rvm][:gems].each_pair do |rstring, gems|
   rvm_environment rstring
@@ -54,9 +65,9 @@ node[:rvm][:gems].each_pair do |rstring, gems|
     rvm_gem gem[:name] do
       ruby_string   rstring
       version       gem[:version] if gem[:version]
-      action        gem[:action] if gem[:action]
+      action        gem[:action]  if gem[:action]
       options       gem[:options] if gem[:options]
-      source        gem[:source] if gem[:source]
+      source        gem[:source]  if gem[:source]
     end
   end
 end
