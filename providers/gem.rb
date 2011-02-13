@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rvm
-# Provider:: default_ruby
+# Provider:: gem
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -19,22 +19,26 @@
 # limitations under the License.
 #
 
-action :create do
+action :install do
   ruby_string = new_resource.ruby_string
-  rubie   = select_ruby(ruby_string)
-  gemset  = select_gemset(ruby_string)
 
-  if ruby_unknown?(rubie)
-    Chef::Log.warn("rvm_default_ruby[#{rubie}] is either not fully " +
-      "qualified or not known . Use `rvm list known` to get a full list.")
-  elsif ruby_default?(ruby_string)
-    Chef::Log.debug("rvm_ruby[#{ruby_string}] is already default, so skipping")
-  else
-    # ensure ruby is installed and gemset exists (if specified)
-    rvm_environment ruby_string
-
-    Chef::Log.info("Setting default ruby to rvm_ruby[#{ruby_string}]")
-    env = RVM::Environment.new
-    env.rvm :use, ruby_string, :default => true
+  # get the actual ruby string that corresponds to "default"
+  if ruby_string.start_with?("default")
+    ruby_string.sub!(/default/, current_ruby_default)
   end
+
+  # ensure ruby is installed and gemset exists
+  e = rvm_environment ruby_string do
+    action :nothing
+  end
+  e.run_action(:create)
+
+  g = gem_package new_resource.gem do
+    gem_binary  "rvm #{ruby_string} gem"
+    source      new_resource.source if new_resource.source
+    options     new_resource.options if new_resource.options
+    version     new_resource.version if new_resource.version
+    action      :nothing
+  end
+  g.run_action(:install)
 end

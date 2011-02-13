@@ -69,6 +69,14 @@ def ruby_unknown?(rubie)
 end
 
 ##
+# Fetches the current default ruby string, potentially with gemset
+#
+# @return [String] the fully qualified RVM ruby string, nil if none is set
+def current_ruby_default
+  RVM.list_default
+end
+
+##
 # Determines whether or not the given ruby is the default one
 #
 # @param [String, #to_s] the fully qualified RVM ruby string
@@ -76,7 +84,7 @@ end
 def ruby_default?(rubie)
   return false unless ruby_string_sane?(rubie)
 
-  current_default = RVM.list_default
+  current_default = current_ruby_default
   return false if current_default.nil?
   current_default.start_with?(rubie)
 end

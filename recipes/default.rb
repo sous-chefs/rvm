@@ -47,14 +47,16 @@ unless node[:rvm][:rubies].empty?
 end
 
 # installs gems
-node[:rvm][:gems].each_pair do |ruby_gemset, gems|
+node[:rvm][:gems].each_pair do |rstring, gems|
+  rvm_environment rstring
+
   gems.each do |gem|
     rvm_gem gem[:name] do
-      ruby      ruby_gemset
-      version   gem[:version] if gem[:version]
-      action    gem[:action] if gem[:action]
-      options   gem[:options] if gem[:options]
-      source    gem[:source] if gem[:source]
+      ruby_string   rstring
+      version       gem[:version] if gem[:version]
+      action        gem[:action] if gem[:action]
+      options       gem[:options] if gem[:options]
+      source        gem[:source] if gem[:source]
     end
   end
 end
