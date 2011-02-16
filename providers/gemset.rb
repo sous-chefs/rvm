@@ -75,3 +75,28 @@ action :delete do
     Chef::Log.debug("rvm_gemset[#{full_name}] does not exist, so skipping")
   end
 end
+
+action :empty do
+  if new_resource.ruby_string
+    rubie   = normalize_ruby_string(new_resource.ruby_string)
+    gemset  = new_resource.gemset
+  else
+    rubie   = select_ruby(normalize_ruby_string(new_resource.gemset))
+    gemset  = select_gemset(normalize_ruby_string(new_resource.gemset))
+  end
+  full_name = "#{rubie}@#{gemset}"
+
+  if gemset_exists?(:ruby => rubie, :gemset => gemset)
+    Chef::Log.info("Emptying rvm_gemset[#{full_name}]")
+
+    env = RVM::Environment.new
+    env.use full_name
+    if env.gemset_empty
+      Chef::Log.debug("Emptying of rvm_gemset[#{full_name}] was successful.")
+    else
+      Chef::Log.warn("Failed to empty rvm_gemset[#{full_name}].")
+    end
+  else
+    Chef::Log.debug("rvm_gemset[#{full_name}] does not exist, so skipping")
+  end
+end
