@@ -63,6 +63,38 @@ action :upgrade do
   end
 end
 
+action :remove do
+  ruby_string = normalize_ruby_string(new_resource.ruby_string)
+
+  if new_resource.global
+    # add gem entry into global.gems
+    update_global_gems_file :remove
+
+    # remove gem in all rubies in global gemset
+    installed_rubies.each do |rubie|
+      gem_package_wrapper :remove, "#{rubie}@global"
+    end
+  else
+    gem_package_wrapper :remove
+  end
+end
+
+action :purge do
+  ruby_string = normalize_ruby_string(new_resource.ruby_string)
+
+  if new_resource.global
+    # add gem entry into global.gems
+    update_global_gems_file :remove
+
+    # remove gem in all rubies in global gemset
+    installed_rubies.each do |rubie|
+      gem_package_wrapper :purge, "#{rubie}@global"
+    end
+  else
+    gem_package_wrapper :purge
+  end
+end
+
 ##
 # Wraps the gem_package provider for rubygems
 #

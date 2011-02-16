@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-actions :install, :upgrade
+actions :install, :upgrade, :remove, :purge
 
 attribute :gem, :kind_of => String, :name_attribute => true
 attribute :ruby_string, :kind_of => String, :default => "default"
