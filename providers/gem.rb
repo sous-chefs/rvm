@@ -41,6 +41,28 @@ action :install do
   end
 end
 
+action :upgrade do
+  ruby_string = normalize_ruby_string(new_resource.ruby_string)
+
+  if new_resource.global
+    # add gem entry into global.gems
+    update_global_gems_file :create
+
+    # install gem in all rubies in global gemset
+    installed_rubies.each do |rubie|
+      gem_package_wrapper :upgrade, "#{rubie}@global"
+    end
+  else
+    # ensure ruby is installed and gemset exists
+    e = rvm_environment ruby_string do
+      action :nothing
+    end
+    e.run_action(:create)
+
+    gem_package_wrapper :upgrade
+  end
+end
+
 ##
 # Wraps the gem_package provider for rubygems
 #
