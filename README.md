@@ -1,21 +1,21 @@
-= DESCRIPTION:
+# DESCRIPTION:
 
 Installs a system-wide RVM and manages installed rubies.
 
-= REQUIREMENTS:
+# REQUIREMENTS:
 
-== Platform:
+## Platform:
 
 For the moment this is targeted at Ubuntu, other platforms to be tested.
 
-= ATTRIBUTES: 
+# ATTRIBUTES: 
 
 * default_ruby - set the default ruby
 * rubies - list of rubies to install
 
-= USAGE:
+# USAGE:
 
-= LICENSE and AUTHOR:
+# LICENSE and AUTHOR:
 
 Author:: Fletcher Nichol (<fnichol@nichol.ca>)
 Contributors:: Bram Swenson (<bram@craniumisajar.com>)
