@@ -21,11 +21,11 @@
 
 action :create do
   if new_resource.ruby_string
-    rubie   = new_resource.ruby_string
+    rubie   = normalize_ruby_string(new_resource.ruby_string)
     gemset  = new_resource.gemset
   else
-    rubie   = select_ruby(new_resource.gemset)
-    gemset  = select_gemset(new_resource.gemset)
+    rubie   = select_ruby(normalize_ruby_string(new_resource.gemset))
+    gemset  = select_gemset(normalize_ruby_string(new_resource.gemset))
   end
   full_name = "#{rubie}@#{gemset}"
 
@@ -48,5 +48,30 @@ action :create do
     else
       Chef::Log.warn("Failed to create rvm_gemset[#{full_name}].")
     end
+  end
+end
+
+action :delete do
+  if new_resource.ruby_string
+    rubie   = normalize_ruby_string(new_resource.ruby_string)
+    gemset  = new_resource.gemset
+  else
+    rubie   = select_ruby(normalize_ruby_string(new_resource.gemset))
+    gemset  = select_gemset(normalize_ruby_string(new_resource.gemset))
+  end
+  full_name = "#{rubie}@#{gemset}"
+
+  if gemset_exists?(:ruby => rubie, :gemset => gemset)
+    Chef::Log.info("Deleting rvm_gemset[#{full_name}]")
+
+    env = RVM::Environment.new
+    env.use rubie
+    if env.gemset_delete gemset
+      Chef::Log.debug("Deletion of rvm_gemset[#{full_name}] was successful.")
+    else
+      Chef::Log.warn("Failed to delete rvm_gemset[#{full_name}].")
+    end
+  else
+    Chef::Log.debug("rvm_gemset[#{full_name}] does not exist, so skipping")
   end
 end

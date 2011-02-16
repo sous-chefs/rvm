@@ -144,6 +144,20 @@ def select_gemset(ruby_string)
 end
 
 ##
+# Sanitizes a ruby string so that it's more normalized.
+#
+# @param [String, #to_s] an RVM ruby string
+# @return [String] a fully qualified RVM ruby string
+def normalize_ruby_string(ruby_string)
+  # get the actual ruby string that corresponds to "default"
+  if ruby_string.start_with?("default")
+    ruby_string.sub!(/default/, current_ruby_default)
+  else
+    ruby_string
+  end
+end
+
+##
 # Installs any package dependencies needed by a given ruby
 #
 # @param [String, #to_s] the fully qualified RVM ruby string
