@@ -100,3 +100,32 @@ action :empty do
     Chef::Log.debug("rvm_gemset[#{full_name}] does not exist, so skipping")
   end
 end
+
+action :update do
+  if new_resource.ruby_string
+    rubie   = normalize_ruby_string(new_resource.ruby_string)
+    gemset  = new_resource.gemset
+  else
+    rubie   = select_ruby(normalize_ruby_string(new_resource.gemset))
+    gemset  = select_gemset(normalize_ruby_string(new_resource.gemset))
+  end
+  full_name = "#{rubie}@#{gemset}"
+
+  Chef::Log.info("Updating rvm_gemset[#{full_name}]")
+
+  # create gemset if it doesn't exist
+  unless gemset_exists?(:ruby => rubie, :gemset => gemset)
+    c = rvm_gemset full_name do
+      action :nothing
+    end
+    c.run_action(:create)
+  end
+
+  env = RVM::Environment.new
+  env.use full_name
+  if env.gemset_update
+    Chef::Log.debug("Updating of rvm_gemset[#{full_name}] was successful.")
+  else
+    Chef::Log.warn("Failed to update rvm_gemset[#{full_name}].")
+  end
+end

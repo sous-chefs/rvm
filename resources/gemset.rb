@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-actions :create, :delete, :empty
+actions :create, :delete, :empty, :update
 
 attribute :gemset,      :kind_of => String, :name_attribute => true
 attribute :ruby_string, :kind_of => String, :regex => /^[^@]+$/
