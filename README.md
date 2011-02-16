@@ -8,21 +8,59 @@ Installs a system-wide RVM and manages installed rubies.
 
 For the moment this is targeted at Ubuntu, other platforms to be tested.
 
+## Cookbooks
+
+TBD
+
 # ATTRIBUTES: 
-
-## `root_path`
-
-## `group_users`
-
-## `rvmrc`
 
 ## `default_ruby`
 
+Sets the default ruby for RVM. If the RVM ruby is not installed, it will be
+built as a pre-requisite. The value can also contain a gemset in the form of
+`ruby-1.8.7-p330@awesome`.
+
+**Note:** a fully qualified RVM string name needs to be used, which can be
+found when running `rvm list known`.
+
+The default is `ruby-1.9.2-p136`.
+
 ## `rubies`
+
+Sets a list of RVM rubies to be built and installed.
+
+**Note:** a fully qualified RVM string name needs to be used, which can be
+found when running `rvm list known`.
+
+The default is the value of `node[:rvm][:default_ruby]`.
 
 ## `global_gems`
 
 ## `gems`
+
+## `rvmrc`
+
+Declares a hash of system-wide `rvmrc` options. The key is the RVM setting
+name (in String or Symbol form) and the value is the desired setting value.
+An example used on a build box might be:
+
+    node[:rvm][:rvmrc] = {
+      'rvm_gemset_create_on_use_flag' => 1,
+      'rvm_trus_rvmrcs_flag'          => 1
+    }
+
+The default is an empty hash.
+
+## `root_path`
+
+Sets the path prefix to RVM in a system-wide installation. The default is
+`/usr/local/rvm`.
+
+## `group_users`
+
+Declares a list of users that will be added to the `rvm` group. These users
+will then be able to manage RVM in a system-wide installation. The default
+is an empty list.
 
 # USAGE:
 
