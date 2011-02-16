@@ -10,8 +10,19 @@ For the moment this is targeted at Ubuntu, other platforms to be tested.
 
 # ATTRIBUTES: 
 
-* default_ruby - set the default ruby
-* rubies - list of rubies to install
+## `root_path`
+
+## `group_users`
+
+## `rvmrc`
+
+## `default_ruby`
+
+## `rubies`
+
+## `global_gems`
+
+## `gems`
 
 # USAGE:
 
