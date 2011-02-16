@@ -20,12 +20,7 @@
 #
 
 action :install do
-  ruby_string = new_resource.ruby_string
-
-  # get the actual ruby string that corresponds to "default"
-  if ruby_string.start_with?("default")
-    ruby_string.sub!(/default/, current_ruby_default)
-  end
+  ruby_string = normalize_ruby_string(new_resource.ruby_string)
 
   if new_resource.global
     # add gem entry into global.gems
