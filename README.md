@@ -107,7 +107,7 @@ ruby_string | **Name attribute:** a fully qualified RVM ruby string that could c
 
     rvm_ruby "jruby-1.5.6"
 
-**Note:** the install action is default, so second example is a more common
+**Note:** the install action is default, so the second example is a more common
 usage.
 
 #### Remove Ruby
@@ -116,7 +116,7 @@ usage.
       action :remove
     end
 
-**Note:** the RVM documentation mention that this method is far preferred to
+**Note:** the RVM documentation mentions that this method is far preferred to
 using uninstall since it purges almost everything.
 
 #### Uninstall Ruby
@@ -154,8 +154,33 @@ ruby_string | **Name attribute:** a fully qualified RVM ruby string that could c
 
     rvm_default_ruby "jruby-1.5.6"
 
-**Note:** the create action is default, so second example is a more common
+**Note:** the create action is default, so the second example is a more common
 usage.
+
+## rvm_environment
+
+This resource ensures that the specified RVM ruby is installed and the optional
+gemset is created. It is a convenience resource which wraps `rvm_ruby` and
+`rvm_gemset` so can be used as a sort of *über ruby* resource and parallel to
+the `rvm_default_ruby` resource.
+
+### Actions
+
+Action    |Description                   |Default
+-------|------------------------------|-------
+create |Installs the specified RVM ruby and gemset. |Yes
+
+### Attributes
+
+Attribute   |Description |Default value
+------------|------------|-------------
+ruby_string | **Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be used. |`nil`
+
+### Examples
+
+#### Creating A Passenger Environment In Production
+
+    rvm_environment "ree-1.8.7-2011.01@passenger"
 
 # USAGE
 
