@@ -88,8 +88,8 @@ is an empty list.
 Action    |Description                   |Default
 ----------|------------------------------|-------
 install   |Build and install an RVM ruby. See [RVM rubies/installing](http://rvm.beginrescueend.com/rubies/installing/) for more details. |Yes
-uninstall |Just remove the ruby and leave everything else. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
 remove    |Remove the ruby, source files and optional gemsets/archives. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
+uninstall |Just remove the ruby and leave everything else. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
 
 ### Attributes
 
@@ -97,13 +97,65 @@ Attribute   |Description |Default value
 ------------|------------|-------------
 ruby_string | **Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be stripped. |`nil`
 
-### Example
+### Examples
 
 #### Install Ruby
 
     rvm_ruby "ree-1.8.7-2011.01" do
       action :install
     end
+
+    rvm_ruby "jruby-1.5.6"
+
+**Note:** the install action is default, so second example is a more common
+usage.
+
+#### Remove Ruby
+
+    rvm_ruby "ree-1.8.7-2011.01" do
+      action :remove
+    end
+
+**Note:** the RVM documentation mention that this method is far preferred to
+using uninstall since it purges almost everything.
+
+#### Uninstall Ruby
+
+    rvm_ruby "ree-1.8.7-2011.01" do
+      action :uninstall
+    end
+
+## rvm_default_ruby
+
+This resource sets the default RVM ruby, optionally with gemset. The given
+ruby will be installed if it isn't already and a gemset will be created in
+none currently exist. If multiple declarations are used then the last executed
+one "wins".
+
+### Actions
+
+Action    |Description                   |Default
+-------|------------------------------|-------
+create |Set the default RVM ruby. See [RVM rubies/default](http://rvm.beginrescueend.com/rubies/default/) for more details. |Yes
+
+### Attributes
+
+Attribute   |Description |Default value
+------------|------------|-------------
+ruby_string | **Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be included. |`nil`
+
+### Examples
+
+#### Setting The Default Ruby
+
+    rvm_default_ruby "ree-1.8.7-2011.01" do
+      action :create
+    end
+
+    rvm_default_ruby "jruby-1.5.6"
+
+**Note:** the create action is default, so second example is a more common
+usage.
 
 # USAGE
 
