@@ -161,8 +161,8 @@ usage.
 
 This resource ensures that the specified RVM ruby is installed and the optional
 gemset is created. It is a convenience resource which wraps `rvm_ruby` and
-`rvm_gemset` so can be used as a sort of *über ruby* resource and parallel to
-the `rvm_default_ruby` resource.
+`rvm_gemset` so it can be used as a sort of *über ruby* resource which
+parallels the `rvm_default_ruby` resource.
 
 ### Actions
 
@@ -181,6 +181,59 @@ ruby_string | **Name attribute:** a fully qualified RVM ruby string that could c
 #### Creating A Passenger Environment In Production
 
     rvm_environment "ree-1.8.7-2011.01@passenger"
+
+## rvm_gemset
+See [RVM gemsets](http://rvm.beginrescueend.com/gemsets/) for more background
+concerning gemsets.
+
+### Actions
+
+Action    |Description                   |Default
+----------|------------------------------|-------
+create   |Creates a new gemset in a given RVM ruby. See [RVM gemsets/creating](http://rvm.beginrescueend.com/gemsets/creating/) for more details. |Yes
+update |Update all gems installed to the gemset in a given RVM ruby. |
+empty |Remove all gems installed to the gemset in a given RVM ruby. See [RVM gemsets/emptying](http://rvm.beginrescueend.com/gemsets/emptying/) for more details. |
+delete    |Delete gemset from the given RVM ruby. See [RVM gemsets/deleting](http://rvm.beginrescueend.com/gemsets/deleting/) for more details. |
+
+### Attributes
+
+Attribute   |Description |Default value
+------------|------------|-------------
+gemset      | **Name attribute:**  Either a fully qualified RVM ruby string containing a gemset or a bare gemset name. If only the gemset name is given, then the `ruby_string` attribute must be used to indicate which RVM ruby to target. |`nil`
+ruby_string | A fully qualified RVM ruby string that should not contain a gemset. See the section *RVM Ruby Strings* for more details. |`nil`
+
+### Examples
+
+#### Creating A Gemset
+
+    rvm_gemset "rails" do
+      ruby_string "ruby-1.9.2-p136"
+      action      :create
+    end
+
+    rvm_gemset "ruby-1.9.2-p136@rails"
+
+**Note:** the create action is default, so the second example is a more common
+usage.
+
+#### Updating A Gemset
+
+    rvm_gemset "jruby-1.6.0.RC2@development" do
+      action :update
+    end
+
+#### Emptying A Gemset
+
+    rvm_gemset "development" do
+      ruby_string "jruby-1.6.0.RC2"
+      action      :empty
+    end
+
+#### Deleting A Gemset
+
+    rvm_gemset "ruby-1.9.2-p136@rails" do
+      action :delete
+    end
 
 # USAGE
 
