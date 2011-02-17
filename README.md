@@ -1,10 +1,10 @@
-# DESCRIPTION:
+# DESCRIPTION
 
 Installs a system-wide RVM and manages installed rubies.
 
-# REQUIREMENTS:
+# REQUIREMENTS
 
-## Platform:
+## Platform
 
 For the moment this is targeted at Ubuntu, other platforms to be tested.
 
@@ -12,7 +12,7 @@ For the moment this is targeted at Ubuntu, other platforms to be tested.
 
 TBD
 
-# ATTRIBUTES: 
+# ATTRIBUTES:
 
 ## `default_ruby`
 
@@ -79,9 +79,19 @@ A list of users that will be added to the `rvm` group. These users
 will then be able to manage RVM in a system-wide installation. The default
 is an empty list.
 
-# USAGE:
+# RESOURCES AND PROVIDERS
 
-# LICENSE and AUTHOR:
+## rvm_ruby
+
+### Actions
+
+| Action  | Description | Default |
+| ------- | ----------- | ------- |
+| install | .           | Yes     |
+
+# USAGE
+
+# LICENSE and AUTHOR
 
 Author:: Fletcher Nichol (<fnichol@nichol.ca>)
 
