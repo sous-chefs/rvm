@@ -91,6 +91,19 @@ install   |Build and install an RVM ruby. See [RVM rubies/installing](http://rvm
 uninstall |Just remove the ruby and leave everything else. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
 remove    |Remove the ruby, source files and optional gemsets/archives. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
 
+### Attributes
+
+Attribute   |Description |Default value
+------------|------------|-------------
+ruby_string | **Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be stripped. |`nil`
+
+### Example
+
+#### Install Ruby
+
+    rvm_ruby "ree-1.8.7-2011.01" do
+      action :install
+    end
 
 # USAGE
 
