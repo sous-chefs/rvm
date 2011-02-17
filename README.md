@@ -87,9 +87,9 @@ is an empty list.
 
 Action    |Description                   |Default
 ----------|------------------------------|-------
-install   |Build and install an RVM ruby. See [http://rvm.beginrescueend.com/rubies/installing/](http://rvm.beginrescueend.com/rubies/installing/) for more details. |Yes
-uninstall |Just remove the ruby and leave everything else. See [http://rvm.beginrescueend.com/rubies/removing/](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
-remove    |Remove the ruby, source files and optional gemsets/archives. See [http://rvm.beginrescueend.com/rubies/removing/](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
+install   |Build and install an RVM ruby. See [RVM rubies/installing](http://rvm.beginrescueend.com/rubies/installing/) for more details. |Yes
+uninstall |Just remove the ruby and leave everything else. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
+remove    |Remove the ruby, source files and optional gemsets/archives. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
 
 
 # USAGE
