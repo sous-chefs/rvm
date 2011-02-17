@@ -85,6 +85,23 @@ is an empty list.
 
 ### Actions
 
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>install</td>
+      <td>.</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
 | Action  | Description | Default |
 | ------- | ----------- | ------- |
 | install | .           | Yes     |
