@@ -95,7 +95,7 @@ uninstall |Just remove the ruby and leave everything else. See [RVM rubies/remov
 
 Attribute   |Description |Default value
 ------------|------------|-------------
-ruby_string | **Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be stripped. |`nil`
+ruby_string |**Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be stripped. |`nil`
 
 ### Examples
 
@@ -135,14 +135,14 @@ one "wins".
 ### Actions
 
 Action    |Description                   |Default
--------|------------------------------|-------
-create |Set the default RVM ruby. See [RVM rubies/default](http://rvm.beginrescueend.com/rubies/default/) for more details. |Yes
+----------|------------------------------|-------
+create    |Set the default RVM ruby. See [RVM rubies/default](http://rvm.beginrescueend.com/rubies/default/) for more details. |Yes
 
 ### Attributes
 
 Attribute   |Description |Default value
 ------------|------------|-------------
-ruby_string | **Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be included. |`nil`
+ruby_string |**Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be included. |`nil`
 
 ### Examples
 
@@ -174,7 +174,7 @@ create |Installs the specified RVM ruby and gemset. |Yes
 
 Attribute   |Description |Default value
 ------------|------------|-------------
-ruby_string | **Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be used. |`nil`
+ruby_string |**Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be used. |`nil`
 
 ### Examples
 
@@ -190,17 +190,17 @@ concerning gemsets.
 
 Action    |Description                   |Default
 ----------|------------------------------|-------
-create   |Creates a new gemset in a given RVM ruby. See [RVM gemsets/creating](http://rvm.beginrescueend.com/gemsets/creating/) for more details. |Yes
-update |Update all gems installed to the gemset in a given RVM ruby. |
-empty |Remove all gems installed to the gemset in a given RVM ruby. See [RVM gemsets/emptying](http://rvm.beginrescueend.com/gemsets/emptying/) for more details. |
+create    |Creates a new gemset in a given RVM ruby. See [RVM gemsets/creating](http://rvm.beginrescueend.com/gemsets/creating/) for more details. |Yes
+update    |Update all gems installed to the gemset in a given RVM ruby. |
+empty     |Remove all gems installed to the gemset in a given RVM ruby. See [RVM gemsets/emptying](http://rvm.beginrescueend.com/gemsets/emptying/) for more details. |
 delete    |Delete gemset from the given RVM ruby. See [RVM gemsets/deleting](http://rvm.beginrescueend.com/gemsets/deleting/) for more details. |
 
 ### Attributes
 
 Attribute   |Description |Default value
 ------------|------------|-------------
-gemset      | **Name attribute:**  Either a fully qualified RVM ruby string containing a gemset or a bare gemset name. If only the gemset name is given, then the `ruby_string` attribute must be used to indicate which RVM ruby to target. |`nil`
-ruby_string | A fully qualified RVM ruby string that should not contain a gemset. See the section *RVM Ruby Strings* for more details. |`nil`
+gemset      |**Name attribute:**  Either a fully qualified RVM ruby string containing a gemset or a bare gemset name. If only the gemset name is given, then the `ruby_string` attribute must be used to indicate which RVM ruby to target. |`nil`
+ruby_string |A fully qualified RVM ruby string that should not contain a gemset. See the section *RVM Ruby Strings* for more details. |`nil`
 
 ### Examples
 
@@ -233,6 +233,69 @@ usage.
 
     rvm_gemset "ruby-1.9.2-p136@rails" do
       action :delete
+    end
+
+## rvm_gem
+This resource is a wrapper for the `gem_package` provider/resource which
+hijacks the `gem_binary` attribute to be RVM-aware. See the Opscode [package resource](http://wiki.opscode.com/display/chef/Resources#Resources-Package) and [gem package options](http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions) pages for more details.
+
+### Actions
+
+Action    |Description                   |Default
+----------|------------------------------|-------
+install   |Install a gem - if version is provided, install that specific version. |Yes
+upgrade   |Upgrade a gem - if version is provided, upgrade to that specific version|
+remove    |Remove a gem.|
+purge     |Purge a gem.|
+
+### Attributes
+
+Attribute   |Description |Default value
+------------|------------|-------------
+gem         |**Name Attribute:** the name of the gem to install.|`nil`
+ruby_string |A fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be used. |`default`
+global      |If true then the `ruby_string` attribute gets ignored and gem is installed/upgraded in the *global* gemset across all RVM rubies. An entry will also be made/removed in RVM's *global.gems* file. |`false`
+version     |The specific version of the gem to install/upgrade. |`nil`
+options     |Add additional options to the underlying gem command. |`nil`
+source      |Provide an additional source for gem providers (such as rubygems). |`nil`
+
+### Examples
+
+#### Install A Gem
+
+    rvm_gem "thor" do
+      ruby_string "ruby-1.8.7-p330"
+      action      :install
+    end
+
+    rvm_gem "json" do
+      ruby_string "ruby-1.8.7-p330@awesome"
+    end
+
+    rvm_gem "nokogiri" do
+      ruby_string "jruby-1.5.6"
+      version     "1.5.0.beta.4"
+      action      :install
+    end
+
+**Note:** the install action is default, so the second example is a more common
+usage. Gemsets can also be specified.
+
+#### Keep A Gem Up To Date
+
+    rvm_gem "homesick" do
+      action :upgrade
+    end
+
+**Note:** the default RVM ruby will be targetted if no `ruby_string` attribute
+is given.
+
+#### Remove A Gem
+
+    rvm_gem "nokogiri" do
+      ruby_string "jruby-1.5.6"
+      version     "1.4.4.2"
+      action      :remove
     end
 
 # USAGE
