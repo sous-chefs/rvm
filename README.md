@@ -85,26 +85,12 @@ is an empty list.
 
 ### Actions
 
-<table>
-  <thead>
-    <tr>
-      <th>Action</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>install</td>
-      <td>.</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
+Action    |Description                   |Default
+----------|------------------------------|-------
+install   |Build and install an RVM ruby. See [http://rvm.beginrescueend.com/rubies/installing/](http://rvm.beginrescueend.com/rubies/installing/) for more details. |Yes
+uninstall |Just remove the ruby and leave everything else. See [http://rvm.beginrescueend.com/rubies/removing/](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
+remove    |Remove the ruby, source files and optional gemsets/archives. See [http://rvm.beginrescueend.com/rubies/removing/](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
 
-| Action  | Description | Default |
-| ------- | ----------- | ------- |
-| install | .           | Yes     |
 
 # USAGE
 
