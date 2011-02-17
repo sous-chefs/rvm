@@ -67,7 +67,9 @@ is an empty list.
 # LICENSE and AUTHOR:
 
 Author:: Fletcher Nichol (<fnichol@nichol.ca>)
+
 Contributors:: Bram Swenson (<bram@craniumisajar.com>)
+
 Contributors:: Phil Cohen (http://phlippers.net/)
 
 Copyright:: 2010, 2011, Fletcher Nichol
