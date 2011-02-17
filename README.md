@@ -12,7 +12,9 @@ For the moment this is targeted at Ubuntu, other platforms to be tested.
 
 TBD
 
-# ATTRIBUTES:
+# RECIPES
+
+# ATTRIBUTES
 
 ## `default_ruby`
 
@@ -244,7 +246,7 @@ hijacks the `gem_binary` attribute to be RVM-aware. See the Opscode [package res
 Action    |Description                   |Default
 ----------|------------------------------|-------
 install   |Install a gem - if version is provided, install that specific version. |Yes
-upgrade   |Upgrade a gem - if version is provided, upgrade to that specific version|
+upgrade   |Upgrade a gem - if version is provided, upgrade to that specific version.|
 remove    |Remove a gem.|
 purge     |Purge a gem.|
 
