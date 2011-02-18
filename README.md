@@ -300,6 +300,50 @@ is given.
       action      :remove
     end
 
+## rvm_wrapper
+
+This resource creates a wrapper script for a binary or list of binaries in
+a given RVM ruby (and optional gemset). The given ruby will be installed if
+it isn't already and a gemset will be created in none currently exist.
+
+### Actions
+
+Action    |Description                   |Default
+-------|------------------------------|-------
+create |Creates one or more wrapper scripts. |Yes
+
+### Attributes
+
+Attribute   |Description |Default value
+------------|------------|-------------
+prefix      |**Name attribute:** a prefix string for the wrapper script name. |`nil`
+ruby_string |A fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be used. |`nil`
+binary      |A single binary to be wrapped. If this attribute is used do not set values for the `binaries` attribute. |`nil`
+binaries    |A list of binaries to be wrapped. If this attribute is used do not set a value for the `binary` attribute. |`nil`
+
+**Note:** only `binary` or `binaries` should be used by themselves (never at
+the same time).
+
+### Examples
+
+#### Wrapping A Ruby CLI
+
+    rvm_wrapper "sys" do
+      ruby_string   "jruby-1.5.6@utils"
+      binary        "thor"
+    end
+
+This will create a wrapper script called `sys_thor` in the `bin` directory
+under `node[:rvm][:root_path]`.
+
+#### Wrapping A List Of Binaries
+
+    rvm_wrapper "test" do
+      ruby_string   "default@testing"
+      binaries      [ "rspec", "cucumber" ]
+      action        :create
+    end
+
 # USAGE
 
 # LICENSE and AUTHOR
