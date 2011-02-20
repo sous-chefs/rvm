@@ -55,6 +55,15 @@ def ruby_installed?(rubie)
 end
 
 ##
+# Inverse of #ruby_installed?
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Boolean] is this ruby not installed?
+def ruby_not_installed?(rubie)
+  !ruby_installed?(rubie)
+end
+
+##
 # Determines whether or not the given ruby is a known ruby string
 #
 # @param [String, #to_s] the fully qualified RVM ruby string
