@@ -300,6 +300,49 @@ is given.
       action      :remove
     end
 
+## rvm_shell
+This resource is a wrapper for the `script` resource which wraps the code block
+in an RVM-aware environment.. See the Opscode [script resource](http://wiki.opscode.com/display/chef/Resources#Resources-Script) page for more details.
+
+### Actions
+
+Action    |Description                   |Default
+----------|------------------------------|-------
+run       |Run the script                |Yes
+nothing   |Do not run this command       |
+
+Use `action :nothing` to set a command to only run if another resource
+notifies it.
+
+### Attributes
+
+Attribute   |Description |Default value
+------------|------------|-------------
+name        |**Name Attribute:** Name of the command to execute. |name
+ruby_string |A fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be used. |`default`
+code        |Quoted script of code to execute. |`nil`
+creates     |A file this command creates - if the file exists, the command will not be run. |`nil`
+cwd         |Current working director to run the command from. |`nil`
+environment |A has of environment variables to set before running this command. |`nil`
+group       |A group or group ID that we should change to before running this command. |`nil`
+path        |An array of paths to use when searching for the command. |`nil`, uses system path
+returns     |The return value of the command (may be an array of accepted values) - this resource raises an exception if the return value(s) do not match. |`0`
+timeout     |How many seconds to let the command run before timing out. |`nil`
+user        |A user name or user ID that we should change to before running this command. |`nil`
+umask       |Umask for files created by the command. |`nil`
+
+### Examples
+
+#### Run A Rake Task
+
+    rvm_shell "migrate_rails_database" do
+      ruby_string "ruby-1.8.7-p334@webapp"
+      user        "deploy"
+      group       "deploy"
+      cwd         "/srv/webapp/current"
+      code        %{rake RAILS_ENV=production db:migrate}
+    end
+
 ## rvm_wrapper
 
 This resource creates a wrapper script for a binary or list of binaries in
