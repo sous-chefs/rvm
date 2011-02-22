@@ -25,7 +25,7 @@ built as a pre-requisite. The value can also contain a gemset in the form of
 **Note:** a fully qualified RVM string name needs to be used, which can be
 found when running `rvm list known`.
 
-The default is `ruby-1.9.2-p136`.
+The default is `ruby-1.9.2-p180`.
 
 ## `rubies`
 
