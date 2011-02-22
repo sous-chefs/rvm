@@ -28,10 +28,12 @@ action :create do
   end
 
   # ensure ruby is installed and gemset exists
-  e = rvm_environment ruby_string do
-    action :nothing
+  unless env_exists?(ruby_string)
+    e = rvm_environment ruby_string do
+      action :nothing
+    end
+    e.run_action(:create)
   end
-  e.run_action(:create)
 
   # Patch RVM::Environment to include wrapper functionality. Not yet sure
   # if this was an oversight or by design (to follow up with @wayneeseguin

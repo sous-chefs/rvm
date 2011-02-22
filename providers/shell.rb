@@ -21,15 +21,11 @@
 
 action :run do
   ruby_string = normalize_ruby_string(new_resource.ruby_string)
-  rubie   = select_ruby(ruby_string)
-  gemset  = select_gemset(ruby_string)
 
-  if ruby_not_installed?(rubie)
-    Chef::Log.warn("rvm_ruby[#{rubie}] not installed, so skipping")
-  elsif gemset && !gemset_exists?(:ruby => rubie, :gemset => gemset)
-    Chef::Log.warn("rvm_gemset[#{ruby_string}] not created, so skipping")
-  else
+  if env_exists?(ruby_string)
     script_wrapper :run
+  else
+    Chef::Log.warn("rvm_environment[#{ruby_string}] not created, so skipping")
   end
 end
 

@@ -106,6 +106,22 @@ def ruby_default?(rubie)
 end
 
 ##
+# Determines whether or not and ruby/gemset environment exists
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Boolean] does this environment exist?
+def env_exists?(ruby_string)
+  rubie   = select_ruby(ruby_string)
+  gemset  = select_gemset(ruby_string)
+
+  if gemset
+    gemset_exists?(:ruby => rubie, :gemset => gemset)
+  else
+    ruby_installed?(rubie)
+  end
+end
+
+##
 # Determines whether or not a gemset exists for a given ruby
 #
 # @param [Hash] the options to query a gemset with

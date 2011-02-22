@@ -31,7 +31,12 @@ action :create do
     Chef::Log.debug("rvm_ruby[#{ruby_string}] is already default, so skipping")
   else
     # ensure ruby is installed and gemset exists (if specified)
-    rvm_environment ruby_string
+    unless env_exists?(ruby_string)
+      e = rvm_environment ruby_string do
+        action :nothing
+      end
+      e.run_action(:create)
+    end
 
     Chef::Log.info("Setting default ruby to rvm_ruby[#{ruby_string}]")
     env = RVM::Environment.new

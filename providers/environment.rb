@@ -28,18 +28,23 @@ action :create do
     Chef::Log.warn("rvm_environment[#{rubie}] is either not fully " +
       "qualified or not known . Use `rvm list known` to get a full list.")
   else
-    # ensure ruby version is installed
-    r = rvm_ruby rubie do
-      action :nothing
-    end
-
-    # ensure gemset is created, if specified
-    unless gemset.nil?
-      g = rvm_gemset gemset do
-        ruby_string   rubie
-        action        :nothing
+    if gemset
+      # ensure gemset is created, if specified
+      unless gemset_exists?(:ruby => rubie, :gemset => gemset)
+        g = rvm_gemset gemset do
+          ruby_string   rubie
+          action        :nothing
+        end
+        g.run_action(:create)
       end
-      g.run_action(:create)
+    else
+      # ensure ruby version is installed
+      unless ruby_installed?(rubie)
+        r = rvm_ruby rubie do
+          action :nothing
+        end
+        r.run_action(:install)
+      end
     end
   end
 end
