@@ -36,11 +36,23 @@ def ruby_string_sane?(rubie)
 end
 
 ##
-# Returns a list of installed rvm rubies on the system
+# Lists all installed RVM rubies on the system.
+#
+# **Note** that these values are cached for lookup speed. To flush these
+# values and force an update, call #update_installed_rubies.
+#
+# @return [Array] the cached list of currently installed rvm rubies
+def installed_rubies
+  @installed_rubies ||= update_installed_rubies
+end
+
+##
+# Updates the list of all installed RVM rubies on the system
 #
 # @return [Array] the list of currently installed rvm rubies
-def installed_rubies
-  RVM.list_strings
+def update_installed_rubies
+  @installed_rubies = RVM.list_strings
+  @installed_rubies
 end
 
 ##
@@ -71,8 +83,16 @@ end
 def ruby_known?(rubie)
   return false unless ruby_string_sane?(rubie)
 
-  installed = RVM.list_known_strings
-  ! installed.select { |r| r.start_with?(rubie) }.empty?
+  ! known_rubies.select { |r| r.start_with?(rubie) }.empty?
+end
+
+def known_rubies
+  @known_rubies ||= update_known_rubies
+end
+
+def update_known_rubies
+  @known_rubies = RVM.list_known_strings
+  @known_rubies
 end
 
 ##
@@ -122,6 +142,32 @@ def env_exists?(ruby_string)
 end
 
 ##
+# Lists all gemsets for a given RVM ruby.
+#
+# **Note** that these values are cached for lookup speed. To flush these
+# values and force an update, call #update_installed_gemsets.
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Array] a cached list of gemset names
+def installed_gemsets(rubie)
+  @installed_gemsets = Hash.new if @installed_gemsets.nil?
+  @installed_gemsets[rubie] ||= update_installed_gemsets(rubie)
+end
+
+##
+# Updates the list of all gemsets for a given RVM ruby on the system
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+# @return [Array] the current list of gemsets
+def update_installed_gemsets(rubie)
+  env = RVM::Environment.new
+  env.use rubie
+
+  @installed_gemsets[rubie] = env.gemset_list
+  @installed_gemsets[rubie]
+end
+
+##
 # Determines whether or not a gemset exists for a given ruby
 #
 # @param [Hash] the options to query a gemset with
@@ -132,9 +178,7 @@ def gemset_exists?(opts={})
   return false unless ruby_string_sane?(opts[:ruby])
   return false unless ruby_installed?(opts[:ruby])
 
-  env = RVM::Environment.new
-  env.use opts[:ruby]
-  env.gemset_list.include?(opts[:gemset])
+  installed_gemsets(opts[:ruby]).include?(opts[:gemset])
 end
 
 ##

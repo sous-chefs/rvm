@@ -38,6 +38,7 @@ action :install do
       Chef::Log.info("Installation of rvm_ruby[#{rubie}] was successful.")
       env = RVM::Environment.new
       env.use rubie
+      update_installed_rubies
       Chef::Log.info("Importing initial gemsets for rvm_ruby[#{rubie}]")
       # TODO: the RVM api here is mis-spelled. Will need to be updated when
       # upstream fixes.
@@ -67,6 +68,7 @@ action :uninstall do
     Chef::Log.info("Uninstalling rvm_ruby[#{rubie}]")
 
     if RVM.uninstall(rubie)
+      update_installed_rubies
       Chef::Log.debug("Uninstallation of rvm_ruby[#{rubie}] was successful.")
     else
       Chef::Log.warn("Failed to uninstall rvm_ruby[#{rubie}]. " +
@@ -87,6 +89,7 @@ action :remove do
     Chef::Log.info("Removing rvm_ruby[#{rubie}]")
 
     if RVM.remove(rubie)
+      update_installed_rubies
       Chef::Log.debug("Removal of rvm_ruby[#{rubie}] was successful.")
     else
       Chef::Log.warn("Failed to remove rvm_ruby[#{rubie}]. " +

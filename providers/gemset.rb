@@ -44,6 +44,7 @@ action :create do
     env = RVM::Environment.new
     env.use rubie
     if env.gemset_create gemset
+      update_installed_gemsets(rubie)
       Chef::Log.debug("Creation of rvm_gemset[#{full_name}] was successful.")
     else
       Chef::Log.warn("Failed to create rvm_gemset[#{full_name}].")
@@ -67,6 +68,7 @@ action :delete do
     env = RVM::Environment.new
     env.use rubie
     if env.gemset_delete gemset
+      update_installed_gemsets(rubie)
       Chef::Log.debug("Deletion of rvm_gemset[#{full_name}] was successful.")
     else
       Chef::Log.warn("Failed to delete rvm_gemset[#{full_name}].")
@@ -92,6 +94,7 @@ action :empty do
     env = RVM::Environment.new
     env.use full_name
     if env.gemset_empty
+      update_installed_gemsets(rubie)
       Chef::Log.debug("Emptying of rvm_gemset[#{full_name}] was successful.")
     else
       Chef::Log.warn("Failed to empty rvm_gemset[#{full_name}].")
@@ -124,6 +127,7 @@ action :update do
   env = RVM::Environment.new
   env.use full_name
   if env.gemset_update
+    update_installed_gemsets(rubie)
     Chef::Log.debug("Updating of rvm_gemset[#{full_name}] was successful.")
   else
     Chef::Log.warn("Failed to update rvm_gemset[#{full_name}].")
