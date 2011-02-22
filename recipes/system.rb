@@ -34,9 +34,12 @@ pkgs.each do |pkg|
 end
 
 bash "install system-wide RVM" do
-  user "root"
-  code %{bash < <( curl -L http://bit.ly/rvm-install-system-wide )}
-  not_if %{bash -c "source /etc/profile.d/rvm.sh && rvm --version"}
+  user    "root"
+  code    %{bash < <( curl -L http://bit.ly/rvm-install-system-wide )}
+  not_if  <<-NOTIF.sub(/^ {4}/, '')
+    bash -c "source #{::File.dirname(node[:rvm][:root_path])}/lib/rvm && \
+    type rvm | head -1 | grep -q '^rvm is a function$'"
+  NOTIF
 end
 
 template "/etc/profile.d/rvm.sh" do
