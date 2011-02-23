@@ -65,7 +65,7 @@ An example used on a build box might be:
 
     node[:rvm][:rvmrc] = {
       'rvm_gemset_create_on_use_flag' => 1,
-      'rvm_trus_rvmrcs_flag'          => 1
+      'rvm_trust_rvmrcs_flag'         => 1
     }
 
 The default is an empty hash.
