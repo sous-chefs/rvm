@@ -20,8 +20,6 @@
 #
 
 action :install do
-  ruby_string = normalize_ruby_string(new_resource.ruby_string)
-
   if new_resource.global
     # add gem entry into global.gems
     update_global_gems_file :create
@@ -31,6 +29,8 @@ action :install do
       gem_package_wrapper :install, "#{rubie}@global"
     end
   else
+    ruby_string = normalize_ruby_string(new_resource.ruby_string)
+
     # ensure ruby is installed and gemset exists
     e = rvm_environment ruby_string do
       action :nothing
@@ -42,8 +42,6 @@ action :install do
 end
 
 action :upgrade do
-  ruby_string = normalize_ruby_string(new_resource.ruby_string)
-
   if new_resource.global
     # add gem entry into global.gems
     update_global_gems_file :create
@@ -53,6 +51,8 @@ action :upgrade do
       gem_package_wrapper :upgrade, "#{rubie}@global"
     end
   else
+    ruby_string = normalize_ruby_string(new_resource.ruby_string)
+
     # ensure ruby is installed and gemset exists
     e = rvm_environment ruby_string do
       action :nothing
@@ -64,8 +64,6 @@ action :upgrade do
 end
 
 action :remove do
-  ruby_string = normalize_ruby_string(new_resource.ruby_string)
-
   if new_resource.global
     # add gem entry into global.gems
     update_global_gems_file :remove
@@ -80,8 +78,6 @@ action :remove do
 end
 
 action :purge do
-  ruby_string = normalize_ruby_string(new_resource.ruby_string)
-
   if new_resource.global
     # add gem entry into global.gems
     update_global_gems_file :remove
