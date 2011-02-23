@@ -44,15 +44,6 @@ pkgs.each do |pkg|
   package pkg
 end
 
-execute "install system-wide RVM" do
-  user      "root"
-  command   install_command
-  not_if    <<-NOTIF.sub(/^ {4}/, '')
-    bash -c "source #{::File.dirname(node[:rvm][:root_path])}/lib/rvm && \
-    type rvm | head -1 | grep -q '^rvm is a function$'"
-  NOTIF
-end
-
 template "/etc/profile.d/rvm.sh" do
   source  "rvm.sh.erb"
   owner   "root"
@@ -76,4 +67,13 @@ unless node[:rvm][:rvmrc].empty?
     mode    "0644"
     variables(:lines => lines.sort.join("\n"))
   end
+end
+
+execute "install system-wide RVM" do
+  user      "root"
+  command   install_command
+  not_if    <<-NOTIF.sub(/^ {4}/, '')
+    bash -c "source #{::File.dirname(node[:rvm][:root_path])}/lib/rvm && \
+    type rvm | head -1 | grep -q '^rvm is a function$'"
+  NOTIF
 end
