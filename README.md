@@ -75,6 +75,16 @@ The default is an empty hash.
 The path prefix to RVM in a system-wide installation. The default is
 `/usr/local/rvm`.
 
+## `system_installer_url`
+
+The URL to install RVM system-wide. The default is
+`http://bit.ly/rvm-install-system-wide`.
+
+## `revision`
+
+A specific tag or git SHA1 hash to use when installing system-wide. The default
+is `HEAD`.
+
 ## `group_users`
 
 A list of users that will be added to the `rvm` group. These users
