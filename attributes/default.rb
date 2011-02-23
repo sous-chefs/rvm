@@ -23,6 +23,10 @@ default[:rvm][:root_path] = "/usr/local/rvm"
 default[:rvm][:group_users] = []
 default[:rvm][:rvmrc] = Hash.new
 
+default[:rvm][:system_installer_url] = "http://bit.ly/rvm-install-system-wide"
+
+default[:rvm][:revision] = "HEAD"
+
 # ruby that will get set to `rvm use default`. Use fully qualified ruby names.
 default[:rvm][:default_ruby] = "ruby-1.9.2-p180"
 

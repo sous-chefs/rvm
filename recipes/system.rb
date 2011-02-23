@@ -21,6 +21,17 @@
 # - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
 # - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
 
+if node[:rvm][:revision] == "HEAD"
+  install_command = <<-CODE
+    bash -c "bash < <( curl -L #{node[:rvm][:system_installer_url]} )"
+  CODE
+else
+  install_command = <<-CODE
+    bash -c "bash <( curl -L #{node[:rvm][:system_installer_url]} ) \
+      --revision '#{node[:rvm][:revision]}'"
+  CODE
+end
+
 pkgs = %w{ sed grep tar gzip bzip2 bash curl }
 case node[:platform]
   when "centos","redhat","fedora"
@@ -33,10 +44,10 @@ pkgs.each do |pkg|
   package pkg
 end
 
-bash "install system-wide RVM" do
-  user    "root"
-  code    %{bash < <( curl -L http://bit.ly/rvm-install-system-wide )}
-  not_if  <<-NOTIF.sub(/^ {4}/, '')
+execute "install system-wide RVM" do
+  user      "root"
+  command   install_command
+  not_if    <<-NOTIF.sub(/^ {4}/, '')
     bash -c "source #{::File.dirname(node[:rvm][:root_path])}/lib/rvm && \
     type rvm | head -1 | grep -q '^rvm is a function$'"
   NOTIF
