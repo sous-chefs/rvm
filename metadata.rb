@@ -50,6 +50,11 @@ attribute "rvm/root_path",
   :description => "Root path for system-wide RVM installation",
   :default => "/usr/local/rvm"
 
+attribute "rvm/system_installer_url",
+  :display_name => "The URL to install RVM system-wide.",
+  :description => "The URL to install RVM system-wide.",
+  :default => "http://bit.ly/rvm-install-system-wide"
+
 attribute "rvm/group_users",
   :display_name => "Additional users in rvm group",
   :description => "Additional users in rvm group that can manage rvm in a system-wide installation.",
