@@ -15,13 +15,13 @@ end
 attribute "rvm/default_ruby",
   :display_name => "Default ruby",
   :description => "The default ruby for RVM. If the RVM ruby is not installed, it will be built as a pre-requisite.",
-  :default => "ruby-1.9.2-p136"
+  :default => "ruby-1.9.2-p180"
 
 attribute "rvm/rubies",
   :display_name => "Installed RVM rubies",
   :description => "A list of RVM rubies to be built and installed. If this list is emptied then no rubies (not even the default) will be built and installed. The default is the an array containing the value of rvm/default_ruby.",
   :type => "array",
-  :default => [ "ruby-1.9.2-p136" ]
+  :default => [ "node[:rvm][:default_ruby]" ]
 
 attribute "rvm/global_gems",
   :display_name => "Global gems to be installed in all RVM rubies",
