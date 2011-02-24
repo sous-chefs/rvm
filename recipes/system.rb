@@ -21,11 +21,19 @@
 # - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
 # - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
 
-if node[:rvm][:revision] == "HEAD"
+if node[:rvm][:version] && node[:rvm][:revision] == "HEAD"
+  # rvm/version overrides the rvm/revision default
+  install_command = <<-CODE
+    bash -c "bash <( curl -L #{node[:rvm][:system_installer_url]} ) \
+      --version '#{node[:rvm][:version]}'"
+  CODE
+elsif node[:rvm][:revision] == "HEAD"
+  # rvm/version == HEAD runs the default installer
   install_command = <<-CODE
     bash -c "bash < <( curl -L #{node[:rvm][:system_installer_url]} )"
   CODE
 else
+  # rvm/revision gets used
   install_command = <<-CODE
     bash -c "bash <( curl -L #{node[:rvm][:system_installer_url]} ) \
       --revision '#{node[:rvm][:revision]}'"
@@ -72,10 +80,7 @@ end
 execute "install system-wide RVM" do
   user      "root"
   command   install_command
-  not_if    <<-NOTIF.sub(/^ {4}/, '')
-    bash -c "source #{::File.dirname(node[:rvm][:root_path])}/lib/rvm && \
-    type rvm | head -1 | grep -q '^rvm is a function$'"
-  NOTIF
+  not_if    rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
 end
 
 execute "upgrade RVM to #{node[:rvm][:upgrade]}" do

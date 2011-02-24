@@ -70,6 +70,27 @@ An example used on a build box might be:
 
 The default is an empty hash.
 
+## `revision`
+
+A specific git SHA hash to use when installing system-wide. You may want to
+use a specific git SHA hash version of RVM to prevent differences in
+deployment from one day to the next (RVM head moves pretty darn quickly):
+
+    node[:rvm][:revision] = "38535b53b4b5727946e75c6bb10ea074a431db81"
+
+The default is `HEAD`.
+
+## `version`
+
+A specific tagged version to use when installing system-wide. You may want to
+use a specific git SHA hash version of RVM to prevent differences in
+deployment from one day to the next (RVM head moves pretty darn quickly):
+
+    node[:rvm][:version] = "1.2.5"
+
+The default is `nil`. **Note:** setting this attribute will win over any value
+set in the `revision` attribute.
+
 ## `upgrade`
 
 Determines how to handle installing updates to the RVM framework. There are
@@ -91,11 +112,6 @@ The path prefix to RVM in a system-wide installation. The default is
 
 The URL to install RVM system-wide. The default is
 `http://bit.ly/rvm-install-system-wide`.
-
-## `revision`
-
-A specific tag or git SHA1 hash to use when installing system-wide. The default
-is `HEAD`.
 
 ## `group_users`
 

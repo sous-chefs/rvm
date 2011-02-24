@@ -25,7 +25,8 @@ default[:rvm][:rvmrc] = Hash.new
 
 default[:rvm][:system_installer_url] = "http://bit.ly/rvm-install-system-wide"
 
-default[:rvm][:revision] = "HEAD"
+default[:rvm][:revision]  = "HEAD"
+default[:rvm][:version]   = nil
 
 default[:rvm][:upgrade] = "none"
 

@@ -40,6 +40,16 @@ attribute "rvm/rvmrc",
   :type => "hash",
   :default => Hash.new
 
+attribute "rvm/revision",
+  :display_name => "A specific git SHA hash to use when installing system-wide.",
+  :description => "A specific git SHA hash to use when installing system-wide. You may want to use a specific git SHA hash version of RVM to prevent differences in deployment from one day to the next (RVM head moves pretty darn quickly)",
+  :default => "HEAD"
+
+attribute "rvm/version",
+  :display_name => "A specific tagged version to use when installing system-wide.",
+  :description => "A specific tagged version to use when installing system-wide. You may want to use a specific git SHA hash version of RVM to prevent differences in deployment from one day to the next (RVM head moves pretty darn quickly)",
+  :default => "nil"
+
 attribute "rvm/upgrade",
   :display_name => "How to handle updates to RVM framework",
   :description => "Determines how to handle installing updates to the RVM framework.",
