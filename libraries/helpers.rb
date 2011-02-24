@@ -227,6 +227,18 @@ def normalize_ruby_string(ruby_string)
 end
 
 ##
+# Returns a shell command that is RVM-aware
+#
+# @param [String, #to_s] the shell command to be wrapped
+# @return [String] the command wrapped in RVM-initialized bash command
+def rvm_wrap_cmd(cmd)
+  return <<-WRAP.sub(/^ {4}/, '')
+    bash -c "source #{::File.dirname(node[:rvm][:root_path])}/lib/rvm && \
+    #{cmd.gsub(/"/, '\"')}"
+  WRAP
+end
+
+##
 # Installs any package dependencies needed by a given ruby
 #
 # @param [String, #to_s] the fully qualified RVM ruby string

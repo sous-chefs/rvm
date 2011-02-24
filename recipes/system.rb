@@ -77,3 +77,11 @@ execute "install system-wide RVM" do
     type rvm | head -1 | grep -q '^rvm is a function$'"
   NOTIF
 end
+
+execute "upgrade RVM to #{node[:rvm][:upgrade]}" do
+  user      "root"
+  command   rvm_wrap_cmd(%{rvm get #{node[:rvm][:upgrade]}})
+  only_if do
+    %{ latest head }.include? node[:rvm][:upgrade]
+  end
+end

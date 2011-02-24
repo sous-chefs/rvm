@@ -40,6 +40,11 @@ attribute "rvm/rvmrc",
   :type => "hash",
   :default => Hash.new
 
+attribute "rvm/upgrade",
+  :display_name => "How to handle updates to RVM framework",
+  :description => "Determines how to handle installing updates to the RVM framework.",
+  :default => "none"
+
 attribute "rvm/root_path",
   :display_name => "RVM system-wide root path",
   :description => "Root path for system-wide RVM installation",
