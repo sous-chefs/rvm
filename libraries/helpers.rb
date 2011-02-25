@@ -83,7 +83,16 @@ end
 def ruby_known?(rubie)
   return false unless ruby_string_sane?(rubie)
 
-  ! known_rubies.select { |r| r.start_with?(rubie) }.empty?
+  matches = known_rubies.select { |r| r.start_with?(rubie) }
+  if matches.empty?
+    # last-ditch attempt at matching. we'll drop the last -.*$ bit off the
+    # string assuming that the rubie contains a non-default patchlevel that
+    # will actually exist
+    fuzzier_rubie = rubie.sub(/-[^-]+$/, '')
+    return ! known_rubies.select { |r| r.start_with?(fuzzier_rubie) }.empty?
+  else
+    return true
+  end
 end
 
 def known_rubies
