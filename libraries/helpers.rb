@@ -95,10 +95,21 @@ def ruby_known?(rubie)
   end
 end
 
+##
+# List all known RVM ruby strings.
+#
+# **Note** that these values are cached for lookup speed. To flush these
+# values and force an update, call #update_known_rubies.
+#
+# @return [Array] the cached list of known ruby strings
 def known_rubies
   @known_rubies ||= update_known_rubies
 end
 
+##
+# Updates the list of all known RVM strings.
+#
+# @return [Array] the list of known ruby strings
 def update_known_rubies
   @known_rubies = RVM.list_known_strings
   @known_rubies
