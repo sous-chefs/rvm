@@ -39,10 +39,9 @@ action :install do
       env = RVM::Environment.new
       env.use rubie
       update_installed_rubies
+
       Chef::Log.info("Importing initial gemsets for rvm_ruby[#{rubie}]")
-      # TODO: the RVM api here is mis-spelled. Will need to be updated when
-      # upstream fixes.
-      if env.gemset_intial
+      if env.gemset_initial
         Chef::Log.debug("Initial gemsets for rvm_ruby[#{rubie}] are installed")
       else
         Chef::Log.warn(

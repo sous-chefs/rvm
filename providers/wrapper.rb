@@ -35,13 +35,6 @@ action :create do
     e.run_action(:create)
   end
 
-  # Patch RVM::Environment to include wrapper functionality. Not yet sure
-  # if this was an oversight or by design (to follow up with @wayneeseguin
-  # on #rvm)
-  class RVM::Environment
-    require ::File.join("rvm", "environment", "wrapper")
-  end
-
   env = RVM::Environment.new
   env.use ruby_string
 
