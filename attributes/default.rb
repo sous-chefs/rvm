@@ -30,16 +30,16 @@ default[:rvm][:version]   = nil
 
 default[:rvm][:upgrade] = "none"
 
-# ruby that will get set to `rvm use default`. Use fully qualified ruby names.
+# ruby that will get installed and set to `rvm use default`.
 default[:rvm][:default_ruby] = "ruby-1.9.2-p180"
 
-# list of rubies that will be installed
-default[:rvm][:rubies] = [ select_ruby(rvm[:default_ruby]) ]
+# list of additional rubies that will be installed
+default[:rvm][:rubies] = []
 
 # list of gems to be installed in global gemset of all rubies
 default[:rvm][:global_gems] = [
   { :name => "bundler" }
 ]
 
-# hash of gemsets and their list of gems to be installed.
+# hash of gemsets and their list of additional gems to be installed.
 default[:rvm][:gems] = Hash.new

@@ -25,19 +25,21 @@ built as a pre-requisite. The value can also contain a gemset in the form of
 **Note:** a fully qualified RVM string name needs to be used, which can be
 found when running `rvm list known`.
 
-The default is `ruby-1.9.2-p180`.
+The default is `ruby-1.9.2-p180`. To disable a ruby form being installed, set this
+attribute to `nil`.
 
 ## `rubies`
 
-A list of RVM rubies to be built and installed. If this list is emptied then
-no rubies (not even the default) will be built and installed, like so:
+A list of additional RVM rubies to be built and installed. This list does not need to
+necessarily contain your default ruby as the `rvm_default_ruby` resource will take
+care of installing itself. For example:
 
-    node[:rvm][:rubies] = []
+    node[:rvm][:rubies] = [ "ree-1.8.7", "jruby-1.5.6" ]
 
 **Note:** a fully qualified RVM string name needs to be used, which can be
 found when running `rvm list known`.
 
-The default is the value of `node[:rvm][:default_ruby]`.
+The default is an empty array.
 
 ## `global_gems`
 
