@@ -36,14 +36,14 @@ end
 
 include_recipe "rvm::system"
 
-# set a default ruby
-unless node[:rvm][:default_ruby].nil?
+if node[:rvm][:install_rubies] == "enable"
+  # set a default ruby
   rvm_default_ruby node[:rvm][:default_ruby]
-end
 
-# install additional rubies
-node[:rvm][:rubies].each do |rubie|
-  rvm_ruby rubie
+  # install additional rubies
+  node[:rvm][:rubies].each do |rubie|
+    rvm_ruby rubie
+  end
 end
 
 # install global gems

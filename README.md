@@ -25,8 +25,8 @@ built as a pre-requisite. The value can also contain a gemset in the form of
 **Note:** a fully qualified RVM string name needs to be used, which can be
 found when running `rvm list known`.
 
-The default is `ruby-1.9.2-p180`. To disable a ruby form being installed, set this
-attribute to `nil`.
+The default is `ruby-1.9.2-p180`. To disable a default ruby from being
+installed, see the `install_rubies` attribute.
 
 ## `rubies`
 
@@ -39,7 +39,18 @@ care of installing itself. For example:
 **Note:** a fully qualified RVM string name needs to be used, which can be
 found when running `rvm list known`.
 
-The default is an empty array.
+The default is an empty array. To disable a default ruby from being
+installed, see the `install_rubies` attribute.
+
+## `install_rubies`
+
+Can enable or disable installation of a default ruby and additional rubies set
+attribute metadata. The primary use case for this attribute is when you don't
+want any rubies installed (but you want RVM installed). To do so:
+
+    node[:rvm][:install_rubies] = "disable"
+
+The default is `enable`.
 
 ## `global_gems`
 
