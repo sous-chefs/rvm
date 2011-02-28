@@ -42,7 +42,7 @@ action :create do
     full_bin = "#{new_resource.prefix}_#{b}"
     resource_name = "rvm_wrapper[#{full_bin}::#{ruby_string}]"
 
-    if ::File.exists?(::File.join(node[:rvm][:root_path], "bin", full_bin))
+    if ::File.exists?(::File.join("/usr/local/bin", full_bin))
       Chef::Log.debug("#{resource_name} already exists, so updating")
     else
       Chef::Log.info("Creating #{resource_name}")
