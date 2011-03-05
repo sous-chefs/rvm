@@ -10,7 +10,7 @@ if [[ ! -s "$HOME/.rvm/scripts/rvm" ]]; then
   export rvm_selfcontained=0
   export rvm_prefix="/usr/local/"
 fi
-<% unless @lines.nil? -%>
 
-<%= @lines %>
+<% node[:rvm][:rvmrc].each_pair do |k,v| -%>
+<%= k %>=<%= v %>
 <% end -%> 

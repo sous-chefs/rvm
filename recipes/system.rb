@@ -64,23 +64,17 @@ group "rvm" do
   append  true
 end
 
-unless node[:rvm][:rvmrc].empty?
-  lines = []
-  node[:rvm][:rvmrc].each_pair { |k,v|  lines << "#{k.to_s}=#{v.to_s}" }
-
-  template  "/etc/rvmrc" do
-    source  "rvmrc.erb"
-    owner   "root"
-    group   "root"
-    mode    "0644"
-    variables(:lines => lines.sort.join("\n"))
-  end
-end
-
 execute "install system-wide RVM" do
   user      "root"
   command   install_command
   not_if    rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
+end
+
+template  "/etc/rvmrc" do
+  source  "rvmrc.erb"
+  owner   "root"
+  group   "root"
+  mode    "0644"
 end
 
 execute "upgrade RVM to #{node[:rvm][:upgrade]}" do
