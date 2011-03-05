@@ -183,6 +183,7 @@ def update_installed_gemsets(rubie)
   env = RVM::Environment.new
   env.use rubie
 
+  @installed_gemsets ||= {}
   @installed_gemsets[rubie] = env.gemset_list
   @installed_gemsets[rubie]
 end

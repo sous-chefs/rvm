@@ -41,7 +41,8 @@ default[:rvm][:rubies] = []
 
 # list of gems to be installed in global gemset of all rubies
 default[:rvm][:global_gems] = [
-  { :name => "bundler" }
+  { :name => "bundler" },
+  { :name => "rake" }
 ]
 
 # hash of gemsets and their list of additional gems to be installed.
