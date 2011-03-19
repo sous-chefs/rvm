@@ -34,16 +34,19 @@ default[:rvm][:upgrade] = "none"
 default[:rvm][:install_rubies] = "enable"
 
 # ruby that will get installed and set to `rvm use default`.
-default[:rvm][:default_ruby] = "ruby-1.9.2-p180"
+default[:rvm][:default_ruby] = "ruby-1.8.7"
 
 # list of additional rubies that will be installed
-default[:rvm][:rubies] = []
+default[:rvm][:rubies] = ['jruby-1.6.0']
 
 # list of gems to be installed in global gemset of all rubies
 default[:rvm][:global_gems] = [
   { :name => "bundler" },
+  { :name => "thor" },
   { :name => "rake" }
 ]
 
 # hash of gemsets and their list of additional gems to be installed.
-default[:rvm][:gems] = Hash.new
+default[:rvm][:gems] = {
+    'ruby-1.8.7@snipapp' => [{:name => 'couchrest'},{:name => 'rocking_chair' },{:name => 'uuidtools'},{:name => 'rr'}]
+}
