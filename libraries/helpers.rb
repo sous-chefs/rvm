@@ -241,7 +241,7 @@ end
 def normalize_ruby_string(ruby_string)
   # get the actual ruby string that corresponds to "default"
   if ruby_string.start_with?("default")
-    ruby_string.sub!(/default/, current_ruby_default)
+    ruby_string.sub(/default/, current_ruby_default)
   else
     ruby_string
   end
