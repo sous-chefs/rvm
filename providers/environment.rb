@@ -25,8 +25,7 @@ action :create do
   gemset  = select_gemset(ruby_string)
 
   if ruby_unknown?(rubie)
-    Chef::Log.warn("rvm_environment[#{rubie}] is either not fully " +
-      "qualified or not known . Use `rvm list known` to get a full list.")
+    Chef::Log.warn("rvm_environment[#{rubie}] is either not fully " + "qualified or not known . Use `rvm list known` to get a full list.")
   else
     if gemset
       # ensure gemset is created, if specified
