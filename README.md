@@ -83,26 +83,26 @@ An example used on a build box might be:
 
 The default is an empty hash.
 
-## `revision`
+## `branch`
 
-A specific git SHA hash to use when installing system-wide. You may want to
-use a specific git SHA hash version of RVM to prevent differences in
-deployment from one day to the next (RVM head moves pretty darn quickly):
+A specific git branch to use when installing system-wide. For example:
 
-    node[:rvm][:revision] = "38535b53b4b5727946e75c6bb10ea074a431db81"
+    node[:rvm][:branch] = "crazy"
 
-The default is `HEAD`.
+The default is `nil` which corresponds to the master branch.
 
 ## `version`
 
-A specific tagged version to use when installing system-wide. You may want to
-use a specific git SHA hash version of RVM to prevent differences in
-deployment from one day to the next (RVM head moves pretty darn quickly):
+A specific tagged version to use when installing system-wide. This value is
+passed directly to the `rvm-installer` script and current valid values are:
+`head` (the default, last git commit), `latest` (last tagged release version)
+and a specific tagged version of the form `1.2.3`. You may want to use a
+specific version of RVM to prevent differences in deployment from one day
+to the next (RVM head moves pretty darn quickly):
 
-    node[:rvm][:version] = "1.2.5"
+    node[:rvm][:version] = "1.5.3"
 
-The default is `nil`. **Note:** setting this attribute will win over any value
-set in the `revision` attribute.
+The default is `nil`, which corresponds to RVM `head`.
 
 ## `upgrade`
 
@@ -121,10 +121,10 @@ currently 3 valid values:
 The path prefix to RVM in a system-wide installation. The default is
 `/usr/local/rvm`.
 
-## `system_installer_url`
+## `installer_url`
 
-The URL to install RVM system-wide. The default is
-`http://bit.ly/rvm-install-system-wide`.
+The URL that provides the RVM installer. The default is
+`http://rvm.beginrescueend.com/install/rvm`.
 
 ## `group_users`
 
