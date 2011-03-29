@@ -26,6 +26,7 @@ attribute "rvm/rubies",
 attribute "rvm/global_gems",
   :display_name => "Global gems to be installed in all RVM rubies",
   :description => "A list of gem hashes to be installed into the *global* gemset in each installed RVM ruby. The RVM global.gems files will be added to and all installed rubies will be iterated over to ensure full installation coverage.",
+  :type => "array",
   :default => [ { :name => "bundler" } ]
 
 attribute "rvm/gems",
@@ -68,4 +69,5 @@ attribute "rvm/installer_url",
 attribute "rvm/group_users",
   :display_name => "Additional users in rvm group",
   :description => "Additional users in rvm group that can manage rvm in a system-wide installation.",
+  :type => "array",
   :default => []
