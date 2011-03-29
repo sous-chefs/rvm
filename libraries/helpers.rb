@@ -253,9 +253,13 @@ end
 # @param [String, #to_s] the shell command to be wrapped
 # @return [String] the command wrapped in RVM-initialized bash command
 def rvm_wrap_cmd(cmd)
+  profile = if ::File.directory?("/etc/profile.d")
+    "/etc/profile.d/rvm.sh"
+  else
+    "/etc/profile"
+  end
   return <<-WRAP.sub(/^ {4}/, '')
-    bash -c "source #{::File.dirname(node[:rvm][:root_path])}/lib/rvm && \
-    #{cmd.gsub(/"/, '\"')}"
+    bash -c "source #{profile} && #{cmd.gsub(/"/, '\"')}"
   WRAP
 end
 
