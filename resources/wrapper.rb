@@ -26,8 +26,7 @@ attribute :ruby_string, :kind_of => String
 attribute :binary,      :kind_of => String
 attribute :binaries,    :kind_of => Array
 
-def initialize(name, run_context=nil)
+def initialize(*args)
   super
   @action = :create
-  @command = name
 end

@@ -23,8 +23,7 @@ actions :install, :uninstall, :remove
 
 attribute :ruby_string, :kind_of => String, :name_attribute => true
 
-def initialize(name, run_context=nil)
+def initialize(*args)
   super
   @action = :install
-  @command = name
 end
