@@ -3,7 +3,7 @@ maintainer_email "fnichol@nichol.ca"
 license          "Apache 2.0"
 description      "Installs/Configures RVM"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.6.dev"
+version          "0.6.0"
 
 recipe "rvm",               "Includes all recipes"
 recipe "rvm::system",       "Installs system-wide RVM"
