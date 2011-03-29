@@ -23,10 +23,10 @@ default[:rvm][:root_path] = "/usr/local/rvm"
 default[:rvm][:group_users] = []
 default[:rvm][:rvmrc] = Hash.new
 
-default[:rvm][:system_installer_url] = "http://bit.ly/rvm-install-system-wide"
+default[:rvm][:installer_url] = "http://rvm.beginrescueend.com/install/rvm"
 
-default[:rvm][:revision]  = "HEAD"
-default[:rvm][:version]   = nil
+default[:rvm][:branch]  = nil
+default[:rvm][:version] = nil
 
 default[:rvm][:upgrade] = "none"
 

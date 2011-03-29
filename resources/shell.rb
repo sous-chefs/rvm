@@ -34,8 +34,7 @@ attribute :timeout,     :kind_of => Integer
 attribute :user,        :kind_of => String
 attribute :umask,       :kind_of => String
 
-def initialize(name, run_context=nil)
+def initialize(*args)
   super
   @action = :run
-  @command = name
 end

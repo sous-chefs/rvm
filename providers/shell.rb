@@ -36,11 +36,17 @@ end
 # @param [Symbol] action to be performed with gem_package provider
 # @param [optional, String, #to_s] the fully qualifed rvm string
 def script_wrapper(exec_action, ruby_string=new_resource.ruby_string)
+  profile = if ::File.directory?("/etc/profile.d")
+    "/etc/profile.d/rvm.sh"
+  else
+    "/etc/profile"
+  end
+
   script_code = <<-CODE
     if [ -s "${HOME}/.rvm/scripts/rvm" ]; then
       source "${HOME}/.rvm/scripts/rvm"
-    elif [ -s "#{::File.dirname(node[:rvm][:root_path])}/lib/rvm" ]; then
-      source "#{::File.dirname(node[:rvm][:root_path])}/lib/rvm"
+    elif [ -s "#{profile}" ]; then
+      source "#{profile}"
     fi
 
     rvm use #{ruby_string}

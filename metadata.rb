@@ -26,6 +26,7 @@ attribute "rvm/rubies",
 attribute "rvm/global_gems",
   :display_name => "Global gems to be installed in all RVM rubies",
   :description => "A list of gem hashes to be installed into the *global* gemset in each installed RVM ruby. The RVM global.gems files will be added to and all installed rubies will be iterated over to ensure full installation coverage.",
+  :type => "array",
   :default => [ { :name => "bundler" } ]
 
 attribute "rvm/gems",
@@ -40,14 +41,14 @@ attribute "rvm/rvmrc",
   :type => "hash",
   :default => Hash.new
 
-attribute "rvm/revision",
-  :display_name => "A specific git SHA hash to use when installing system-wide.",
-  :description => "A specific git SHA hash to use when installing system-wide. You may want to use a specific git SHA hash version of RVM to prevent differences in deployment from one day to the next (RVM head moves pretty darn quickly)",
-  :default => "HEAD"
+attribute "rvm/branch",
+  :display_name => "A specific git branch to use when installing system-wide.",
+  :description => "A specific git branch to use when installing system-wide.",
+  :default => "nil"
 
 attribute "rvm/version",
   :display_name => "A specific tagged version to use when installing system-wide.",
-  :description => "A specific tagged version to use when installing system-wide. You may want to use a specific git SHA hash version of RVM to prevent differences in deployment from one day to the next (RVM head moves pretty darn quickly)",
+  :description => "A specific tagged version to use when installing system-wide. This value is passed directly to the `rvm-installer` script and current valid values are: `head` (the default, last git commit), `latest` (last tagged release version) and a specific tagged version of the form `1.2.3`. You may want to use a specific version of RVM to prevent differences in deployment from one day to the next (RVM head moves pretty darn quickly).",
   :default => "nil"
 
 attribute "rvm/upgrade",
@@ -60,12 +61,13 @@ attribute "rvm/root_path",
   :description => "Root path for system-wide RVM installation",
   :default => "/usr/local/rvm"
 
-attribute "rvm/system_installer_url",
-  :display_name => "The URL to install RVM system-wide.",
-  :description => "The URL to install RVM system-wide.",
-  :default => "http://bit.ly/rvm-install-system-wide"
+attribute "rvm/installer_url",
+  :display_name => "The URL that provides the RVM installer.",
+  :description => "The URL that provides the RVM installer.",
+  :default => "http://rvm.beginrescueend.com/install/rvm"
 
 attribute "rvm/group_users",
   :display_name => "Additional users in rvm group",
   :description => "Additional users in rvm group that can manage rvm in a system-wide installation.",
+  :type => "array",
   :default => []

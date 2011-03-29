@@ -2,7 +2,7 @@
 # Cookbook Name:: rvm
 # Recipe:: system
 #
-# Copyright 2010, Fletcher Nichol
+# Copyright 2010, 2011 Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,23 +21,12 @@
 # - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
 # - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
 
-if node[:rvm][:version] && node[:rvm][:revision] == "HEAD"
-  # rvm/version overrides the rvm/revision default
-  install_command = <<-CODE
-    bash -c "bash <( curl -L #{node[:rvm][:system_installer_url]} ) \
-      --version '#{node[:rvm][:version]}'"
-  CODE
-elsif node[:rvm][:revision] == "HEAD"
-  # rvm/version == HEAD runs the default installer
-  install_command = <<-CODE
-    bash -c "bash < <( curl -L #{node[:rvm][:system_installer_url]} )"
-  CODE
-else
-  # rvm/revision gets used
-  install_command = <<-CODE
-    bash -c "bash <( curl -L #{node[:rvm][:system_installer_url]} ) \
-      --revision '#{node[:rvm][:revision]}'"
-  CODE
+script_flags = ""
+if node[:rvm][:version]
+  script_flags += " --version #{node[:rvm][:version]}"
+end
+if node[:rvm][:branch]
+  script_flags += " --branch #{node[:rvm][:branch]}"
 end
 
 pkgs = %w{ sed grep tar gzip bzip2 bash curl }
@@ -52,28 +41,23 @@ pkgs.each do |pkg|
   package pkg
 end
 
-template "/etc/profile.d/rvm.sh" do
-  source  "rvm.sh.erb"
-  owner   "root"
-  group   "root"
-  mode    "0644"
-end
-
-group "rvm" do
-  members node[:rvm][:group_users]
-  append  true
-end
+#group "rvm" do
+#  members node[:rvm][:group_users]
+#  append  true
+#end
 
 execute "install system-wide RVM" do
   user      "root"
-  command   install_command
+  command   <<-CODE
+    bash -c "bash <( curl -LB #{node[:rvm][:installer_url]} )#{script_flags}"
+  CODE
   not_if    rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
 end
 
 template  "/etc/rvmrc" do
   source  "rvmrc.erb"
   owner   "root"
-  group   "root"
+  group   "rvm"
   mode    "0644"
 end
 
