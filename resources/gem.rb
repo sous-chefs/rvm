@@ -28,8 +28,7 @@ attribute :source, :kind_of => String
 attribute :options, :kind_of => Hash
 attribute :version, :kind_of => String
 
-def initialize(name, run_context=nil)
+def initialize(*args)
   super
   @action = :install
-  @command = name
 end
