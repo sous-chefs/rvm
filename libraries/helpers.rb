@@ -266,9 +266,7 @@ end
 # @param [String, #to_s] the shell command to be wrapped
 # @return [String] the command wrapped in RVM-initialized bash command
 def rvm_wrap_cmd(cmd)
-  return <<-WRAP.sub(/^ {4}/, '')
-    bash -c "source #{find_profile_to_source} && #{cmd.gsub(/"/, '\"')}"
-  WRAP
+  %{bash -c "source #{find_profile_to_source} && #{cmd.gsub(/"/, '\"')}"}
 end
 
 ##
