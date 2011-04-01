@@ -241,9 +241,22 @@ end
 def normalize_ruby_string(ruby_string)
   # get the actual ruby string that corresponds to "default"
   if ruby_string.start_with?("default")
-    ruby_string.sub!(/default/, current_ruby_default)
+    ruby_string.sub(/default/, current_ruby_default)
   else
     ruby_string
+  end
+end
+
+##
+# Finds the correct shell profile to source to init an RVM-aware
+# shell environment
+#
+# @return [String] full path the shell profile
+def find_profile_to_source
+  if ::File.directory?("/etc/profile.d")
+    "/etc/profile.d/rvm.sh"
+  else
+    "/etc/profile"
   end
 end
 
@@ -253,10 +266,7 @@ end
 # @param [String, #to_s] the shell command to be wrapped
 # @return [String] the command wrapped in RVM-initialized bash command
 def rvm_wrap_cmd(cmd)
-  return <<-WRAP.sub(/^ {4}/, '')
-    bash -c "source #{::File.dirname(node[:rvm][:root_path])}/lib/rvm && \
-    #{cmd.gsub(/"/, '\"')}"
-  WRAP
+  %{bash -c "source #{find_profile_to_source} && #{cmd.gsub(/"/, '\"')}"}
 end
 
 ##
@@ -271,16 +281,20 @@ def install_ruby_dependencies(rubie)
         pkgs = %w{ build-essential bison openssl libreadline6 libreadline6-dev
                    zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0
                    libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev ssl-cert }
-        pkgs << %w{ git-core subversion autoconf } if rubie =~ /^ruby-head$/
+        pkgs += %w{ git-core subversion autoconf } if rubie =~ /^ruby-head$/
       when "suse"
-        pkgs = %w{ gcc-c++ patch readline readline-devel zlib zlib-devel
-                   libffi-devel openssl-devel sqlite3-devel libxml2-devel
-                   libxslt-devel }
-        pkgs << %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
+        pkgs = %w{ gcc-c++ patch zlib zlib-devel libffi-devel
+                   sqlite3-devel libxml2-devel libxslt-devel }
+        if node.platform_version.to_f >= 11.0
+          pkgs += %w{ libreadline5 readline-devel libopenssl-devel }
+        else
+          pkgs += %w{ readline readline-devel openssl-devel }
+        end
+        pkgs += %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
       when "centos","redhat","fedora"
         pkgs = %w{ gcc-c++ patch readline readline-devel zlib zlib-devel
                    libyaml-devel libffi-devel openssl-devel }
-        pkgs << %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
+        pkgs += %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
     end
   elsif rubie =~ /^jruby/
     # TODO: need to figure out how to pull in java recipe only when needed. For
