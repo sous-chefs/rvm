@@ -41,11 +41,6 @@ pkgs.each do |pkg|
   package pkg
 end
 
-#group "rvm" do
-#  members node[:rvm][:group_users]
-#  append  true
-#end
-
 execute "install system-wide RVM" do
   user      "root"
   command   <<-CODE
