@@ -100,7 +100,7 @@ def gem_package_wrapper(exec_action, ruby_string=new_resource.ruby_string)
   profile = find_profile_to_source
 
   g = gem_package new_resource.gem do
-    gem_binary  %{bin/bash -c "source #{profile}" && rvm #{ruby_string} gem}
+    gem_binary  %{bash -c "source #{profile}" && rvm #{ruby_string} gem}
     source      new_resource.source if new_resource.source
     options     new_resource.options if new_resource.options
     version     new_resource.version if new_resource.version
