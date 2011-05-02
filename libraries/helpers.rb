@@ -138,11 +138,31 @@ end
 # @param [String, #to_s] the fully qualified RVM ruby string
 # @return [Boolean] is this ruby the default one?
 def ruby_default?(rubie)
-  return false unless ruby_string_sane?(rubie)
-
   current_default = current_ruby_default
-  return false if current_default.nil?
+
+  if current_default.nil?
+    if rubie == "system"
+      return true
+    else
+      return false
+    end
+  end
+
+  return false unless ruby_string_sane?(rubie)
   current_default.start_with?(rubie)
+end
+
+##
+# Determines whether or not the given ruby could be considered the system
+# ruby.
+#
+# @param [String, #to_s] an RVM ruby string
+# @return [Boolean] is this ruby string the a system ruby?
+def system_ruby?(rubie)
+  return true if rubie.nil?         # nil should be system
+  return true if rubie.empty?       # an empty string should be system
+  return true if rubie == "system"  # keyword system should be system
+  return false                      # anything else does not represent system
 end
 
 ##
@@ -151,6 +171,8 @@ end
 # @param [String, #to_s] the fully qualified RVM ruby string
 # @return [Boolean] does this environment exist?
 def env_exists?(ruby_string)
+  return true if system_ruby?(ruby_string)
+
   rubie   = select_ruby(ruby_string)
   gemset  = select_gemset(ruby_string)
 

@@ -21,10 +21,11 @@
 
 action :create do
   ruby_string = new_resource.ruby_string
+  ruby_string = "system" if system_ruby?(ruby_string)
   rubie   = select_ruby(ruby_string)
   gemset  = select_gemset(ruby_string)
 
-  if ruby_unknown?(rubie)
+  if rubie != "system" && ruby_unknown?(rubie)
     Chef::Log.warn("rvm_default_ruby[#{rubie}] is either not fully " +
       "qualified or not known . Use `rvm list known` to get a full list.")
   elsif ruby_default?(ruby_string)

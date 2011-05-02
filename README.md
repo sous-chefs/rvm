@@ -26,7 +26,7 @@ built as a pre-requisite. The value can also contain a gemset in the form of
 found when running `rvm list known`.
 
 The default is `ruby-1.9.2-p180`. To disable a default ruby from being
-installed, see the `install_rubies` attribute.
+set, use an empty string (`""`) or a value of `"system"`.
 
 ## `rubies`
 
