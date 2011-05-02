@@ -44,7 +44,7 @@ end
 execute "install system-wide RVM" do
   user      "root"
   command   <<-CODE
-    bash -c "bash <( curl -LB #{node[:rvm][:installer_url]} )#{script_flags}"
+    bash -c "bash <( curl -Ls #{node[:rvm][:installer_url]} )#{script_flags}"
   CODE
   not_if    rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
 end
