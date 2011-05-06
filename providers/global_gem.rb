@@ -29,7 +29,7 @@ action :install do
   end
 end
 
-action :install do
+action :upgrade do
   # add gem entry into global.gems
   update_global_gems_file :create
 
