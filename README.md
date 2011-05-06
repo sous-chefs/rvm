@@ -14,6 +14,26 @@ TBD
 
 # RECIPES
 
+## default
+
+Installs RVM system-wide, builds RVM Rubies, sets a default Ruby, installs
+any gems and global gems. **Note** that the `system` recipe is included to
+install RVM.
+
+## system
+
+Installs any package dependencies and installs RVM system-wide.
+
+## vagrant
+
+An optional recipe if Chef is installed in a non-RVM Ruby in a
+[Vagrant](http://vagrantup.com) virtual machine. This recipe adds the
+default vagrant user to the RVM unix group and installs a `chef-solo`
+wrapper script so Chef doesn't need to be re-installed in the default
+RVM Ruby.
+
+# USAGE
+
 # ATTRIBUTES
 
 ## `default_ruby`
@@ -131,6 +151,11 @@ The URL that provides the RVM installer. The default is
 A list of users that will be added to the `rvm` group. These users
 will then be able to manage RVM in a system-wide installation. The default
 is an empty list.
+
+## `vagrant/system_chef_solo`
+
+If using the `vagrant` recipe, this sets the path to the package-installed
+`chef-solo` binary. The default is `/usr/bin/chef-solo`.
 
 # RESOURCES AND PROVIDERS
 
@@ -466,8 +491,6 @@ under `node[:rvm][:root_path]`.
       binaries      [ "rspec", "cucumber" ]
       action        :create
     end
-
-# USAGE
 
 # LICENSE and AUTHOR
 
