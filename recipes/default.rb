@@ -47,8 +47,7 @@ unless node[:rvm][:install_rubies] == "disable"
 
   # install global gems
   node[:rvm][:global_gems].each do |gem|
-    rvm_gem gem[:name] do
-      global    true
+    rvm_global_gem gem[:name] do
       version   gem[:version] if gem[:version]
       action    gem[:action]  if gem[:action]
       options   gem[:options] if gem[:options]
