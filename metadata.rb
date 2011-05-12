@@ -28,7 +28,8 @@ attribute "rvm/rubies",
 attribute "rvm/install_rubies",
   :display_name => "Can enable or disable installation of a default ruby and additional rubies set attribute metadata.",
   :description => "Can enable or disable installation of a default ruby and additional rubies set attribute metadata. The primary use case for this attribute is when you don't want any rubies installed (but you want RVM installed).",
-  :default => "enable"
+  :type => "boolean",
+  :default => true
 
 attribute "rvm/global_gems",
   :display_name => "Global gems to be installed in all RVM rubies",

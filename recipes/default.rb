@@ -36,7 +36,7 @@ end
 
 include_recipe "rvm::system"
 
-unless node[:rvm][:install_rubies] == "disable"
+if node[:rvm][:install_rubies]
   # set a default ruby
   rvm_default_ruby node[:rvm][:default_ruby]
 
