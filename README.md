@@ -32,6 +32,18 @@ default vagrant user to the RVM unix group and installs a `chef-solo`
 wrapper script so Chef doesn't need to be re-installed in the default
 RVM Ruby.
 
+## gem_package
+
+An experimental recipe that patches the
+[gem_package resource](http://wiki.opscode.com/display/chef/Resources#Resources-Package)
+to use the `Chef::Provider::Package::RVMRubygems` provider. An attribute
+`rvm/gem_package/rvm_string` will determine which RVM ruby is used for
+install/remove/upgrade/purge actions. This may help when using a third
+party or upstream cookbook that assumes a non-RVM managed system ruby.
+
+**Warning:** Here be dragons! This is either brilliant or the dumbest idea
+ever, so feedback is appreciated.
+
 # USAGE
 
 # ATTRIBUTES
@@ -156,6 +168,12 @@ is an empty list.
 
 If using the `vagrant` recipe, this sets the path to the package-installed
 `chef-solo` binary. The default is `/usr/bin/chef-solo`.
+
+## `gem_package/rvm_string`
+
+If using the `gem_package` recipe, this determines which ruby will be used by the
+`gem_package` resource in other cookbooks. The default is the value of the
+`default_ruby` attribute.
 
 # RESOURCES AND PROVIDERS
 

@@ -54,24 +54,31 @@ class Chef
 
         def initialize(new_resource, run_context=nil)
           super
-          @gem_env = RVMGemEnvironment.new(
-            gem_binary_path, new_resource.ruby_string)
+          @gem_env = RVMGemEnvironment.new(gem_binary_path, ruby_string)
+        end
+
+        def ruby_string
+          @ruby_string ||= if new_resource.respond_to?("ruby_string")
+            new_resource.ruby_string
+          else
+            node[:rvm][:gem_package][:rvm_string]
+          end
         end
 
         def install_package(name, version)
-          ruby_string = normalize_ruby_string(new_resource.ruby_string)
+          ruby_string_normalized = normalize_ruby_string(ruby_string)
 
           # ensure ruby is installed and gemset exists
-          e = rvm_environment ruby_string do
+          e = rvm_environment ruby_string_normalized do
             action :nothing
           end
           e.run_action(:create)
 
-          install_via_gem_command(name, version, new_resource.ruby_string)
+          install_via_gem_command(name, version)
           true
         end
 
-        def install_via_gem_command(name, version, ruby_string)
+        def install_via_gem_command(name, version)
           src = @new_resource.source &&
             "  --source=#{@new_resource.source} --source=http://rubygems.org"
 
@@ -82,10 +89,10 @@ class Chef
         end
 
         def remove_package(name, version)
-          uninstall_via_gem_command(name, version, new_resource.ruby_string)
+          uninstall_via_gem_command(name, version)
         end
 
-        def uninstall_via_gem_command(name, version, ruby_string)
+        def uninstall_via_gem_command(name, version)
           cmd = %{rvm #{ruby_string} #{gem_binary_path}}
           cmd << %{ uninstall #{name} -q -x -I}
           if version
