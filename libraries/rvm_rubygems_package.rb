@@ -61,7 +61,7 @@ class Chef
           @ruby_string ||= if new_resource.respond_to?("ruby_string")
             new_resource.ruby_string
           else
-            node[:rvm][:gem_package][:rvm_string]
+            node['rvm']['gem_package']['rvm_string']
           end
         end
 

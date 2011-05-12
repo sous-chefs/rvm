@@ -46,7 +46,7 @@ unless node[:rvm][:install_rubies] == "disable"
   end
 
   # install global gems
-  node[:rvm][:global_gems].each do |gem|
+  node['rvm']['global_gems'].each do |gem|
     rvm_global_gem gem[:name] do
       version   gem[:version] if gem[:version]
       action    gem[:action]  if gem[:action]
@@ -56,7 +56,7 @@ unless node[:rvm][:install_rubies] == "disable"
   end
 
   # install additional gems
-  node[:rvm][:gems].each_pair do |rstring, gems|
+  node['rvm']['gems'].each_pair do |rstring, gems|
     rvm_environment rstring
 
     gems.each do |gem|

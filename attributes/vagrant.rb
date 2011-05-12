@@ -19,4 +19,4 @@
 # limitations under the License.
 #
 
-default[:rvm][:vagrant][:system_chef_solo] = "/usr/bin/chef-solo"
+default['rvm']['vagrant']['system_chef_solo'] = "/usr/bin/chef-solo"

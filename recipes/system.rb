@@ -22,11 +22,11 @@
 # - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
 
 script_flags = ""
-if node[:rvm][:version]
-  script_flags += " --version #{node[:rvm][:version]}"
+if node['rvm']['version']
+  script_flags += " --version #{node['rvm']['version']}"
 end
-if node[:rvm][:branch]
-  script_flags += " --branch #{node[:rvm][:branch]}"
+if node['rvm']['branch']
+  script_flags += " --branch #{node['rvm']['branch']}"
 end
 
 pkgs = %w{ sed grep tar gzip bzip2 bash curl }
@@ -44,7 +44,7 @@ end
 execute "install system-wide RVM" do
   user      "root"
   command   <<-CODE
-    bash -c "bash <( curl -Ls #{node[:rvm][:installer_url]} )#{script_flags}"
+    bash -c "bash <( curl -Ls #{node['rvm']['installer_url']} )#{script_flags}"
   CODE
   not_if    rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
 end
@@ -56,10 +56,10 @@ template  "/etc/rvmrc" do
   mode    "0644"
 end
 
-execute "upgrade RVM to #{node[:rvm][:upgrade]}" do
+execute "upgrade RVM to #{node['rvm']['upgrade']}" do
   user      "root"
-  command   rvm_wrap_cmd(%{rvm get #{node[:rvm][:upgrade]}})
+  command   rvm_wrap_cmd(%{rvm get #{node['rvm']['upgrade']}})
   only_if do
-    %{ latest head }.include? node[:rvm][:upgrade]
+    %{ latest head }.include? node['rvm']['upgrade']
   end
 end

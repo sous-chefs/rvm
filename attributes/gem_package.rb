@@ -20,4 +20,4 @@
 #
 
 # rvm ruby that will be used for gem_package resources
-default[:rvm][:gem_package][:rvm_string] = node[:rvm][:default_ruby]
+default['rvm']['gem_package']['rvm_string'] = node['rvm']['default_ruby']

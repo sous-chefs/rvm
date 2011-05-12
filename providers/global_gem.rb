@@ -83,7 +83,7 @@ end
 #
 # @oaram [Symbol] action to :create or :remove the gem from the file
 def update_global_gems_file(exec_action)
-  global_gems_file = "#{node[:rvm][:root_path]}/gemsets/global.gems"
+  global_gems_file = "#{node['rvm']['root_path']}/gemsets/global.gems"
   gem = new_resource.package_name
 
   if exec_action == :create

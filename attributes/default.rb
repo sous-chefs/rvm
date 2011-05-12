@@ -19,34 +19,34 @@
 # limitations under the License.
 #
 
-default[:rvm][:root_path] = "/usr/local/rvm"
-default[:rvm][:group_users] = []
-default[:rvm][:rvmrc] = Hash.new
+default['rvm']['root_path']     = "/usr/local/rvm"
+default['rvm']['group_users']   = []
+default['rvm']['rvmrc']         = Hash.new
 
-default[:rvm][:installer_url] = "https://rvm.beginrescueend.com/install/rvm"
+default['rvm']['installer_url'] = "https://rvm.beginrescueend.com/install/rvm"
 
-default[:rvm][:branch]  = nil
-default[:rvm][:version] = nil
+default['rvm']['branch']  = nil
+default['rvm']['version'] = nil
 
-default[:rvm][:upgrade] = "none"
+default['rvm']['upgrade'] = "none"
 
 # a hook to disable installing any default/additional rubies
-default[:rvm][:install_rubies] = "enable"
+default['rvm']['install_rubies'] = "enable"
 
 # ruby that will get installed and set to `rvm use default`.
-default[:rvm][:default_ruby] = "ruby-1.9.2-p180"
+default['rvm']['default_ruby'] = "ruby-1.9.2-p180"
 
 # list of additional rubies that will be installed
-default[:rvm][:rubies] = []
+default['rvm']['rubies'] = []
 
 # list of gems to be installed in global gemset of all rubies
-default[:rvm][:global_gems] = [
-  { :name => "bundler" },
-  { :name => "rake" }
+default['rvm']['global_gems'] = [
+  { 'name' => "bundler" },
+  { 'name' => "rake" }
 ]
 
 # hash of gemsets and their list of additional gems to be installed.
-default[:rvm][:gems] = Hash.new
+default['rvm']['gems'] = Hash.new
 
 # skip rdoc/ri generation by default on ruby installs
-default[:rvm][:skip_docs_on_install] = "enable"
+default['rvm']['skip_docs_on_install'] = "enable"
