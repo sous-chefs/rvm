@@ -47,3 +47,6 @@ default[:rvm][:global_gems] = [
 
 # hash of gemsets and their list of additional gems to be installed.
 default[:rvm][:gems] = Hash.new
+
+# skip rdoc/ri generation by default on ruby installs
+default[:rvm][:skip_docs_on_install] = "enable"

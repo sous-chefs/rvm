@@ -6,6 +6,9 @@
 umask g+w
 export rvm_path="<%= node[:rvm][:root_path] %>"
 
+<% if node[:rvm][:skip_docs_on_install] == "enable" -%>
+export rvm_gem_options="--no-rdoc --no-ri"
+<% end -%>
 <% node[:rvm][:rvmrc].each_pair do |k,v| -%>
 export <%= k %>=<%= v %>
 <% end -%> 
