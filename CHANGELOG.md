@@ -1,4 +1,4 @@
-## 0.7.0 (unreleased)
+## 0.7.0 (May 14, 2011)
 
   * Revamp and update README.md. [GH-3]
   * Add CHANGELOG.md. [GH-5]
