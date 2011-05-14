@@ -29,6 +29,12 @@ if node['rvm']['branch']
   script_flags += " --branch #{node['rvm']['branch']}"
 end
 
+upgrade_strategy = if node['rvm']['upgrade'].nil? || node['rvm']['upgrade'] == false
+  "none"
+else
+  node['rvm']['upgrade']
+end
+
 pkgs = %w{ sed grep tar gzip bzip2 bash curl }
 case node[:platform]
   when "centos","redhat","fedora"
@@ -56,10 +62,8 @@ template  "/etc/rvmrc" do
   mode    "0644"
 end
 
-execute "upgrade RVM to #{node['rvm']['upgrade']}" do
+execute "upgrade RVM to #{upgrade_strategy}" do
   user      "root"
-  command   rvm_wrap_cmd(%{rvm get #{node['rvm']['upgrade']}})
-  only_if do
-    %{ latest head }.include? node['rvm']['upgrade']
-  end
+  command   rvm_wrap_cmd(%{rvm get #{upgrade_strategy}})
+  only_if   { %w{ latest head }.include? upgrade_strategy }
 end

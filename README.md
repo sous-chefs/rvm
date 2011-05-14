@@ -141,11 +141,12 @@ The default is `nil`, which corresponds to RVM `head`.
 Determines how to handle installing updates to the RVM framework. There are
 currently 3 valid values:
 
-* `none`: will not update RVM and leave it in its current state. **Note** that
-  this is the default.
-* `latest`: runs `rvm get latest` which downloads and installs the latest
-  *"stable"* RVM release listed by [http://rvm.beginrescueend.com/releases/stable-version.txt](http://rvm.beginrescueend.com/releases/stable-version.txt).
-* `head`: runs the infamous `rvm get head` which clones (via git) and installs
+* `"none"`, `false`, or `nil`: will not update RVM and leave it in its
+  current state. **Note** that this is the default.
+* `"latest"`: runs `rvm get latest` which downloads and installs the latest
+  *"stable"* RVM release listed by
+  [http://rvm.beginrescueend.com/releases/stable-version.txt](http://rvm.beginrescueend.com/releases/stable-version.txt).
+* `"head"`: runs the infamous `rvm get head` which clones (via git) and installs
   the latest RVM repository HEAD.
 
 ## `root_path`
