@@ -1,5 +1,6 @@
 ## 0.7.0 (unreleased)
 
+  * Revamp and update README.md. [GH-3]
   * Add CHANGELOG.md. [GH-5]
   * Attr rvm/upgrade accepts "none", false and nil as same value. [GH-19]
   * Update rvm/install_rubies attr to "true"/"false".

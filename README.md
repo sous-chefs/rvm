@@ -1,16 +1,19 @@
 # DESCRIPTION
 
-Installs a system-wide RVM and manages installed rubies.
+Installs a system-wide RVM and manages installed rubies. Several lightweight
+resources and providers (LWRP) are also defined.
 
 # REQUIREMENTS
 
 ## Platform
 
-For the moment this is targeted at Ubuntu, other platforms to be tested.
+Tested on Ubuntu 10.04/10.10, Debian 6.0, and OpenSuSE 11.4. Also reported
+to work on CentOS, Redhat and Fedora.
 
 ## Cookbooks
 
-TBD
+There are no explicit external cookbook dependencies. However, the Opscode
+*java* cookbook can be used when installing JRuby.
 
 # RECIPES
 
@@ -45,6 +48,15 @@ party or upstream cookbook that assumes a non-RVM managed system ruby.
 ever, so feedback is appreciated.
 
 # USAGE
+
+The typical case will be to include the `rvm` recipe which will install RVM
+system-wide, install all listed RVM rubies and gems and set a default RVM ruby.
+
+If node is running in a Vagrant VM, then the `rvm::vagrant` recipe can help
+with resolving the *chef-solo* binary on subsequent provision executions.
+
+There are also several resources declared which can be used in other recipes
+that are RVM-supported. See below for more details.
 
 # ATTRIBUTES
 
@@ -520,6 +532,14 @@ under `node['rvm']['root_path']`.
       binaries      [ "rspec", "cucumber" ]
       action        :create
     end
+
+# DEVELOPMENT
+
+* Source hosted at [GitHub](https://github.com/fnichol/chef-rvm)
+* Report issues/Questions/Feature requests on [GitHub Issues](https://github.com/fnichol/chef-rvm/issues)
+
+Pull requests are very welcome! Make sure your patches are well tested.
+Ideally create a topic branch for every seperate change you make.
 
 # LICENSE and AUTHOR
 
