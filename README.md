@@ -80,7 +80,7 @@ Can enable or disable installation of a default ruby and additional rubies set
 attribute metadata. The primary use case for this attribute is when you don't
 want any rubies installed (but you want RVM installed). To do so:
 
-    node[:rvm][:install_rubies] = false
+    node[:rvm][:install_rubies] = "false"
 
 The default is `true`.
 

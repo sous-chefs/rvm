@@ -31,7 +31,7 @@ default['rvm']['version'] = nil
 default['rvm']['upgrade'] = "none"
 
 # a hook to disable installing any default/additional rubies
-default['rvm']['install_rubies'] = true
+default['rvm']['install_rubies'] = "true"
 
 # ruby that will get installed and set to `rvm use default`.
 default['rvm']['default_ruby'] = "ruby-1.9.2-p180"
