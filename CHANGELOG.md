@@ -1,3 +1,6 @@
+## 0.7.2 (unreleased)
+
+
 ## 0.7.1 (May 15, 2011)
 
   * Update metadata.rb properties.
