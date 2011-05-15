@@ -4,7 +4,7 @@ maintainer_email "fnichol@nichol.ca"
 license          "Apache 2.0"
 description      "Installs and manages RVM. Includes several LWRPs."
 long_description "Please refer to README.md (it's long)."
-version          "0.7.0"
+version          "0.7.1"
 
 recipe "rvm",               "Includes all recipes"
 recipe "rvm::system",       "Installs system-wide RVM"
