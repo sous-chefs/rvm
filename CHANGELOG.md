@@ -1,3 +1,9 @@
+## 0.7.1 (May 15, 2011)
+
+  * Update metadata.rb properties.
+  * Update metadata.rb to not include README.md (too long). [GH-20]
+  * Add Rakefile for opscode platform deploy builds.
+
 ## 0.7.0 (May 14, 2011)
 
   * Revamp and update README.md. [GH-3]
