@@ -16,6 +16,7 @@
   "dependencies": {
   },
   "recommendations": {
+    "java": ">= 0.0.0"
   },
   "suggestions": {
   },

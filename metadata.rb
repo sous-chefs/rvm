@@ -15,6 +15,9 @@ recipe "rvm::gem_package",  "An experimental recipe that patches the gem_package
   supports os
 end
 
+# if using jruby, java is required on system
+recommends  "java"
+
 attribute "rvm/default_ruby",
   :display_name => "Default ruby",
   :description => "The default ruby for RVM. If the RVM ruby is not installed, it will be built as a pre-requisite.",
