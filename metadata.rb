@@ -2,7 +2,7 @@ maintainer       "Fletcher Nichol"
 maintainer_email "fnichol@nichol.ca"
 license          "Apache 2.0"
 description      "Installs and manages RVM. Includes several LWRPs."
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+long_description "Please refer to README.md (it's long)."
 version          "0.7.0"
 
 recipe "rvm",               "Includes all recipes"
