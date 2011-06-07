@@ -31,7 +31,7 @@ end
 # @param [String, #to_s] the fully qualified RVM ruby string
 # @return [Boolean] is this ruby string sane?
 def ruby_string_sane?(rubie)
-  return true if "goruby" == rubie        # gorubie has no versions yet
+  return true if ['goruby', 'ree', 'kiji'].include?(rubie) # rubies with aliases
   return true if rubie =~ /^[^-]+-[^-]+/  # must be xxx-vvv at least
 end
 
