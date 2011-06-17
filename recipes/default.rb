@@ -40,16 +40,12 @@ include_recipe "rvm::system"
 # http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
 if node['rvm']['install_rubies'] == true || node['rvm']['install_rubies'] == "true"
   # set a default ruby
-  d = rvm_default_ruby node['rvm']['default_ruby'] do
-    action[:nothing]
-  end
+  d = rvm_default_ruby node['rvm']['default_ruby']
   d.run_action(:create)
 
   # install additional rubies
   node['rvm']['rubies'].each do |rubie|
-    r = rvm_ruby rubie do
-      action[:nothing]
-    end
+    r = rvm_ruby rubie
     r.run_action(:install)
   end
 
