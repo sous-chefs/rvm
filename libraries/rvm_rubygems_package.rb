@@ -67,6 +67,8 @@ class Chef
 
         def install_package(name, version)
           ruby_string_normalized = normalize_ruby_string(ruby_string)
+          super if ruby_string_normalized == 'system'
+          next if ruby_string_normalized == 'system'
 
           # ensure ruby is installed and gemset exists
           e = rvm_environment ruby_string_normalized do
