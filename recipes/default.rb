@@ -36,17 +36,13 @@ end
 
 include_recipe "rvm::system"
 
-# For more information on the 'action :nothing' and 'run_action(:foo)' usages see
-# http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
 if node['rvm']['install_rubies'] == true || node['rvm']['install_rubies'] == "true"
   # set a default ruby
-  d = rvm_default_ruby node['rvm']['default_ruby']
-  d.run_action(:create)
+  rvm_default_ruby node['rvm']['default_ruby']
 
   # install additional rubies
   node['rvm']['rubies'].each do |rubie|
-    r = rvm_ruby rubie
-    r.run_action(:install)
+    rvm_ruby rubie
   end
 
   # install global gems
