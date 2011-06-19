@@ -166,6 +166,14 @@ currently 3 valid values:
 The path prefix to RVM in a system-wide installation. The default is
 `"/usr/local/rvm"`.
 
+## `group_id`
+
+The Unix *GID* to be used for the `rvm` group. If this attribute is set,
+the group will be created in the compilation phase to avoid any collisions
+with expected *GID*s in other cookbooks. If left at the default value,
+the RVM installer will create this group as normal. The default is
+`default`.
+
 ## `installer_url`
 
 The URL that provides the RVM installer. The default is
