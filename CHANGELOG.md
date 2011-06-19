@@ -1,5 +1,10 @@
 ## 0.7.2 (unreleased)
 
+  * Expand list of sane rubies to include `"ree"` and `"kiji"`. [GH-23]
+  * RVM is installed in compilation phase when gem_package recipe is
+    included. [GH-26]
+  * RVM unix group is created in compilation phase if GID is provided. [GH-26]
+  * Let gem_package resource target multiple RVM rubies. [GH-24]
 
 ## 0.7.1 (May 15, 2011)
 
