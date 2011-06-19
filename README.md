@@ -204,7 +204,7 @@ The default is `"--no-rdoc --no-ri"`.
 ## `vagrant/system_chef_solo`
 
 If using the `vagrant` recipe, this sets the path to the package-installed
-*chef-solo* binary. The default is `"/usr/bin/chef-solo"`.
+*chef-solo* binary. The default is `"/opt/ruby/bin/chef-solo"`.
 
 ## `gem_package/rvm_string`
 
