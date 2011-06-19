@@ -38,6 +38,8 @@ else
   node['rvm']['upgrade']
 end
 
+gem_package_included = node.recipe?("rvm::gem_package")
+
 pkgs = %w{ sed grep tar gzip bzip2 bash curl }
 case node[:platform]
   when "centos","redhat","fedora"
@@ -48,9 +50,14 @@ end
 
 pkgs.each do |pkg|
   p = package pkg do
-    action :nothing
+    # excute in compile phase if gem_package recipe is requested
+    if gem_package_included
+      action :nothing
+    else
+      action :install
+    end
   end
-  p.run_action(:install)
+  p.run_action(:install) if gem_package_included
 end
 
 # Build the rvm group ahead of time, if it is set. This allows avoiding
@@ -70,23 +77,41 @@ i = execute "install system-wide RVM" do
     bash -c "bash <( curl -Ls #{node['rvm']['installer_url']} )#{script_flags}"
   CODE
   not_if    rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
-  action :nothing
+
+  # excute in compile phase if gem_package recipe is requested
+  if gem_package_included
+    action :nothing
+  else
+    action :run
+  end
 end
-i.run_action(:run)
+i.run_action(:run) if gem_package_included
 
 t = template  "/etc/rvmrc" do
   source  "rvmrc.erb"
   owner   "root"
   group   "rvm"
   mode    "0644"
-  action :nothing
+
+  # excute in compile phase if gem_package recipe is requested
+  if gem_package_included
+    action :nothing
+  else
+    action :create
+  end
 end
-t.run_action(:create)
+t.run_action(:create) if gem_package_included
 
 u = execute "upgrade RVM to #{upgrade_strategy}" do
   user      "root"
   command   rvm_wrap_cmd(%{rvm get #{upgrade_strategy}})
   only_if   { %w{ latest head }.include? upgrade_strategy }
-  action :nothing
+
+  # excute in compile phase if gem_package recipe is requested
+  if gem_package_included
+    action :nothing
+  else
+    action :run
+  end
 end
-u.run_action(:run)
+u.run_action(:run) if gem_package_included

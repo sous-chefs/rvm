@@ -44,6 +44,12 @@ to use the `Chef::Provider::Package::RVMRubygems` provider. An attribute
 install/remove/upgrade/purge actions. This may help when using a third
 party or upstream cookbook that assumes a non-RVM managed system ruby.
 
+**Note:** When this recipe is included it will force RVM to be
+installed in the
+[compilation phase](http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time).
+This will ensure that all rubies can be available if any `gem_package`
+resource calls are issued from other cookbooks during the compilation phase.
+
 **Warning:** Here be dragons! This is either brilliant or the dumbest idea
 ever, so feedback is appreciated.
 
