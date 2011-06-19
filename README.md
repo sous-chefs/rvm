@@ -194,9 +194,13 @@ If using the `vagrant` recipe, this sets the path to the package-installed
 
 ## `gem_package/rvm_string`
 
-If using the `gem_package` recipe, this determines which ruby will be used by the
-`gem_package` resource in other cookbooks. The default is the value of the
-`default_ruby` attribute.
+If using the `gem_package` recipe, this determines which ruby or rubies will
+be used by the `gem_package` resource in other cookbooks. The value can be
+either a *String* (for example `ruby-1.8.7-p334`) or an *Array* of RVM ruby
+strings (for example `['ruby-1.8.7-p334', 'system']`). To target an underlying
+unmanaged system ruby you can use `system`.
+
+The default is the value of the `default_ruby` attribute.
 
 # RESOURCES AND PROVIDERS
 
