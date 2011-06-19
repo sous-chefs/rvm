@@ -21,6 +21,9 @@
 # - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
 # - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
 
+# For more information on the 'action :nothing' and 'run_action(:foo)' usages see
+# http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
+
 script_flags = ""
 if node['rvm']['version']
   script_flags += " --version #{node['rvm']['version']}"
@@ -44,26 +47,46 @@ case node[:platform]
 end
 
 pkgs.each do |pkg|
-  package pkg
+  p = package pkg do
+    action :nothing
+  end
+  p.run_action(:install)
 end
 
-execute "install system-wide RVM" do
+# Build the rvm group ahead of time, if it is set. This allows avoiding
+#   collision with later processes which may set a guid explicitly
+if node[:rvm][:group_id] != 'default'
+  g = group 'rvm' do
+    group_name 'rvm'
+    gid        node[:rvm][:group_id]
+    action     :nothing
+  end
+  g.run_action(:create)
+end
+
+i = execute "install system-wide RVM" do
   user      "root"
   command   <<-CODE
     bash -c "bash <( curl -Ls #{node['rvm']['installer_url']} )#{script_flags}"
   CODE
   not_if    rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
+  action :nothing
 end
+i.run_action(:run)
 
-template  "/etc/rvmrc" do
+t = template  "/etc/rvmrc" do
   source  "rvmrc.erb"
   owner   "root"
   group   "rvm"
   mode    "0644"
+  action :nothing
 end
+t.run_action(:create)
 
-execute "upgrade RVM to #{upgrade_strategy}" do
+u = execute "upgrade RVM to #{upgrade_strategy}" do
   user      "root"
   command   rvm_wrap_cmd(%{rvm get #{upgrade_strategy}})
   only_if   { %w{ latest head }.include? upgrade_strategy }
+  action :nothing
 end
+u.run_action(:run)
