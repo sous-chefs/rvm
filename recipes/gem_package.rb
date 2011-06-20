@@ -17,7 +17,14 @@
 # limitations under the License.
 #
 
+rvm_tmp = node['rvm']['gem_package']['rvm_string']
+case rvm_tmp
+when String; rvm_descriptor = rvm_tmp + " RVM Ruby"
+when Array
+  last = rvm_tmp.pop()
+  rvm_descriptor = [ rvm_tmp.join(', '), last ].join(' & ') + " RVM Rubies"
+end
 patch_gem_package
 ::Chef::Log.info "gem_package resource has been patched to use provider " <<
   "Chef::Provider::Package::RVMRubygems and will install gems to " <<
-  "the #{node['rvm']['gem_package']['rvm_string']} RVM Ruby."
+  "the #{rvm_descriptor}."
