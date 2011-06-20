@@ -81,6 +81,7 @@ end
 # @param [String, #to_s] the fully qualified RVM ruby string
 # @return [Boolean] is this ruby in the known ruby string list?
 def ruby_known?(rubie)
+  return true if rubie == 'system'
   return false unless ruby_string_sane?(rubie)
 
   matches = known_rubies.select { |r| r.start_with?(rubie) }
