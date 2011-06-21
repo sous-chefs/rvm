@@ -93,6 +93,7 @@ class Chef
 
           # ensure each ruby is installed and gemset exists
           ruby_strings_normalized.each do |rubie|
+            next if rubie = 'system'
             e = rvm_environment rubie do
               action :nothing
             end
