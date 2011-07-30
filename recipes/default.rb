@@ -70,3 +70,10 @@ if node['rvm']['install_rubies'] == true || node['rvm']['install_rubies'] == "tr
     end
   end
 end
+
+# add users to rvm group
+if node['rvm']['group_users'].any?
+  group 'rvm' do
+    members node['rvm']['group_users']
+  end
+end
