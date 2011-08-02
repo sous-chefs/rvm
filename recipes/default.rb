@@ -25,6 +25,7 @@ end.run_action(:install)
 require 'rubygems'
 Gem.clear_paths
 require 'rvm'
+use_chef_shell_wrapper
 
 include_recipe "rvm::system"
 
