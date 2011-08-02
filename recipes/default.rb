@@ -17,22 +17,14 @@
 # limitations under the License.
 #
 
-require 'rubygems/dependency_installer'
-
 # install rvm api gem during chef compile phase
-if Gem.source_index.find_name("rvm").empty?
-  Chef::Log.info("Installing RVM gem")
-  Gem::DependencyInstaller.new.install("rvm")
-  begin
-    Gem.activate("rvm")
-    require 'rvm'
-  rescue LoadError
-    Chef::Application.fatal!(
-      "There was a problem installing and loading the 'rvm' gem.")
-  end
-else
-  Chef::Log.debug("RVM gem was installed, so installation skipped")
-end
+gem_package 'rvm' do
+  action :nothing
+end.run_action(:install)
+
+require 'rubygems'
+Gem.clear_paths
+require 'rvm'
 
 include_recipe "rvm::system"
 
