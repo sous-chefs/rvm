@@ -86,9 +86,9 @@ def use_chef_shell_wrapper
     def initialize(user = nil, environment_name = "default", options = {})
       # explicitly set rvm_path if user is set
       if user.nil?
-        config[:rvm_path] = @@root_rvm_path
+        config['rvm_path'] = @@root_rvm_path
       else
-        config[:rvm_path] = File.join(Etc.getpwnam(user).dir, '.rvm')
+        config['rvm_path'] = File.join(Etc.getpwnam(user).dir, '.rvm')
       end
 
       merge_config! options
