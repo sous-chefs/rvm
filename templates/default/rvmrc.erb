@@ -11,4 +11,4 @@ export rvm_gem_options="<%= node['rvm']['rvm_gem_options'] %>"
 <% end -%>
 <% node['rvm']['rvmrc'].each_pair do |k,v| -%>
 export <%= k %>=<%= v %>
-<% end -%> 
+<% end -%>
