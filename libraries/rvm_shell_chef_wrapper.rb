@@ -1,10 +1,31 @@
+#
+# Cookbook Name:: rvm
+# Library:: RVM::Shell::ChefWrapper
+#
+# Author:: Fletcher Nichol <fnichol@nichol.ca>
+#
+# Copyright 2011, Fletcher Nichol
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 begin
   require 'rvm'
 rescue LoadError
   Chef::Log.info("Missing gem 'rvm'")
 end
 
-def use_chef_shell_wrapper
+def create_rvm_shell_chef_wrapper
   require 'chef/mixin/command'
 
   klass = Class.new(::RVM::Shell::AbstractWrapper) do
@@ -81,30 +102,4 @@ def use_chef_shell_wrapper
   ::RVM::Shell.const_set('ChefWrapper', klass)
 
   ::RVM::Shell.default_wrapper = ::RVM::Shell::ChefWrapper
-
-  klass = Class.new(::RVM::Environment) do
-    def initialize(user = nil, environment_name = "default", options = {})
-      # explicitly set rvm_path if user is set
-      if user.nil?
-        config['rvm_path'] = @@root_rvm_path
-      else
-        config['rvm_path'] = File.join(Etc.getpwnam(user).dir, '.rvm')
-      end
-
-      merge_config! options
-      @environment_name = environment_name
-      @shell_wrapper = ::RVM::Shell::ChefWrapper.new(user)
-      @shell_wrapper.setup do |s|
-        source_rvm_environment
-        use_rvm_environment
-      end
-    end
-
-    def self.root_rvm_path=(path)
-      @@root_rvm_path = path
-    end
-  end
-  ::RVM.const_set('ChefUserEnvironment', klass)
-
-  ::RVM::ChefUserEnvironment.root_rvm_path = node['rvm']['root_path']
 end
