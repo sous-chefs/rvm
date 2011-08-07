@@ -22,7 +22,7 @@
 begin
   require 'rvm'
 rescue LoadError
-  Chef::Log.info("Missing gem 'rvm'")
+  Chef::Log.debug("Missing gem 'rvm' (#{File.basename(__FILE__)})")
 end
 
 def create_rvm_shell_chef_wrapper
