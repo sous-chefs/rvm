@@ -54,8 +54,7 @@ end
 def gemset_resource(exec_action)
   # ensure gemset is created, if specified
   unless gemset_exists?(:ruby => @rubie, :gemset => @gemset)
-    rvm_gemset @gemset do
-      ruby_string   @rubie
+    rvm_gemset @ruby_string do
       action        :nothing
     end.run_action(exec_action)
   end
