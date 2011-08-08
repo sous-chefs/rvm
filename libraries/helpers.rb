@@ -262,12 +262,8 @@ end
 # @param [String, #to_s] an RVM ruby string
 # @return [String] a fully qualified RVM ruby string
 def normalize_ruby_string(ruby_string)
-  # get the actual ruby string that corresponds to "default"
-  if ruby_string.start_with?("default")
-    ruby_string.sub(/default/, current_ruby_default)
-  else
-    ruby_string
-  end
+  return "system" if ruby_string == "system"
+  Chef::RVM::StringCache[ruby_string]
 end
 
 ##

@@ -19,28 +19,40 @@
 # limitations under the License.
 #
 
+def load_current_resource
+  @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
+  @gemset       = select_gemset(new_resource.ruby_string)
+  @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
+end
+
 action :create do
-  ruby_string = new_resource.ruby_string
-  ruby_string = "system" if system_ruby?(ruby_string)
-  rubie   = select_ruby(ruby_string)
-  gemset  = select_gemset(ruby_string)
+  next if skip_ruby?
 
-  if rubie != "system" && ruby_unknown?(rubie)
-    Chef::Log.warn("rvm_default_ruby[#{rubie}] is either not fully " +
-      "qualified or not known . Use `rvm list known` to get a full list.")
-  elsif ruby_default?(ruby_string)
-    Chef::Log.debug("rvm_ruby[#{ruby_string}] is already default, so skipping")
-  else
-    # ensure ruby is installed and gemset exists (if specified)
-    unless env_exists?(ruby_string)
-      e = rvm_environment ruby_string do
-        action :nothing
-      end
-      e.run_action(:create)
+  # ensure ruby is installed and gemset exists (if specified)
+  unless env_exists?(@ruby_string)
+    e = rvm_environment @ruby_string do
+      action :nothing
     end
+    e.run_action(:create)
+  end
 
-    Chef::Log.info("Setting default ruby to rvm_ruby[#{ruby_string}]")
-    env = RVM::Environment.new
-    env.rvm :use, ruby_string, :default => true
+  Chef::Log.info("Setting default ruby to rvm_ruby[#{@ruby_string}]")
+  env = RVM::Environment.new
+  env.rvm :use, @ruby_string, :default => true
+end
+
+private
+
+def skip_ruby?
+  if @rubie.nil?
+    Chef::Log.warn("#{self.class.name}: RVM ruby string `#{@rubie}' " +
+      "is not known. Use `rvm list known` to get a full list.")
+    true
+  elsif ruby_default?(@ruby_string)
+    Chef::Log.debug("#{self.class.name}: `#{@ruby_string}' is already default, " +
+      "so skipping")
+    true
+  else
+    false
   end
 end
