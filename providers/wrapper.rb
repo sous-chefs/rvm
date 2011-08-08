@@ -21,6 +21,8 @@
 
 action :create do
   ruby_string = normalize_ruby_string(new_resource.ruby_string)
+include Chef::RVM::StringHelpers
+include Chef::RVM::EnvironmentHelpers
   if new_resource.binary.nil?
     binaries = new_resource.binaries || []
   else

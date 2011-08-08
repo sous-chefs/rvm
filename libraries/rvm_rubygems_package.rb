@@ -23,8 +23,11 @@ class Chef
   class Provider
     class Package
       class RVMRubygems < Chef::Provider::Package::Rubygems
+        include Chef::RVM::ShellHelpers
 
         class RVMGemEnvironment < AlternateGemEnvironment
+          include Chef::RVM::ShellHelpers
+
           attr_reader :ruby_strings
 
           def initialize(gem_binary_location, ruby_strings)

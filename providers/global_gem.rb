@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+include Chef::RVM::RubyHelpers
+
 action :install do
   # add gem entry into global.gems
   update_global_gems_file :create

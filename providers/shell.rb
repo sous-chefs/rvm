@@ -19,6 +19,10 @@
 # limitations under the License.
 #
 
+include Chef::RVM::StringHelpers
+include Chef::RVM::EnvironmentHelpers
+include Chef::RVM::ShellHelpers
+
 action :run do
   ruby_string = normalize_ruby_string(new_resource.ruby_string)
 

@@ -26,6 +26,7 @@ class Chef
     class StringCache
       class << self
         include Chef::Mixin::Command
+        include Chef::RVM::ShellHelpers
       end
 
       def self.[](str)

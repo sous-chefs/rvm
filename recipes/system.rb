@@ -24,6 +24,11 @@
 # For more information on the 'action :nothing' and 'run_action(:foo)' usages see
 # http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
 
+class Chef::Resource
+  # inject #rvm_cmd_wrap helper into resources
+  include Chef::RVM::ShellHelpers
+end
+
 script_flags = ""
 if node['rvm']['version']
   script_flags += " --version #{node['rvm']['version']}"

@@ -20,6 +20,10 @@
 #
 
 action :create do
+include Chef::RVM::StringHelpers
+include Chef::RVM::RubyHelpers
+include Chef::RVM::GemsetHelpers
+
   if new_resource.ruby_string
     rubie   = normalize_ruby_string(new_resource.ruby_string)
     gemset  = new_resource.gemset
