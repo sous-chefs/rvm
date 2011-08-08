@@ -46,8 +46,10 @@ class Chef
 
         result = stdout.read.split('\n').first.chomp
         if result =~ /^-/   # if the result has a leading dash, value is bogus
+          Chef::Log.warn("Could not determine canonical RVM string for: #{str}")
           nil
         else
+          Chef::Log.debug("Canonical RVM string is: #{str} => #{result}")
           result
         end
       end
