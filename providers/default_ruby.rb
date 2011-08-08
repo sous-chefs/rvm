@@ -37,7 +37,7 @@ action :create do
   end
 
   Chef::Log.info("Setting default ruby to rvm_ruby[#{@ruby_string}]")
-  env = RVM::Environment.new
+  env = ::RVM::Environment.new
   env.rvm :use, @ruby_string, :default => true
 end
 
