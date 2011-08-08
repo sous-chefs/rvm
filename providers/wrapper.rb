@@ -35,7 +35,7 @@ action :create do
     e.run_action(:create)
   end
 
-  env = RVM::Environment.new
+  env = ::RVM::Environment.new
   env.use ruby_string
 
   binaries.each do |b|

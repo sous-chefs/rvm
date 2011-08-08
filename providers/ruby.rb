@@ -34,9 +34,9 @@ action :install do
 
     Chef::Log.info("Building rvm_ruby[#{rubie}], this could take awhile...")
 
-    if RVM.install(rubie)
+    if ::RVM.install(rubie)
       Chef::Log.info("Installation of rvm_ruby[#{rubie}] was successful.")
-      env = RVM::Environment.new
+      env = ::RVM::Environment.new
       env.use rubie
       update_installed_rubies
 
@@ -49,7 +49,7 @@ action :install do
       end
     else
       Chef::Log.warn("Failed to install rvm_ruby[#{rubie}]. " +
-        "Check logs in #{RVM.path}/log/#{rubie}")
+        "Check logs in #{::RVM.path}/log/#{rubie}")
     end
 
     Chef::Log.debug("rvm_ruby[#{rubie}] build time was " +
@@ -66,12 +66,12 @@ action :uninstall do
   elsif ruby_installed?(rubie)
     Chef::Log.info("Uninstalling rvm_ruby[#{rubie}]")
 
-    if RVM.uninstall(rubie)
+    if ::RVM.uninstall(rubie)
       update_installed_rubies
       Chef::Log.debug("Uninstallation of rvm_ruby[#{rubie}] was successful.")
     else
       Chef::Log.warn("Failed to uninstall rvm_ruby[#{rubie}]. " +
-        "Check logs in #{RVM.path}/log/#{rubie}")
+        "Check logs in #{::RVM.path}/log/#{rubie}")
     end
   else
     Chef::Log.debug("rvm_ruby[#{rubie}] was not installed, so skipping")
@@ -87,12 +87,12 @@ action :remove do
   elsif ruby_installed?(rubie)
     Chef::Log.info("Removing rvm_ruby[#{rubie}]")
 
-    if RVM.remove(rubie)
+    if ::RVM.remove(rubie)
       update_installed_rubies
       Chef::Log.debug("Removal of rvm_ruby[#{rubie}] was successful.")
     else
       Chef::Log.warn("Failed to remove rvm_ruby[#{rubie}]. " +
-        "Check logs in #{RVM.path}/log/#{rubie}")
+        "Check logs in #{::RVM.path}/log/#{rubie}")
     end
   else
     Chef::Log.debug("rvm_ruby[#{rubie}] was not installed, so skipping")

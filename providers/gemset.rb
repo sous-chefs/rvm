@@ -41,7 +41,7 @@ action :create do
   else
     Chef::Log.info("Creating rvm_gemset[#{full_name}]")
 
-    env = RVM::Environment.new
+    env = ::RVM::Environment.new
     env.use rubie
     if env.gemset_create gemset
       update_installed_gemsets(rubie)
@@ -65,7 +65,7 @@ action :delete do
   if gemset_exists?(:ruby => rubie, :gemset => gemset)
     Chef::Log.info("Deleting rvm_gemset[#{full_name}]")
 
-    env = RVM::Environment.new
+    env = ::RVM::Environment.new
     env.use rubie
     if env.gemset_delete gemset
       update_installed_gemsets(rubie)
@@ -91,7 +91,7 @@ action :empty do
   if gemset_exists?(:ruby => rubie, :gemset => gemset)
     Chef::Log.info("Emptying rvm_gemset[#{full_name}]")
 
-    env = RVM::Environment.new
+    env = ::RVM::Environment.new
     env.use full_name
     if env.gemset_empty
       update_installed_gemsets(rubie)
@@ -124,7 +124,7 @@ action :update do
     c.run_action(:create)
   end
 
-  env = RVM::Environment.new
+  env = ::RVM::Environment.new
   env.use full_name
   if env.gemset_update
     update_installed_gemsets(rubie)

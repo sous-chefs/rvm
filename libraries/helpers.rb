@@ -51,7 +51,7 @@ end
 #
 # @return [Array] the list of currently installed rvm rubies
 def update_installed_rubies
-  @installed_rubies = RVM.list_strings
+  @installed_rubies = ::RVM.list_strings
   @installed_rubies
 end
 
@@ -112,7 +112,7 @@ end
 #
 # @return [Array] the list of known ruby strings
 def update_known_rubies
-  @known_rubies = RVM.list_known_strings
+  @known_rubies = ::RVM.list_known_strings
   @known_rubies
 end
 
@@ -130,7 +130,7 @@ end
 #
 # @return [String] the fully qualified RVM ruby string, nil if none is set
 def current_ruby_default
-  RVM.list_default
+  ::RVM.list_default
 end
 
 ##
@@ -203,7 +203,7 @@ end
 # @param [String, #to_s] the fully qualified RVM ruby string
 # @return [Array] the current list of gemsets
 def update_installed_gemsets(rubie)
-  env = RVM::Environment.new
+  env = ::RVM::Environment.new
   env.use rubie
 
   @installed_gemsets ||= {}
