@@ -151,7 +151,7 @@ class Chef
           else
             cmd << %{ -a#{opts}}
           end
-          shell_out!(cmd, :env=>nil)
+          shell_out!(rvm_wrap_cmd(cmd), :env=>nil)
         end
       end
     end
