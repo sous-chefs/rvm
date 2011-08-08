@@ -19,42 +19,52 @@
 # limitations under the License.
 #
 
-action :create do
-  ruby_string = normalize_ruby_string(new_resource.ruby_string)
 include Chef::RVM::StringHelpers
 include Chef::RVM::EnvironmentHelpers
-  if new_resource.binary.nil?
-    binaries = new_resource.binaries || []
-  else
-    binaries = [ new_resource.binary ] || []
-  end
 
+def load_current_resource
+  @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
+  @gemset       = select_gemset(new_resource.ruby_string)
+  @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
+
+  if new_resource.binary.nil?
+    @binaries = new_resource.binaries || []
+  else
+    @binaries = [ new_resource.binary ] || []
+  end
+end
+
+action :create do
   # ensure ruby is installed and gemset exists
-  unless env_exists?(ruby_string)
-    e = rvm_environment ruby_string do
+  unless env_exists?(@ruby_string)
+    e = rvm_environment @ruby_string do
       action :nothing
     end
     e.run_action(:create)
   end
 
   env = ::RVM::Environment.new
-  env.use ruby_string
+  env.use @ruby_string
 
-  binaries.each do |b|
-    full_bin = "#{new_resource.prefix}_#{b}"
-    resource_name = "rvm_wrapper[#{full_bin}::#{ruby_string}]"
-    script = ::File.join(::File.dirname(node['rvm']['root_path']), "bin", full_bin)
+  @binaries.each { |b| create_wrapper(b) }
+end
 
-    if ::File.exists?(script)
-      Chef::Log.debug("#{resource_name} already exists, so updating")
-    else
-      Chef::Log.info("Creating #{resource_name}")
-    end
+private
 
-    if env.wrapper ruby_string, new_resource.prefix, b
-      Chef::Log.debug("Creation/Update of #{resource_name} was successful.")
-    else
-      Chef::Log.warn("Failed to create/update #{resource_name}.")
-    end
+def create_wrapper(bin)
+  full_bin = "#{new_resource.prefix}_#{bin}"
+  resource_name = "rvm_wrapper[#{full_bin}::#{@ruby_string}]"
+  script = ::File.join(::File.dirname(node['rvm']['root_path']), "bin", full_bin)
+
+  if ::File.exists?(script)
+    Chef::Log.debug("#{resource_name} already exists, so updating")
+  else
+    Chef::Log.info("Creating #{resource_name}")
+  end
+
+  if env.wrapper @ruby_string, new_resource.prefix, bin
+    Chef::Log.debug("Creation/Update of #{resource_name} was successful.")
+  else
+    Chef::Log.warn("Failed to create/update #{resource_name}.")
   end
 end
