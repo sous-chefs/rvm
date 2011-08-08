@@ -116,12 +116,8 @@ class Chef
         end
 
         def install_package(name, version)
-          ruby_strings_normalized = ruby_strings.map do |ruby_string|
-            normalize_ruby_string(ruby_string)
-          end
-
           # ensure each ruby is installed and gemset exists
-          ruby_strings_normalized.each do |rubie|
+          ruby_strings.each do |rubie|
             next if rubie = 'system'
             e = rvm_environment rubie do
               action :nothing
