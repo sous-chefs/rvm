@@ -23,23 +23,34 @@ include Chef::RVM::StringHelpers
 include Chef::RVM::EnvironmentHelpers
 include Chef::RVM::ShellHelpers
 
-action :run do
-  ruby_string = normalize_ruby_string(new_resource.ruby_string)
-
-  if env_exists?(ruby_string)
-    script_wrapper :run
-  else
-    Chef::Log.warn("rvm_environment[#{ruby_string}] not created, so skipping")
-  end
+def load_current_resource
+  @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
+  @gemset       = select_gemset(new_resource.ruby_string)
+  @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
 end
 
+action :run do
+  next if skip_shell?
+
+  script_wrapper :run
+end
+
+private
+
+def skip_shell?
+  if env_exists?(@ruby_string)
+    false
+  else
+    Chef::Log.warn("rvm_environment[#{ruby_string}] not created, so skipping")
+    true
+  end
+end
 
 ##
 # Wraps the script resource for RVM-dependent code.
 #
 # @param [Symbol] action to be performed with gem_package provider
-# @param [optional, String, #to_s] the fully qualifed rvm string
-def script_wrapper(exec_action, ruby_string=new_resource.ruby_string)
+def script_wrapper(exec_action)
   profile = find_profile_to_source
 
   script_code = <<-CODE
@@ -49,7 +60,7 @@ def script_wrapper(exec_action, ruby_string=new_resource.ruby_string)
       source "#{profile}"
     fi
 
-    rvm use #{ruby_string}
+    rvm use #{@ruby_string}
 
     #{new_resource.code}
   CODE
