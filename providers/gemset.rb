@@ -19,121 +19,96 @@
 # limitations under the License.
 #
 
-action :create do
 include Chef::RVM::StringHelpers
 include Chef::RVM::RubyHelpers
 include Chef::RVM::GemsetHelpers
 
+def load_current_resource
   if new_resource.ruby_string
-    rubie   = normalize_ruby_string(new_resource.ruby_string)
-    gemset  = new_resource.gemset
+    @rubie      = normalize_ruby_string(select_ruby(new_resource.ruby_string))
+    @gemset     = new_resource.gemset
   else
-    rubie   = select_ruby(normalize_ruby_string(new_resource.gemset))
-    gemset  = select_gemset(normalize_ruby_string(new_resource.gemset))
+    @rubie      = normalize_ruby_string(select_ruby(new_resource.gemset))
+    @gemset     = select_gemset(new_resource.gemset)
   end
-  full_name = "#{rubie}@#{gemset}"
+  @ruby_string  = "#{@rubie}@#{@gemset}"
+end
 
-  unless ruby_installed?(rubie)
-    r = rvm_ruby rubie do
+action :create do
+  unless ruby_installed?(@rubie)
+    r = rvm_ruby @rubie do
       action :nothing
     end
     r.run_action(:install)
   end
 
-  if gemset_exists?(:ruby => rubie, :gemset => gemset)
-    Chef::Log.debug("rvm_gemset[#{full_name}] already exists, so skipping")
+  if gemset_exists?(:ruby => @rubie, :gemset => @gemset)
+    Chef::Log.debug("rvm_gemset[#{@ruby_string}] already exists, so skipping")
   else
-    Chef::Log.info("Creating rvm_gemset[#{full_name}]")
+    Chef::Log.info("Creating rvm_gemset[#{@ruby_string}]")
 
     env = ::RVM::Environment.new
-    env.use rubie
-    if env.gemset_create gemset
-      update_installed_gemsets(rubie)
-      Chef::Log.debug("Creation of rvm_gemset[#{full_name}] was successful.")
+    env.use @rubie
+    if env.gemset_create @gemset
+      update_installed_gemsets(@rubie)
+      Chef::Log.debug("Creation of rvm_gemset[#{@ruby_string}] was successful.")
     else
-      Chef::Log.warn("Failed to create rvm_gemset[#{full_name}].")
+      Chef::Log.warn("Failed to create rvm_gemset[#{@ruby_string}].")
     end
   end
 end
 
 action :delete do
-  if new_resource.ruby_string
-    rubie   = normalize_ruby_string(new_resource.ruby_string)
-    gemset  = new_resource.gemset
-  else
-    rubie   = select_ruby(normalize_ruby_string(new_resource.gemset))
-    gemset  = select_gemset(normalize_ruby_string(new_resource.gemset))
-  end
-  full_name = "#{rubie}@#{gemset}"
-
-  if gemset_exists?(:ruby => rubie, :gemset => gemset)
-    Chef::Log.info("Deleting rvm_gemset[#{full_name}]")
+  if gemset_exists?(:ruby => @rubie, :gemset => @gemset)
+    Chef::Log.info("Deleting rvm_gemset[#{@ruby_string}]")
 
     env = ::RVM::Environment.new
-    env.use rubie
-    if env.gemset_delete gemset
-      update_installed_gemsets(rubie)
-      Chef::Log.debug("Deletion of rvm_gemset[#{full_name}] was successful.")
+    env.use @rubie
+    if env.gemset_delete @gemset
+      update_installed_gemsets(@rubie)
+      Chef::Log.debug("Deletion of rvm_gemset[#{@ruby_string}] was successful.")
     else
-      Chef::Log.warn("Failed to delete rvm_gemset[#{full_name}].")
+      Chef::Log.warn("Failed to delete rvm_gemset[#{@ruby_string}].")
     end
   else
-    Chef::Log.debug("rvm_gemset[#{full_name}] does not exist, so skipping")
+    Chef::Log.debug("rvm_gemset[#{@ruby_string}] does not exist, so skipping")
   end
 end
 
 action :empty do
-  if new_resource.ruby_string
-    rubie   = normalize_ruby_string(new_resource.ruby_string)
-    gemset  = new_resource.gemset
-  else
-    rubie   = select_ruby(normalize_ruby_string(new_resource.gemset))
-    gemset  = select_gemset(normalize_ruby_string(new_resource.gemset))
-  end
-  full_name = "#{rubie}@#{gemset}"
-
-  if gemset_exists?(:ruby => rubie, :gemset => gemset)
-    Chef::Log.info("Emptying rvm_gemset[#{full_name}]")
+  if gemset_exists?(:ruby => @rubie, :gemset => @gemset)
+    Chef::Log.info("Emptying rvm_gemset[#{@ruby_string}]")
 
     env = ::RVM::Environment.new
-    env.use full_name
+    env.use @ruby_string
     if env.gemset_empty
-      update_installed_gemsets(rubie)
-      Chef::Log.debug("Emptying of rvm_gemset[#{full_name}] was successful.")
+      update_installed_gemsets(@rubie)
+      Chef::Log.debug("Emptying of rvm_gemset[#{@ruby_string}] was successful.")
     else
-      Chef::Log.warn("Failed to empty rvm_gemset[#{full_name}].")
+      Chef::Log.warn("Failed to empty rvm_gemset[#{@ruby_string}].")
     end
   else
-    Chef::Log.debug("rvm_gemset[#{full_name}] does not exist, so skipping")
+    Chef::Log.debug("rvm_gemset[#{@ruby_string}] does not exist, so skipping")
   end
 end
 
 action :update do
-  if new_resource.ruby_string
-    rubie   = normalize_ruby_string(new_resource.ruby_string)
-    gemset  = new_resource.gemset
-  else
-    rubie   = select_ruby(normalize_ruby_string(new_resource.gemset))
-    gemset  = select_gemset(normalize_ruby_string(new_resource.gemset))
-  end
-  full_name = "#{rubie}@#{gemset}"
-
-  Chef::Log.info("Updating rvm_gemset[#{full_name}]")
+  Chef::Log.info("Updating rvm_gemset[#{@ruby_string}]")
 
   # create gemset if it doesn't exist
-  unless gemset_exists?(:ruby => rubie, :gemset => gemset)
-    c = rvm_gemset full_name do
+  unless gemset_exists?(:ruby => @rubie, :gemset => @gemset)
+    c = rvm_gemset @ruby_string do
       action :nothing
     end
     c.run_action(:create)
   end
 
   env = ::RVM::Environment.new
-  env.use full_name
+  env.use @ruby_string
   if env.gemset_update
-    update_installed_gemsets(rubie)
-    Chef::Log.debug("Updating of rvm_gemset[#{full_name}] was successful.")
+    update_installed_gemsets(@rubie)
+    Chef::Log.debug("Updating of rvm_gemset[#{@ruby_string}] was successful.")
   else
-    Chef::Log.warn("Failed to update rvm_gemset[#{full_name}].")
+    Chef::Log.warn("Failed to update rvm_gemset[#{@ruby_string}].")
   end
 end
