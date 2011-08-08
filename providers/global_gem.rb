@@ -61,14 +61,14 @@ action :purge do
   end
 end
 
+private
+
 ##
 # Wraps the rvm_gem resource
 #
 # @param [Symbol] action to be performed with gem_package provider
 # @param [optional, String, #to_s] the fully qualifed rvm string
 def gem_package_wrapper(exec_action, ruby_global_gemset)
-  profile = find_profile_to_source
-
   g = rvm_gem new_resource.package_name do
     ruby_string ruby_global_gemset
     source      new_resource.source if new_resource.source
