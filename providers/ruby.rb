@@ -19,82 +19,132 @@
 # limitations under the License.
 #
 
-action :install do
-  rubie = select_ruby(new_resource.ruby_string)
+def load_current_resource
+  @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
+  @ruby_string  = @rubie
+end
 
-  if ruby_unknown?(rubie)
-    Chef::Log.warn("rvm_ruby[#{rubie}] is either not fully qualified or not " +
-      "known . Use `rvm list known` to get a full list.")
-  elsif ruby_installed?(rubie)
-    Chef::Log.debug("rvm_ruby[#{rubie}] is already installed, so skipping")
+action :install do
+  next if skip_ruby?
+
+  if ruby_installed?(@rubie)
+    Chef::Log.debug("rvm_ruby[#{@rubie}] is already installed, so skipping")
   else
     install_start = Time.now
 
-    install_ruby_dependencies rubie
+    install_ruby_dependencies @rubie
 
-    Chef::Log.info("Building rvm_ruby[#{rubie}], this could take awhile...")
+    Chef::Log.info("Building rvm_ruby[#{@rubie}], this could take awhile...")
 
-    if ::RVM.install(rubie)
-      Chef::Log.info("Installation of rvm_ruby[#{rubie}] was successful.")
+    if ::RVM.install(@rubie)
+      Chef::Log.info("Installation of rvm_ruby[#{@rubie}] was successful.")
       env = ::RVM::Environment.new
-      env.use rubie
+      env.use @rubie
       update_installed_rubies
 
-      Chef::Log.info("Importing initial gemsets for rvm_ruby[#{rubie}]")
+      Chef::Log.info("Importing initial gemsets for rvm_ruby[#{@rubie}]")
       if env.gemset_initial
-        Chef::Log.debug("Initial gemsets for rvm_ruby[#{rubie}] are installed")
+        Chef::Log.debug("Initial gemsets for rvm_ruby[#{@rubie}] are installed")
       else
         Chef::Log.warn(
-          "Failed to install initial gemsets for rvm_ruby[#{rubie}] ")
+          "Failed to install initial gemsets for rvm_ruby[#{@rubie}] ")
       end
     else
-      Chef::Log.warn("Failed to install rvm_ruby[#{rubie}]. " +
-        "Check logs in #{::RVM.path}/log/#{rubie}")
+      Chef::Log.warn("Failed to install rvm_ruby[#{@rubie}]. " +
+        "Check logs in #{::RVM.path}/log/#{@rubie}")
     end
 
-    Chef::Log.debug("rvm_ruby[#{rubie}] build time was " +
+    Chef::Log.debug("rvm_ruby[#{@rubie}] build time was " +
       "#{(Time.now - install_start)/60.0} minutes.")
   end
 end
 
 action :uninstall do
-  rubie = new_resource.ruby_string
+  next if skip_ruby?
 
-  if ruby_unknown?(rubie)
-    Chef::Log.warn("rvm_ruby[#{rubie}] is either not fully qualified or not " +
-      "known . Use `rvm list known` to get a full list.")
-  elsif ruby_installed?(rubie)
-    Chef::Log.info("Uninstalling rvm_ruby[#{rubie}]")
+  if ruby_installed?(@rubie)
+    Chef::Log.info("Uninstalling rvm_ruby[#{@rubie}]")
 
-    if ::RVM.uninstall(rubie)
+    if ::RVM.uninstall(@rubie)
       update_installed_rubies
-      Chef::Log.debug("Uninstallation of rvm_ruby[#{rubie}] was successful.")
+      Chef::Log.debug("Uninstallation of rvm_ruby[#{@rubie}] was successful.")
     else
-      Chef::Log.warn("Failed to uninstall rvm_ruby[#{rubie}]. " +
-        "Check logs in #{::RVM.path}/log/#{rubie}")
+      Chef::Log.warn("Failed to uninstall rvm_ruby[#{@rubie}]. " +
+        "Check logs in #{::RVM.path}/log/#{@rubie}")
     end
   else
-    Chef::Log.debug("rvm_ruby[#{rubie}] was not installed, so skipping")
+    Chef::Log.debug("rvm_ruby[#{@rubie}] was not installed, so skipping")
   end
 end
 
 action :remove do
-  rubie = new_resource.ruby_string
+  next if skip_ruby?
 
-  if ruby_unknown?(rubie)
-    Chef::Log.warn("rvm_ruby[#{rubie}] is either not fully qualified or not " +
-      "known . Use `rvm list known` to get a full list.")
-  elsif ruby_installed?(rubie)
-    Chef::Log.info("Removing rvm_ruby[#{rubie}]")
+  if ruby_installed?(@rubie)
+    Chef::Log.info("Removing rvm_ruby[#{@rubie}]")
 
-    if ::RVM.remove(rubie)
+    if ::RVM.remove(@rubie)
       update_installed_rubies
-      Chef::Log.debug("Removal of rvm_ruby[#{rubie}] was successful.")
+      Chef::Log.debug("Removal of rvm_ruby[#{@rubie}] was successful.")
     else
-      Chef::Log.warn("Failed to remove rvm_ruby[#{rubie}]. " +
-        "Check logs in #{::RVM.path}/log/#{rubie}")
+      Chef::Log.warn("Failed to remove rvm_ruby[#{@rubie}]. " +
+        "Check logs in #{::RVM.path}/log/#{@rubie}")
     end
   else
-    Chef::Log.debug("rvm_ruby[#{rubie}] was not installed, so skipping")
+    Chef::Log.debug("rvm_ruby[#{@rubie}] was not installed, so skipping")
+  end
+end
+
+private
+
+def skip_ruby?
+  if @rubie.nil?
+    Chef::Log.warn("#{self.class.name}: RVM ruby string `#{@rubie}' " +
+      "is not known. Use `rvm list known` to get a full list.")
+    true
+  else
+    false
+  end
+end
+
+##
+# Installs any package dependencies needed by a given ruby
+#
+# @param [String, #to_s] the fully qualified RVM ruby string
+def install_ruby_dependencies(rubie)
+  pkgs = []
+  if rubie =~ /^1\.[89]\../ || rubie =~ /^ree/ || rubie =~ /^ruby-/
+    case node[:platform]
+      when "debian","ubuntu"
+        pkgs = %w{ build-essential bison openssl libreadline6 libreadline6-dev
+                   zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0
+                   libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev ssl-cert }
+        pkgs += %w{ git-core subversion autoconf } if rubie =~ /^ruby-head$/
+      when "suse"
+        pkgs = %w{ gcc-c++ patch zlib zlib-devel libffi-devel
+                   sqlite3-devel libxml2-devel libxslt-devel }
+        if node.platform_version.to_f >= 11.0
+          pkgs += %w{ libreadline5 readline-devel libopenssl-devel }
+        else
+          pkgs += %w{ readline readline-devel openssl-devel }
+        end
+        pkgs += %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
+      when "centos","redhat","fedora"
+        pkgs = %w{ gcc-c++ patch readline readline-devel zlib zlib-devel
+                   libyaml-devel libffi-devel openssl-devel }
+        pkgs += %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
+    end
+  elsif rubie =~ /^jruby/
+    # TODO: need to figure out how to pull in java recipe only when needed. For
+    # now, users of jruby will have to add the "java" recipe to their run_list.
+    #include_recipe "java"
+    pkgs << "g++"
+  end
+
+  pkgs.each do |pkg|
+    p = package pkg do
+      action :nothing
+    end
+    p.run_action(:install)
   end
 end
