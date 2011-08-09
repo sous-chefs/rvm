@@ -51,3 +51,12 @@ default['rvm']['gems'] = Hash.new
 
 # default rvm_gem_options (skip rdoc/ri generation)
 default['rvm']['rvm_gem_options'] = "--no-rdoc --no-ri"
+
+case platform
+when "redhat","centos","fedora"
+  node.set['rvm']['install_pkgs'] = %w{sed grep tar gzip bzip2 bash curl git}
+when "debian","ubuntu","suse"
+  node.set['rvm']['install_pkgs'] = %w{sed grep tar gzip bzip2 bash curl git-core}
+end
+
+default['rvm']['user_home_root']   = '/home'

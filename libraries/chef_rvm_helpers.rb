@@ -203,5 +203,110 @@ class Chef
       # in Chef::Provider::Package::RVMRubygems and library load order cannot
       # be guarenteed.
     end
+
+    module RecipeHelpers
+      def build_script_flags(version, branch)
+        script_flags = ""
+        script_flags += " --version #{version}" if version
+        script_flags += " --branch #{branch}"   if branch
+      end
+
+      def build_upgrade_strategy(strategy)
+        if strategy.nil? || strategy == false
+          "none"
+        else
+          strategy
+        end
+      end
+
+      def install_pkg_prereqs(install_now = node.recipe?("rvm::gem_package"))
+        node['rvm']['install_pkgs'].each do |pkg|
+          p = package pkg do
+            # excute in compile phase if gem_package recipe is requested
+            if install_now
+              action :nothing
+            else
+              action :install
+            end
+          end
+          p.run_action(:install) if install_now
+        end
+      end
+
+      def install_rvm(opts = {})
+        install_now = node.recipe?("rvm::gem_package")
+
+        exec_name = if opts[:user]
+                      "install user RVM for #{ops[:user]}"
+                    else
+                      "install system-wide RVM"
+                    end
+
+        i = execute exec_name do
+          user    opts[:user] || "root"
+          command <<-CODE
+            bash -c "bash \
+              <( curl -Ls #{opts[:installer_url]} )#{opts[:script_flags]}"
+          CODE
+          not_if  rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
+
+          # excute in compile phase if gem_package recipe is requested
+          if install_now
+            action :nothing
+          else
+            action :run
+          end
+        end
+        i.run_action(:run) if install_now
+      end
+
+      def upgrade_rvm(opts = {})
+        install_now = node.recipe?("rvm::gem_package")
+
+        exec_name = if opts[:user]
+          "upgrade user RVM for #{ops[:user]} to #{opts[:upgrade_strategy]}"
+        else
+          "upgrade system-wide RVM to #{opts[:upgrade_strategy]}"
+        end
+
+        u = execute exec_name do
+          user      opts[:user] || "root"
+          command   rvm_wrap_cmd(%{rvm get #{opts[:upgrade_strategy]}})
+          only_if   { %w{ latest head }.include?(opts[:upgrade_strategy]) }
+
+          # excute in compile phase if gem_package recipe is requested
+          if install_now
+            action :nothing
+          else
+            action :run
+          end
+        end
+        u.run_action(:run) if install_now
+      end
+
+      def rvmrc_template(opts = {})
+        install_now = node.recipe?("rvm::gem_package")
+
+        system_install = opts[:user] ? false : true
+
+        t = template opts[:rvmrc_file] do
+          source      "rvmrc.erb"
+          owner       opts[:user] || "root"
+          mode        "0644"
+          variables   :system_install   => system_install,
+                      :rvm_path         => opts[:rvm_path],
+                      :rvm_gem_options  => opts[:rvm_gem_options],
+                      :rvmrc            => opts[:rvmrc]
+
+          # excute in compile phase if gem_package recipe is requested
+          if install_now
+            action :nothing
+          else
+            action :create
+          end
+        end
+        t.run_action(:create) if install_now
+      end
+    end
   end
 end
