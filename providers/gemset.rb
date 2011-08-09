@@ -32,7 +32,7 @@ def load_current_resource
     @gemset     = select_gemset(new_resource.gemset)
   end
   @ruby_string  = "#{@rubie}@#{@gemset}"
-  @rvm_env      = ::RVM::ChefUserEnvironment.new()
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
 end
 
 action :create do

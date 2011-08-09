@@ -22,7 +22,7 @@
 include Chef::RVM::RubyHelpers
 
 def load_current_resource
-  @rvm_env      = ::RVM::ChefUserEnvironment.new()
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
 end
 
 action :install do
