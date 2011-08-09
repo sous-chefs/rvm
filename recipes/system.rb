@@ -17,53 +17,14 @@
 # limitations under the License.
 #
 
-# thanks to:
-# - http://www.agileweboperations.com/chef-rvm-ruby-enterprise-edition-as-default-ruby/
-# - http://github.com/denimboy/xprdev/blob/master/rvm/recipes/default.rb
+script_flags      = build_script_flags(node['rvm']['version'], node['rvm']['branch'])
+upgrade_strategy  = build_upgrade_strategy(node['rvm']['upgrade'])
+installer_url     = node['rvm']['installer_url']
+rvm_path          = node['rvm']['root_path']
+rvm_gem_options   = node['rvm']['rvm_gem_options']
+rvmrc             = node['rvm']['rvmrc']
 
-# For more information on the 'action :nothing' and 'run_action(:foo)' usages see
-# http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
-
-class Chef::Resource
-  # inject #rvm_cmd_wrap helper into resources
-  include Chef::RVM::ShellHelpers
-end
-
-script_flags = ""
-if node['rvm']['version']
-  script_flags += " --version #{node['rvm']['version']}"
-end
-if node['rvm']['branch']
-  script_flags += " --branch #{node['rvm']['branch']}"
-end
-
-upgrade_strategy = if node['rvm']['upgrade'].nil? || node['rvm']['upgrade'] == false
-  "none"
-else
-  node['rvm']['upgrade']
-end
-
-gem_package_included = node.recipe?("rvm::gem_package")
-
-pkgs = %w{ sed grep tar gzip bzip2 bash curl }
-case node[:platform]
-  when "centos","redhat","fedora"
-    pkgs << "git"
-  when "debian","ubuntu","suse"
-    pkgs << "git-core"
-end
-
-pkgs.each do |pkg|
-  p = package pkg do
-    # excute in compile phase if gem_package recipe is requested
-    if gem_package_included
-      action :nothing
-    else
-      action :install
-    end
-  end
-  p.run_action(:install) if gem_package_included
-end
+install_pkg_prereqs
 
 # Build the rvm group ahead of time, if it is set. This allows avoiding
 # collision with later processes which may set a guid explicitly
@@ -76,47 +37,12 @@ if node['rvm']['group_id'] != 'default'
   g.run_action(:create)
 end
 
-i = execute "install system-wide RVM" do
-  user      "root"
-  command   <<-CODE
-    bash -c "bash <( curl -Ls #{node['rvm']['installer_url']} )#{script_flags}"
-  CODE
-  not_if    rvm_wrap_cmd(%{type rvm | head -1 | grep -q '^rvm is a function$'})
+rvmrc_template  :rvm_path => rvm_path,
+                :rvm_gem_options => rvm_gem_options,
+                :rvmrc => rvmrc,
+                :rvmrc_file => "/etc/rvmrc"
 
-  # excute in compile phase if gem_package recipe is requested
-  if gem_package_included
-    action :nothing
-  else
-    action :run
-  end
-end
-i.run_action(:run) if gem_package_included
+install_rvm     :installer_url => installer_url,
+                :script_flags => script_flags
 
-t = template  "/etc/rvmrc" do
-  source  "rvmrc.erb"
-  owner   "root"
-  group   "rvm"
-  mode    "0644"
-
-  # excute in compile phase if gem_package recipe is requested
-  if gem_package_included
-    action :nothing
-  else
-    action :create
-  end
-end
-t.run_action(:create) if gem_package_included
-
-u = execute "upgrade RVM to #{upgrade_strategy}" do
-  user      "root"
-  command   rvm_wrap_cmd(%{rvm get #{upgrade_strategy}})
-  only_if   { %w{ latest head }.include? upgrade_strategy }
-
-  # excute in compile phase if gem_package recipe is requested
-  if gem_package_included
-    action :nothing
-  else
-    action :run
-  end
-end
-u.run_action(:run) if gem_package_included
+upgrade_rvm     :upgrade_strategy => upgrade_strategy
