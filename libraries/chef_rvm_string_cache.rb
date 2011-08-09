@@ -32,7 +32,13 @@ class Chef
       def self.[](str)
         @@strings ||= Hash.new
         return @@strings[str] if @@strings.has_key?(str)
-        @@strings[str] = canonical_ruby_string(str)
+        result = canonical_ruby_string(str)
+        # cache everything except default environment
+        if result == 'default'
+          result
+        else
+          @@strings[str] = result
+        end
       end
 
       protected
