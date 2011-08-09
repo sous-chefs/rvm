@@ -43,7 +43,7 @@ class Chef
       # @param [String, #to_s] the fully qualified RVM ruby string
       # @return [String] the gemset string, minus ruby or nil if no gemset given
       def select_gemset(ruby_string)
-        if string_include_gemset?(ruby_string)
+        if ruby_string.include?('@')
           ruby_string.split('@').last
         else
           nil
@@ -59,30 +59,9 @@ class Chef
         return "system" if ruby_string == "system"
         StringCache[ruby_string]
       end
-
-      private
-
-      ##
-      # Determines whether or not there is a gemset defined in a given ruby string
-      #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [Boolean] does the ruby string appear to have a gemset included?
-      def string_include_gemset?(ruby_string)
-        ruby_string.include?('@')
-      end
     end
 
     module RubyHelpers
-      ##
-      # Determines if given ruby string is moderatley sane and potentially legal
-      #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [Boolean] is this ruby string sane?
-      def ruby_string_sane?(rubie)
-        return true if ['goruby', 'ree', 'kiji'].include?(rubie) # rubies with aliases
-        return true if rubie =~ /^[^-]+-[^-]+/  # must be xxx-vvv at least
-      end
-
       ##
       # Lists all installed RVM rubies on the system.
       #
@@ -109,68 +88,7 @@ class Chef
       # @param [String, #to_s] the fully qualified RVM ruby string
       # @return [Boolean] is this ruby installed?
       def ruby_installed?(rubie)
-        return false unless ruby_string_sane?(rubie)
-
         ! installed_rubies.select { |r| r.start_with?(rubie) }.empty?
-      end
-
-      ##
-      # Inverse of #ruby_installed?
-      #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [Boolean] is this ruby not installed?
-      def ruby_not_installed?(rubie)
-        !ruby_installed?(rubie)
-      end
-
-      ##
-      # Determines whether or not the given ruby is a known ruby string
-      #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [Boolean] is this ruby in the known ruby string list?
-      def ruby_known?(rubie)
-        return true if rubie == 'system'
-        return false unless ruby_string_sane?(rubie)
-
-        matches = known_rubies.select { |r| r.start_with?(rubie) }
-        if matches.empty?
-          # last-ditch attempt at matching. we'll drop the last -.*$ bit off the
-          # string assuming that the rubie contains a non-default patchlevel that
-          # will actually exist
-          fuzzier_rubie = rubie.sub(/-[^-]+$/, '')
-          return ! known_rubies.select { |r| r.start_with?(fuzzier_rubie) }.empty?
-        else
-          return true
-        end
-      end
-
-      ##
-      # List all known RVM ruby strings.
-      #
-      # **Note** that these values are cached for lookup speed. To flush these
-      # values and force an update, call #update_known_rubies.
-      #
-      # @return [Array] the cached list of known ruby strings
-      def known_rubies
-        @known_rubies ||= update_known_rubies
-      end
-
-      ##
-      # Updates the list of all known RVM strings.
-      #
-      # @return [Array] the list of known ruby strings
-      def update_known_rubies
-        @known_rubies = ::RVM.list_known_strings
-        @known_rubies
-      end
-
-      ##
-      # Inverse of #ruby_known?
-      #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [Boolean] is this ruby an unknown ruby string?
-      def ruby_unknown?(rubie)
-        !ruby_known?(rubie)
       end
 
       ##
