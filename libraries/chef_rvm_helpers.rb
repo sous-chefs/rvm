@@ -237,7 +237,7 @@ class Chef
         install_now = node.recipe?("rvm::gem_package")
 
         exec_name = if opts[:user]
-                      "install user RVM for #{ops[:user]}"
+                      "install user RVM for #{opts[:user]}"
                     else
                       "install system-wide RVM"
                     end
@@ -264,7 +264,7 @@ class Chef
         install_now = node.recipe?("rvm::gem_package")
 
         exec_name = if opts[:user]
-          "upgrade user RVM for #{ops[:user]} to #{opts[:upgrade_strategy]}"
+          "upgrade user RVM for #{opts[:user]} to #{opts[:upgrade_strategy]}"
         else
           "upgrade system-wide RVM to #{opts[:upgrade_strategy]}"
         end
