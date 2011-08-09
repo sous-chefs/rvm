@@ -26,6 +26,7 @@ def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @gemset       = select_gemset(new_resource.ruby_string)
   @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
+  @rvm_env      = ::RVM::ChefUserEnvironment.new()
 end
 
 action :create do
@@ -40,8 +41,7 @@ action :create do
   end
 
   Chef::Log.info("Setting default ruby to rvm_ruby[#{@ruby_string}]")
-  env = ::RVM::Environment.new
-  env.rvm :use, @ruby_string, :default => true
+  @rvm_env.rvm :use, @ruby_string, :default => true
 end
 
 private

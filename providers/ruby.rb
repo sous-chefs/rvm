@@ -25,6 +25,7 @@ include Chef::RVM::RubyHelpers
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @ruby_string  = @rubie
+  @rvm_env      = ::RVM::ChefUserEnvironment.new()
 end
 
 action :install do
@@ -39,14 +40,13 @@ action :install do
 
     Chef::Log.info("Building rvm_ruby[#{@rubie}], this could take awhile...")
 
-    if ::RVM.install(@rubie)
+    if @rvm_env.install(@rubie)
       Chef::Log.info("Installation of rvm_ruby[#{@rubie}] was successful.")
-      env = ::RVM::Environment.new
-      env.use @rubie
+      @rvm_env.use @rubie
       update_installed_rubies
 
       Chef::Log.info("Importing initial gemsets for rvm_ruby[#{@rubie}]")
-      if env.gemset_initial
+      if @rvm_env.gemset_initial
         Chef::Log.debug("Initial gemsets for rvm_ruby[#{@rubie}] are installed")
       else
         Chef::Log.warn(
@@ -68,7 +68,7 @@ action :uninstall do
   if ruby_installed?(@rubie)
     Chef::Log.info("Uninstalling rvm_ruby[#{@rubie}]")
 
-    if ::RVM.uninstall(@rubie)
+    if @rvm_env.uninstall(@rubie)
       update_installed_rubies
       Chef::Log.debug("Uninstallation of rvm_ruby[#{@rubie}] was successful.")
     else
@@ -86,7 +86,7 @@ action :remove do
   if ruby_installed?(@rubie)
     Chef::Log.info("Removing rvm_ruby[#{@rubie}]")
 
-    if ::RVM.remove(@rubie)
+    if @rvm_env.remove(@rubie)
       update_installed_rubies
       Chef::Log.debug("Removal of rvm_ruby[#{@rubie}] was successful.")
     else

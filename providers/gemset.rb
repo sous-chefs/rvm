@@ -32,6 +32,7 @@ def load_current_resource
     @gemset     = select_gemset(new_resource.gemset)
   end
   @ruby_string  = "#{@rubie}@#{@gemset}"
+  @rvm_env      = ::RVM::ChefUserEnvironment.new()
 end
 
 action :create do
@@ -47,9 +48,8 @@ action :create do
   else
     Chef::Log.info("Creating rvm_gemset[#{@ruby_string}]")
 
-    env = ::RVM::Environment.new
-    env.use @rubie
-    if env.gemset_create @gemset
+    @rvm_env.use @rubie
+    if @rvm_env.gemset_create @gemset
       update_installed_gemsets(@rubie)
       Chef::Log.debug("Creation of rvm_gemset[#{@ruby_string}] was successful.")
     else
@@ -62,9 +62,8 @@ action :delete do
   if gemset_exists?(:ruby => @rubie, :gemset => @gemset)
     Chef::Log.info("Deleting rvm_gemset[#{@ruby_string}]")
 
-    env = ::RVM::Environment.new
-    env.use @rubie
-    if env.gemset_delete @gemset
+    @rvm_env.use @rubie
+    if @rvm_env.gemset_delete @gemset
       update_installed_gemsets(@rubie)
       Chef::Log.debug("Deletion of rvm_gemset[#{@ruby_string}] was successful.")
     else
@@ -79,9 +78,8 @@ action :empty do
   if gemset_exists?(:ruby => @rubie, :gemset => @gemset)
     Chef::Log.info("Emptying rvm_gemset[#{@ruby_string}]")
 
-    env = ::RVM::Environment.new
-    env.use @ruby_string
-    if env.gemset_empty
+    @rvm_env.use @ruby_string
+    if @rvm_env.gemset_empty
       update_installed_gemsets(@rubie)
       Chef::Log.debug("Emptying of rvm_gemset[#{@ruby_string}] was successful.")
     else
@@ -103,9 +101,8 @@ action :update do
     c.run_action(:create)
   end
 
-  env = ::RVM::Environment.new
-  env.use @ruby_string
-  if env.gemset_update
+  @rvm_env.use @ruby_string
+  if @rvm_env.gemset_update
     update_installed_gemsets(@rubie)
     Chef::Log.debug("Updating of rvm_gemset[#{@ruby_string}] was successful.")
   else

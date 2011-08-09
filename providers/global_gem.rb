@@ -21,6 +21,10 @@
 
 include Chef::RVM::RubyHelpers
 
+def load_current_resource
+  @rvm_env      = ::RVM::ChefUserEnvironment.new()
+end
+
 action :install do
   # add gem entry into global.gems
   update_global_gems_file :create

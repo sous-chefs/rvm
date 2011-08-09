@@ -26,6 +26,7 @@ def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @gemset       = select_gemset(new_resource.ruby_string)
   @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
+  @rvm_env      = ::RVM::ChefUserEnvironment.new()
 
   if new_resource.binary.nil?
     @binaries = new_resource.binaries || []
@@ -43,8 +44,7 @@ action :create do
     e.run_action(:create)
   end
 
-  env = ::RVM::Environment.new
-  env.use @ruby_string
+  @rvm_env.use @ruby_string
 
   @binaries.each { |b| create_wrapper(b) }
 end
@@ -62,7 +62,7 @@ def create_wrapper(bin)
     Chef::Log.info("Creating #{resource_name}")
   end
 
-  if env.wrapper @ruby_string, new_resource.prefix, bin
+  if @rvm_env.wrapper @ruby_string, new_resource.prefix, bin
     Chef::Log.debug("Creation/Update of #{resource_name} was successful.")
   else
     Chef::Log.warn("Failed to create/update #{resource_name}.")

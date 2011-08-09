@@ -27,6 +27,7 @@ def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @gemset       = select_gemset(new_resource.ruby_string)
   @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
+  @rvm_env      = ::RVM::ChefUserEnvironment.new()
 end
 
 action :create do

@@ -99,7 +99,7 @@ class Chef
       #
       # @return [Array] the list of currently installed rvm rubies
       def update_installed_rubies
-        @installed_rubies = ::RVM.list_strings
+        @installed_rubies = @rvm_env.list_strings
         @installed_rubies
       end
 
@@ -178,7 +178,7 @@ class Chef
       #
       # @return [String] the fully qualified RVM ruby string, nil if none is set
       def current_ruby_default
-        ::RVM.list_default
+        @rvm_env.list_default
       end
 
       ##
@@ -197,7 +197,6 @@ class Chef
           end
         end
 
-        return false unless ruby_string_sane?(rubie)
         current_default.start_with?(rubie)
       end
 
@@ -235,11 +234,12 @@ class Chef
       # @param [String, #to_s] the fully qualified RVM ruby string
       # @return [Array] the current list of gemsets
       def update_installed_gemsets(rubie)
-        env = ::RVM::Environment.new
-        env.use rubie
+        original_rubie = @rvm_env.environment_name
+        @rvm_env.use rubie
 
         @installed_gemsets ||= {}
-        @installed_gemsets[rubie] = env.gemset_list
+        @installed_gemsets[rubie] = @rvm_env.gemset_list
+        @rvm_env.use original_rubie if original_rubie != rubie
         @installed_gemsets[rubie]
       end
 
@@ -251,7 +251,6 @@ class Chef
       # @option opts [String] :gemset the gemset to look for
       def gemset_exists?(opts={})
         return false if opts[:ruby].nil? || opts[:gemset].nil?
-        return false unless ruby_string_sane?(opts[:ruby])
         return false unless ruby_installed?(opts[:ruby])
 
         installed_gemsets(opts[:ruby]).include?(opts[:gemset])
