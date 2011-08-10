@@ -331,6 +331,47 @@ class Chef
         end
         t.run_action(:create) if install_now
       end
+
+      def install_rubies(opts = {})
+        # install additional rubies
+        opts[:rubies].each do |rubie|
+          rvm_ruby rubie do
+            user  opts[:user]
+          end
+        end
+
+        # set a default ruby
+        rvm_default_ruby opts[:default_ruby] do
+          user  opts[:user]
+        end
+
+        # install global gems
+        opts[:global_gems].each do |gem|
+          rvm_global_gem gem[:name] do
+            user      opts[:user]
+            [:version, :action, :options, :source].each do |attr|
+              send(attr, gem[attr]) if gem[attr]
+            end
+          end
+        end
+
+        # install additional gems
+        opts[:gems].each_pair do |rstring, gems|
+          rvm_environment rstring do
+            user  opts[:user]
+          end
+
+          gems.each do |gem|
+            rvm_gem gem[:name] do
+              ruby_string   rstring
+              user          opts[:user]
+              [:version, :action, :options, :source].each do |attr|
+                send(attr, gem[attr]) if gem[attr]
+              end
+            end
+          end
+        end
+      end
     end
   end
 end

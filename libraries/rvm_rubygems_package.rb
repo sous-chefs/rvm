@@ -61,19 +61,29 @@ class Chef
         class RVMGemEnvironment < AlternateGemEnvironment
           include Chef::RVM::ShellHelpers
 
-          attr_reader :ruby_strings
+          attr_reader :ruby_strings, :user
 
-          def initialize(gem_binary_location, ruby_strings)
+          def initialize(gem_binary_location, ruby_strings, user = nil)
             super(gem_binary_location)
             @ruby_strings = ruby_strings
+            @user = user
           end
 
           def gem_paths
             cmd = "rvm #{ruby_strings.join(',')} "
             cmd << "exec #{@gem_binary_location} env gempath"
 
+            if user
+              user_dir    = Etc.getpwnam(user).dir
+              environment = { 'USER' => user, 'HOME' => user_dir }
+            else
+              user_dir    = nil
+              environment = nil
+            end
+
             # shellout! is a fork/exec which won't work on windows
-            shell_style_paths = shell_out!(rvm_wrap_cmd(cmd)).stdout
+            shell_style_paths = shell_out!(
+              rvm_wrap_cmd(cmd, user_dir), :env => environment).stdout
             # on windows, the path separator is semicolon
             paths = shell_style_paths.split(
               ::File::PATH_SEPARATOR).map { |path| path.strip }
@@ -83,7 +93,16 @@ class Chef
             cmd = "rvm #{ruby_strings.join(',')} "
             cmd << "exec #{@gem_binary_location} env"
 
-            gem_environment = shell_out!(rvm_wrap_cmd(cmd)).stdout
+            if user
+              user_dir    = Etc.getpwnam(user).dir
+              environment = { 'USER' => user, 'HOME' => user_dir }
+            else
+              user_dir    = nil
+              environment = nil
+            end
+
+            gem_environment = shell_out!(
+              rvm_wrap_cmd(cmd, user_dir), :env => environment).stdout
             if jruby = gem_environment[JRUBY_PLATFORM]
               ['ruby', Gem::Platform.new(jruby)]
             else
@@ -94,7 +113,8 @@ class Chef
 
         def initialize(new_resource, run_context=nil)
           super
-          @gem_env = RVMGemEnvironment.new(gem_binary_path, ruby_strings)
+          user = new_resource.respond_to?("user") ? new_resource.user : nil
+          @gem_env = RVMGemEnvironment.new(gem_binary_path, ruby_strings, user)
         end
 
         ##
@@ -127,6 +147,7 @@ class Chef
           ruby_strings.each do |rubie|
             next if rubie = 'system'
             e = rvm_environment rubie do
+              user    new_resource.user if new_user.respond_to?("user")
               action :nothing
             end
             e.run_action(:create)
