@@ -26,12 +26,17 @@ class Chef
       # Finds the correct shell profile to source to init an RVM-aware
       # shell environment
       #
+      # @param [true, false] whether this is for a user or system rvm context
       # @return [String] full path the shell profile
-      def find_profile_to_source
-        if ::File.directory?("/etc/profile.d")
-          "/etc/profile.d/rvm.sh"
+      def find_profile_to_source(user_dir = nil)
+        if user_dir
+          "#{user_dir}/.rvm/scripts/rvm"
         else
-          "/etc/profile"
+          if ::File.directory?("/etc/profile.d")
+            "/etc/profile.d/rvm.sh"
+          else
+            "/etc/profile"
+          end
         end
       end
 
@@ -39,9 +44,11 @@ class Chef
       # Returns a shell command that is RVM-aware
       #
       # @param [String, #to_s] the shell command to be wrapped
+      # @param [true, false] whether this is for a user or system rvm context
       # @return [String] the command wrapped in RVM-initialized bash command
-      def rvm_wrap_cmd(cmd)
-        %{bash -c "source #{find_profile_to_source} && #{cmd.gsub(/"/, '\"')}"}
+      def rvm_wrap_cmd(cmd, user_dir = nil)
+        profile = find_profile_to_source(user_dir)
+        %{bash -c "source #{profile} && #{cmd.gsub(/"/, '\"')}"}
       end
     end
   end
@@ -136,7 +143,16 @@ class Chef
           cmd = %{rvm #{ruby_strings.join(',')} #{gem_binary_path}}
           cmd << %{ install #{name} -q --no-rdoc --no-ri -v "#{version}"}
           cmd << %{#{src}#{opts}}
-          shell_out!(rvm_wrap_cmd(cmd), :env => nil)
+
+          if new_resource.respond_to?("user") && new_resource.user
+            user_dir    = Etc.getpwnam(new_resource.user).dir
+            environment = { 'USER' => new_resource.user, 'HOME' => user_dir }
+          else
+            user_dir    = nil
+            environment = nil
+          end
+
+          shell_out!(rvm_wrap_cmd(cmd, user_dir), :env => environment)
         end
 
         def remove_package(name, version)
@@ -151,7 +167,16 @@ class Chef
           else
             cmd << %{ -a#{opts}}
           end
-          shell_out!(rvm_wrap_cmd(cmd), :env=>nil)
+
+          if new_resource.respond_to?("user") && new_resource.user
+            user_dir    = Etc.getpwnam(new_resource.user).dir
+            environment = { 'USER' => new_resource.user, 'HOME' => user_dir }
+          else
+            user_dir    = nil
+            environment = nil
+          end
+
+          shell_out!(rvm_wrap_cmd(cmd, user_dir), :env => environment)
         end
       end
     end

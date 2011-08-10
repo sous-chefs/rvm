@@ -33,7 +33,6 @@ node['rvm']['user_installs'].each do |rvm_user|
   rvmrc_template  :rvm_path => rvm_path,
                   :rvm_gem_options => rvm_gem_options,
                   :rvmrc => rvmrc,
-                  :rvmrc_file => "#{user_home}/.rvmrc",
                   :user => rvm_user['user']
 
   install_rvm     :installer_url => installer_url,

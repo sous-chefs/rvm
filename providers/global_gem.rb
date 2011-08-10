@@ -89,16 +89,29 @@ end
 #
 # @oaram [Symbol] action to :create or :remove the gem from the file
 def update_global_gems_file(exec_action)
-  global_gems_file = "#{node['rvm']['root_path']}/gemsets/global.gems"
-  gem = new_resource.package_name
+  gem               = new_resource.package_name
+  user_dir          = Etc.getpwnam(new_resource.user).dir if new_resource.user
+  global_gems_file  = if new_resource.user
+                        "#{user_dir}/.rvm/gemsets/global.gems"
+                      else
+                        "#{node['rvm']['root_path']}/gemsets/global.gems"
+                      end
 
   if exec_action == :create
     e = execute "Add #{gem} to #{global_gems_file}" do
-      user      "root"
-      group     "rvm"
+      if new_resource.user
+        user    new_resource.user
+        group   Etc.getpwnam(new_resource.user).gid
+        environment ({ 'USER' => new_resource.user, 'HOME' => user_dir })
+      else
+        user    "root"
+        group   "rvm"
+      end
+
       command   %{echo "#{gem}" >> "#{global_gems_file}"}
-      not_if    %{grep -q "^#{gem}" "#{global_gems_file}"}
       action    :nothing
+
+      not_if    %{grep -q "^#{gem}" "#{global_gems_file}"}
     end
     e.run_action(:run)
   end

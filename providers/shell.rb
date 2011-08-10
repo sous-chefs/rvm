@@ -68,15 +68,24 @@ def script_wrapper(exec_action)
 
   s = script new_resource.name do
     interpreter   "bash"
+
+    if new_resource.user
+      user        new_resource.user
+      if new_resource.environment
+        environment({ 'USER' => opts[:user], 'HOME' => user_dir }.merge(
+          new_resource.environment))
+      else
+        environment({ 'USER' => opts[:user], 'HOME' => user_dir })
+      end
+    end
+
     code          script_code
     creates       new_resource.creates      if new_resource.creates
     cwd           new_resource.cwd          if new_resource.cwd
-    environment   new_resource.environment  if new_resource.environment
     group         new_resource.group        if new_resource.group
     path          new_resource.path         if new_resource.path
     returns       new_resource.returns      if new_resource.returns
     timeout       new_resource.timeout      if new_resource.timeout
-    user          new_resource.user         if new_resource.user
     umask         new_resource.umask        if new_resource.umask
     action        :nothing
   end
