@@ -23,6 +23,7 @@ default['rvm']['root_path']     = "/usr/local/rvm"
 default['rvm']['group_id']      = 'default'
 default['rvm']['group_users']   = []
 default['rvm']['rvmrc']         = Hash.new
+default['rvm']['user_installs'] = []
 
 default['rvm']['installer_url'] = "https://rvm.beginrescueend.com/install/rvm"
 
@@ -32,31 +33,41 @@ default['rvm']['version'] = nil
 default['rvm']['upgrade'] = "none"
 
 # a hook to disable installing any default/additional rubies
-default['rvm']['install_rubies'] = "true"
+default['rvm']['install_rubies']      = "true"
+default['rvm']['user_install_rubies'] = "true"
 
 # ruby that will get installed and set to `rvm use default`.
-default['rvm']['default_ruby'] = "ruby-1.9.2-p180"
+default['rvm']['default_ruby']      = "ruby-1.9.2-p180"
+default['rvm']['user_default_ruby'] = "ruby-1.9.2-p180"
 
 # list of additional rubies that will be installed
-default['rvm']['rubies'] = []
+default['rvm']['rubies']      = []
+default['rvm']['user_rubies'] = []
 
 # list of gems to be installed in global gemset of all rubies
-default['rvm']['global_gems'] = [
+_global_gems_ = [
   { 'name' => "bundler" },
   { 'name' => "rake" }
 ]
+default['rvm']['global_gems']       = _global_gems_.dup
+default['rvm']['user_global_gems']  = _global_gems_.dup
 
 # hash of gemsets and their list of additional gems to be installed.
-default['rvm']['gems'] = Hash.new
+default['rvm']['gems']      = Hash.new
+default['rvm']['user_gems'] = Hash.new
 
 # default rvm_gem_options (skip rdoc/ri generation)
 default['rvm']['rvm_gem_options'] = "--no-rdoc --no-ri"
 
 case platform
 when "redhat","centos","fedora"
-  node.set['rvm']['install_pkgs'] = %w{sed grep tar gzip bzip2 bash curl git}
+  node.set['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git}
+  default['rvm']['user_home_root']  = '/home'
 when "debian","ubuntu","suse"
-  node.set['rvm']['install_pkgs'] = %w{sed grep tar gzip bzip2 bash curl git-core}
+  node.set['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git-core}
+  default['rvm']['user_home_root']  = '/home'
+when "mac_os_x"
+  node.set['rvm']['install_pkgs']   = %w{git}
+  default['rvm']['user_home_root']  = '/Users'
 end
 
-default['rvm']['user_home_root']   = '/home'
