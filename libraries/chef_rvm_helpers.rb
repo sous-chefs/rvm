@@ -235,13 +235,16 @@ class Chef
 
       def install_rvm(opts = {})
         install_now = node.recipe?("rvm::gem_package")
-        user_dir = Etc.getpwnam(opts[:user]).dir if opts[:user]
 
-        exec_name = if opts[:user]
-                      "install user RVM for #{opts[:user]}"
-                    else
-                      "install system-wide RVM"
-                    end
+        if opts[:user]
+          user_dir    = opts[:rvm_prefix]
+          exec_name   = "install user RVM for #{opts[:user]}"
+          exec_env    = { 'USER' => opts[:user], 'HOME' => user_dir }
+        else
+          user_dir    = nil
+          exec_name   = "install system-wide RVM"
+          exec_env    = nil
+        end
 
         i = execute exec_name do
           user    opts[:user] || "root"
@@ -249,10 +252,7 @@ class Chef
             bash -c "bash \
               <( curl -Ls #{opts[:installer_url]} )#{opts[:script_flags]}"
           CODE
-
-          if opts[:user]
-            environment   ({ 'USER' => opts[:user], 'HOME' => user_dir })
-          end
+          environment(exec_env)
 
           # excute in compile phase if gem_package recipe is requested
           if install_now
@@ -269,21 +269,23 @@ class Chef
 
       def upgrade_rvm(opts = {})
         install_now = node.recipe?("rvm::gem_package")
-        user_dir = Etc.getpwnam(opts[:user]).dir if opts[:user]
 
-        exec_name = if opts[:user]
-          "upgrade user RVM for #{opts[:user]} to #{opts[:upgrade_strategy]}"
+        if opts[:user]
+          user_dir    = opts[:rvm_prefix]
+          exec_name   = "upgrade user RVM for #{opts[:user]} to " +
+                        opts[:upgrade_strategy]
+          exec_env    = { 'USER' => opts[:user], 'HOME' => user_dir }
         else
-          "upgrade system-wide RVM to #{opts[:upgrade_strategy]}"
+          user_dir    = nil
+          exec_name   = "upgrade system-wide RVM to " +
+                        opts[:upgrade_strategy]
+          exec_env    = nil
         end
 
         u = execute exec_name do
           user      opts[:user] || "root"
           command   rvm_wrap_cmd(%{rvm get #{opts[:upgrade_strategy]}}, user_dir)
-
-          if opts[:user]
-            environment   ({ 'USER' => opts[:user], 'HOME' => user_dir })
-          end
+          environment(exec_env)
 
           # excute in compile phase if gem_package recipe is requested
           if install_now
@@ -299,18 +301,24 @@ class Chef
 
       def rvmrc_template(opts = {})
         install_now = node.recipe?("rvm::gem_package")
-        user_dir = Etc.getpwnam(opts[:user]).dir if opts[:user]
 
-        system_install  = opts[:user] ? false : true
-        rvmrc_file      = opts[:user] ? "#{user_dir}/.rvmrc" : "/etc/rvmrc"
+        if opts[:user]
+          system_install  = false
+          rvmrc_file      = "#{opts[:rvm_prefix]}/.rvmrc"
+          rvm_path        = "#{opts[:rvm_prefix]}/.rvm"
+        else
+          system_install  = true
+          rvmrc_file      = "/etc/rvmrc"
+          rvm_path        = "#{opts[:rvm_prefix]}/rvm"
+        end
 
         t = template rvmrc_file do
           source      "rvmrc.erb"
           owner       opts[:user] || "root"
-          group       Etc.getpwnam(opts[:user]).gid if opts[:user]
+          group       opts[:user] if opts[:user]
           mode        "0644"
           variables   :system_install   => system_install,
-                      :rvm_path         => opts[:rvm_path],
+                      :rvm_path         => rvm_path,
                       :rvm_gem_options  => opts[:rvm_gem_options],
                       :rvmrc            => opts[:rvmrc]
 
