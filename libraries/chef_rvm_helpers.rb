@@ -57,7 +57,7 @@ class Chef
       # @return [String] a fully qualified RVM ruby string
       def normalize_ruby_string(ruby_string)
         return "system" if ruby_string == "system"
-        StringCache[ruby_string]
+        StringCache.fetch(ruby_string, new_resource.user)
       end
     end
 

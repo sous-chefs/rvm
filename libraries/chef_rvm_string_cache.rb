@@ -29,35 +29,64 @@ class Chef
         include Chef::RVM::ShellHelpers
       end
 
-      def self.[](str)
+      def self.fetch(str, user = nil)
         @@strings ||= Hash.new
-        return @@strings[str] if @@strings.has_key?(str)
-        result = canonical_ruby_string(str)
+        rvm_install = user || "system"
+        @@strings[rvm_install] ||= Hash.new
+
+        return @@strings[rvm_install][str] if @@strings[rvm_install].has_key?(str)
+
+        result = canonical_ruby_string(str, user)
         # cache everything except default environment
-        if result == 'default'
+        if str == 'default'
           result
         else
-          @@strings[str] = result
+          @@strings[rvm_install][str] = result
         end
       end
 
       protected
 
-      def self.canonical_ruby_string(str)
-        Chef::Log.debug("Fetching canonical RVM string for: #{str}")
-        cmd = ["source #{find_profile_to_source}", "rvm_ruby_string='#{str}'",
-          "__rvm_ruby_string", "echo $rvm_ruby_string"].join(" && ")
-        pid, stdin, stdout, stderr = popen4('bash')
+      def self.canonical_ruby_string(str, user)
+        Chef::Log.debug("Fetching canonical RVM string for: #{str} " +
+                        "(#{user})")
+        if user
+          user_dir = Etc.getpwnam(user).dir
+        else
+          user_dir = nil
+        end
+
+        cmd = ["source #{find_profile_to_source(user_dir)}",
+          "rvm_ruby_string='#{str}'", "__rvm_ruby_string",
+          "echo $rvm_ruby_string"].join(" && ")
+        Chef::Log.debug("Running: [[#{cmd}]]")
+        pid, stdin, stdout, stderr = popen4('bash', shell_params(user, user_dir))
         stdin.puts(cmd)
         stdin.close
 
         result = stdout.read.split('\n').first.chomp
         if result =~ /^-/   # if the result has a leading dash, value is bogus
-          Chef::Log.warn("Could not determine canonical RVM string for: #{str}")
+          Chef::Log.warn("Could not determine canonical RVM string for: #{str} " +
+                         "(#{user})")
           nil
         else
-          Chef::Log.debug("Canonical RVM string is: #{str} => #{result}")
+          Chef::Log.debug("Canonical RVM string is: #{str} => #{result} " +
+                          "(#{user})")
           result
+        end
+      end
+
+      def self.shell_params(user, user_dir)
+        if user
+          {
+            :user => user,
+            :environment => {
+              'USER' => user,
+              'HOME' => user_dir
+            }
+          }
+        else
+          Hash.new
         end
       end
     end
