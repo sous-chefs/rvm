@@ -79,6 +79,7 @@ def gem_package_wrapper(exec_action, ruby_global_gemset)
     options     new_resource.options if new_resource.options
     version     new_resource.version if new_resource.version
     gem_binary  new_resource.gem_binary if new_resource.gem_binary
+    user        new_resource.user
     action      :nothing
   end
   g.run_action(exec_action)

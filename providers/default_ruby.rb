@@ -35,7 +35,8 @@ action :create do
   # ensure ruby is installed and gemset exists (if specified)
   unless env_exists?(@ruby_string)
     e = rvm_environment @ruby_string do
-      action :nothing
+      user    new_resource.user
+      action  :nothing
     end
     e.run_action(:create)
   end

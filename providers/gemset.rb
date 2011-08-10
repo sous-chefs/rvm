@@ -38,6 +38,7 @@ end
 action :create do
   unless ruby_installed?(@rubie)
     r = rvm_ruby @rubie do
+      user    new_resource.user
       action :nothing
     end
     r.run_action(:install)
@@ -96,6 +97,7 @@ action :update do
   # create gemset if it doesn't exist
   unless gemset_exists?(:ruby => @rubie, :gemset => @gemset)
     c = rvm_gemset @ruby_string do
+      user    new_resource.user
       action :nothing
     end
     c.run_action(:create)
