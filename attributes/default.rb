@@ -70,4 +70,3 @@ when "mac_os_x"
   node.set['rvm']['install_pkgs']   = %w{git}
   default['rvm']['user_home_root']  = '/Users'
 end
-
