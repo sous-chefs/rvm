@@ -116,13 +116,15 @@ end
 # @param [String, #to_s] the fully qualified RVM ruby string
 def install_ruby_dependencies(rubie)
   pkgs = []
-  if rubie =~ /^1\.[89]\../ || rubie =~ /^ree/ || rubie =~ /^ruby-/
+  case rubie
+  when /^ruby-/, /^ree-/, /^rbx-/, /^kiji/
     case node[:platform]
       when "debian","ubuntu"
         pkgs = %w{ build-essential bison openssl libreadline6 libreadline6-dev
                    zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0
-                   libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev ssl-cert }
-        pkgs += %w{ git-core subversion autoconf } if rubie =~ /^ruby-head$/
+                   libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf
+                   libc6-dev ncurses-dev ssl-cert }
+        pkgs += %w{ subversion } if rubie =~ /^ruby-head$/
       when "suse"
         pkgs = %w{ gcc-c++ patch zlib zlib-devel libffi-devel
                    sqlite3-devel libxml2-devel libxslt-devel }
@@ -137,7 +139,7 @@ def install_ruby_dependencies(rubie)
                    libyaml-devel libffi-devel openssl-devel }
         pkgs += %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
     end
-  elsif rubie =~ /^jruby/
+  when /^jruby-/
     # TODO: need to figure out how to pull in java recipe only when needed. For
     # now, users of jruby will have to add the "java" recipe to their run_list.
     #include_recipe "java"
@@ -145,9 +147,8 @@ def install_ruby_dependencies(rubie)
   end
 
   pkgs.each do |pkg|
-    p = package pkg do
+    package pkg do
       action :nothing
-    end
-    p.run_action(:install)
+    end.run_action(:install)
   end
 end
