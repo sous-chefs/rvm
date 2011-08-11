@@ -51,6 +51,29 @@ class Chef
         %{bash -c "source #{profile} && #{cmd.gsub(/"/, '\"')}"}
       end
     end
+
+    module EnvironmentHelpers
+      include RubyHelpers
+      include GemsetHelpers
+
+      ##
+      # Determines whether or not and ruby/gemset environment exists
+      #
+      # @param [String, #to_s] the fully qualified RVM ruby string
+      # @return [Boolean] does this environment exist?
+      def env_exists?(ruby_string)
+        return true if system_ruby?(ruby_string)
+
+        rubie   = select_ruby(ruby_string)
+        gemset  = select_gemset(ruby_string)
+
+        if gemset
+          gemset_exists?(:ruby => rubie, :gemset => gemset)
+        else
+          ruby_installed?(rubie)
+        end
+      end
+    end
   end
 
   class Provider
