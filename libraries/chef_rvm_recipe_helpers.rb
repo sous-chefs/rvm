@@ -37,6 +37,8 @@ class Chef
       end
 
       def install_pkg_prereqs(install_now = node.recipe?("rvm::gem_package"))
+        return if mac_with_no_homebrew
+
         node['rvm']['install_pkgs'].each do |pkg|
           p = package pkg do
             # excute in compile phase if gem_package recipe is requested
@@ -132,7 +134,6 @@ class Chef
         t = template rvmrc_file do
           source      "rvmrc.erb"
           owner       opts[:user] || "root"
-          group       opts[:user] if opts[:user]
           mode        "0644"
           variables   :system_install   => system_install,
                       :rvm_path         => rvm_path,
@@ -188,6 +189,14 @@ class Chef
             end
           end
         end
+      end
+
+      private
+
+      def mac_with_no_homebrew
+        node['platform'] == 'mac_os_x' &&
+          Chef::Platform.find_provider_for_node(node, :package) !=
+          Chef::Provider::Package::Homebrew
       end
     end
   end
