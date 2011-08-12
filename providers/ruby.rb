@@ -144,7 +144,10 @@ def install_ruby_dependencies(rubie)
     # TODO: need to figure out how to pull in java recipe only when needed. For
     # now, users of jruby will have to add the "java" recipe to their run_list.
     #include_recipe "java"
-    pkgs << "g++"
+    case node['platform']
+    when "debian","ubuntu"
+      pkgs += "g++"
+    end
   end
 
   pkgs.each do |pkg|
