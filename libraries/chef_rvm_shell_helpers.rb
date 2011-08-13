@@ -22,9 +22,34 @@
 class Chef
   module RVM
     module ShellHelpers
-      # Please see libraries/rvm_rubygems_package.rb. There is a dependency
-      # in Chef::Provider::Package::RVMRubygems and library load order cannot
-      # be guarenteed.
+      ##
+      # Finds the correct shell profile to source to init an RVM-aware
+      # shell environment
+      #
+      # @param [true, false] whether this is for a user or system rvm context
+      # @return [String] full path the shell profile
+      def find_profile_to_source(user_dir = nil)
+        if user_dir
+          "#{user_dir}/.rvm/scripts/rvm"
+        else
+          if ::File.directory?("/etc/profile.d")
+            "/etc/profile.d/rvm.sh"
+          else
+            "/etc/profile"
+          end
+        end
+      end
+
+      ##
+      # Returns a shell command that is RVM-aware
+      #
+      # @param [String, #to_s] the shell command to be wrapped
+      # @param [true, false] whether this is for a user or system rvm context
+      # @return [String] the command wrapped in RVM-initialized bash command
+      def rvm_wrap_cmd(cmd, user_dir = nil)
+        profile = find_profile_to_source(user_dir)
+        %{bash -c "source #{profile} && #{cmd.gsub(/"/, '\"')}"}
+      end
     end
   end
 end

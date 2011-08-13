@@ -21,8 +21,35 @@
 
 class Chef
   module RVM
-      # Please see libraries/rvm_rubygems_package.rb. There is a dependency
-      # in Chef::Provider::Package::RVMRubygems and library load order cannot
-      # be guarenteed.
+    module RubyHelpers
+      # stub to satisfy EnvironmentHelpers (library load order not guarenteed)
+    end
+
+    module GemsetHelpers
+      # stub to satisfy EnvironmentHelpers (library load order not guarenteed)
+    end
+
+    module EnvironmentHelpers
+      include RubyHelpers
+      include GemsetHelpers
+
+      ##
+      # Determines whether or not and ruby/gemset environment exists
+      #
+      # @param [String, #to_s] the fully qualified RVM ruby string
+      # @return [Boolean] does this environment exist?
+      def env_exists?(ruby_string)
+        return true if system_ruby?(ruby_string)
+
+        rubie   = select_ruby(ruby_string)
+        gemset  = select_gemset(ruby_string)
+
+        if gemset
+          gemset_exists?(:ruby => rubie, :gemset => gemset)
+        else
+          ruby_installed?(rubie)
+        end
+      end
+    end
   end
 end

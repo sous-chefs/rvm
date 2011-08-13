@@ -22,57 +22,7 @@
 class Chef
   module RVM
     module ShellHelpers
-      ##
-      # Finds the correct shell profile to source to init an RVM-aware
-      # shell environment
-      #
-      # @param [true, false] whether this is for a user or system rvm context
-      # @return [String] full path the shell profile
-      def find_profile_to_source(user_dir = nil)
-        if user_dir
-          "#{user_dir}/.rvm/scripts/rvm"
-        else
-          if ::File.directory?("/etc/profile.d")
-            "/etc/profile.d/rvm.sh"
-          else
-            "/etc/profile"
-          end
-        end
-      end
-
-      ##
-      # Returns a shell command that is RVM-aware
-      #
-      # @param [String, #to_s] the shell command to be wrapped
-      # @param [true, false] whether this is for a user or system rvm context
-      # @return [String] the command wrapped in RVM-initialized bash command
-      def rvm_wrap_cmd(cmd, user_dir = nil)
-        profile = find_profile_to_source(user_dir)
-        %{bash -c "source #{profile} && #{cmd.gsub(/"/, '\"')}"}
-      end
-    end
-
-    module EnvironmentHelpers
-      include RubyHelpers
-      include GemsetHelpers
-
-      ##
-      # Determines whether or not and ruby/gemset environment exists
-      #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [Boolean] does this environment exist?
-      def env_exists?(ruby_string)
-        return true if system_ruby?(ruby_string)
-
-        rubie   = select_ruby(ruby_string)
-        gemset  = select_gemset(ruby_string)
-
-        if gemset
-          gemset_exists?(:ruby => rubie, :gemset => gemset)
-        else
-          ruby_installed?(rubie)
-        end
-      end
+      # stub to satisfy RVMRubygems (library load order not guarenteed)
     end
   end
 
