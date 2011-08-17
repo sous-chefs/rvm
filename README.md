@@ -54,6 +54,18 @@ install RVM.
 
 Installs any package dependencies and installs RVM system-wide.
 
+## system_install
+
+...
+
+## user
+
+...
+
+## user_install
+
+...
+
 ## vagrant
 
 An optional recipe if Chef is installed in a non-RVM Ruby in a
