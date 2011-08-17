@@ -8,17 +8,28 @@
 * Pull request [#27](https://github.com/fnichol/chef-rvm/pull/27): Explicitly handle the unmanaged 'system' ruby. ([@temujin9][]).
 * Pull request [#28](https://github.com/fnichol/chef-rvm/pull/28): Fix bug when no RVM rubies had yet been installed. ([@relistan][]).
 * Pull request [#30](https://github.com/fnichol/chef-rvm/pull/30): Implement 'group_users' support. ([@phlipper][]).
+* Update ruby compilation dependencies for debian/ubuntu. ([@fnichol][])
 
 ### New features
 
+* Issue [#4](https://github.com/fnichol/chef-rvm/issues/4): Per-user RVM installs with support in all LWRPs. ([@fnichol][])
+* Refactor system and user installs into: [system_install, system, user_install, user] ([reference](https://github.com/fnichol/chef-rvm/commit/69027cafbe8e25251a797f1dcf11e5bc4c96275b)). ([@fnichol][])
+* Support Mac OS X platform for system-wide and per-user installs. ([@fnichol][])
 * Issue [#23](https://github.com/fnichol/chef-rvm/issues/24): Let gem_package resource target multiple RVM rubies. ([@fnichol][])
 * Pull request [#26](https://github.com/fnichol/chef-rvm/pull/26): Add new attribute `group_id`. ([@temujin9][])
+* General refactoring and re-modularizing. ([@fnichol][])
 
 ### Improvments
 
 * Pull request [#26](https://github.com/fnichol/chef-rvm/pull/26): RVM unix group is created in compilation phase if GID is provided. ([@temujin9][])
 * Revamp CHANGELOG in the style of [guard](https://github.com/guard/guard). ([@fnichol][])
 * Pull request [#27](https://github.com/fnichol/chef-rvm/pull/27): Improve gem_package logging message to include full list of selected rubies. ([@temujin9][])
+* RVM gem installed using opscode cookbook conventions (via gem_package). ([@fnichol][])
+* Add RVM::Shell::ChefWrapper based on chef's popen4 impl. ([@fnichol][])
+* Create RVM::ChefUserEnvironment which can be injected with a user. ([@fnichol][])
+* Normalize 'missing gem' logging notices. ([@fnichol][])
+* Add Chef::RVM::StringCache to get and cache canonical RVM strings. ([@fnichol][])
+* Modularize `libraries/helpers.rb` in modules. ([@fnichol][])
 
 
 ## 0.7.1 (May 15, 2011)
@@ -44,17 +55,12 @@
 * Issue [#14](https://github.com/fnichol/chef-rvm/issues/14): Allow no default RVM ruby (i.e. use system ruby). ([@fnichol][])
 * Issue [#12](https://github.com/fnichol/chef-rvm/issues/12): Update RVM install to use SSL URL. ([@fnichol][])
 * Now /etc/rvmrc has export for rvm/rvmrc key/value pairs. ([@fnichol][])
-* Update ruby compilation dependencies for debian/ubuntu. ([@fnichol][])
 
 ### New features
 
-* Issue [#4](https://github.com/fnichol/chef-rvm/issues/4): Per-user RVM installs with support in all LWRPs. ([@fnichol][])
-* Refactor system and user installs into: [system_install, system, user_install, user] ([reference](https://github.com/fnichol/chef-rvm/commit/69027cafbe8e25251a797f1dcf11e5bc4c96275b)). ([@fnichol][])
-* New experimental recipe gem_package which patches gem_package resource. ([@fnichol][])
-* Support Mac OS X platform for system-wide and per-user installs. ([@fnichol][])
-* Add rvm_global_gem resource. ([@fnichol][])
 * Issue [#13](https://github.com/fnichol/chef-rvm/issues/13): Speed up install by disabling RDOC generation. ([@fnichol][])
-* General refactoring and re-modularizing. ([@fnichol][])
+* New experimental recipe gem_package which patches gem_package resource. ([@fnichol][])
+* Add rvm_global_gem resource. ([@fnichol][])
 
 ### Improvments
 
@@ -63,12 +69,6 @@
 * Issue [#19](https://github.com/fnichol/chef-rvm/issues/19): Attr rvm/upgrade accepts "none", false and nil as same value. ([@fnichol][])
 * Update rvm/skip_docs_on_install attr to rvm/rvm_gem_options. ([@fnichol][])
 * Refactor of rvm_gem provider to leverage Chef::Provider::Package::Rubygems. ([@fnichol][])
-* RVM gem installed using opscode cookbook conventions (via gem_package). ([@fnichol][])
-* Add RVM::Shell::ChefWrapper based on chef's popen4 impl. ([@fnichol][])
-* Create RVM::ChefUserEnvironment which can be injected with a user. ([@fnichol][])
-* Normalize 'missing gem' logging notices. ([@fnichol][])
-* Add Chef::RVM::StringCache to get and cache canonical RVM strings. ([@fnichol][])
-* Modularize `libraries/helpers.rb` in modules. ([@fnichol][])
 
 
 ## Previous releases
