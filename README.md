@@ -1,21 +1,48 @@
-# DESCRIPTION
+# Description
 
-Installs a system-wide RVM and manages installed rubies. Several lightweight
-resources and providers (LWRP) are also defined.
+Manages system-wide and per-user RVMs and manages installed rubies.
+Several lightweight resources and providers (LWRP) are also defined.
 
-# REQUIREMENTS
+# Requirements
+
+## Chef
+
+Tested on 0.10.2 and 0.10.4 but newer and older version should work just
+fine. File an [issue][issues] if this isn't the case.
 
 ## Platform
 
-Tested on Ubuntu 10.04/10.10, Debian 6.0, and OpenSuSE 11.4. Also reported
-to work on CentOS, Redhat and Fedora.
+The following platforms have been tested with this cookbook, meaning that
+the recipes and LWRPs run on these platforms without error:
+
+* ubuntu (10.04/10.10/11.04)
+* debian (6.0)
+* mac_os_x (10.6/10.7)
+* suse (openSUSE, SLES)
+* centos
+* redhat
+* fedora
+
+Please [report][issues] any additional platforms so they can be added.
 
 ## Cookbooks
 
-There are no explicit external cookbook dependencies. However, the Opscode
-*java* cookbook can be used when installing JRuby.
+There are **no** external cookbook dependencies. However, if you are
+installing [JRuby][jruby] then a Java runtime will need to be installed.
+The Opscode [java cookbook][java_cb] can be used on supported platforms.
 
-# RECIPES
+# Usage
+
+The typical case will be to include the `rvm` recipe which will install RVM
+system-wide, install all listed RVM rubies and gems and set a default RVM ruby.
+
+If node is running in a Vagrant VM, then the `rvm::vagrant` recipe can help
+with resolving the *chef-solo* binary on subsequent provision executions.
+
+There are also several resources declared which can be used in other recipes
+that are RVM-supported. See below for more details.
+
+# Recipes
 
 ## default
 
@@ -30,41 +57,27 @@ Installs any package dependencies and installs RVM system-wide.
 ## vagrant
 
 An optional recipe if Chef is installed in a non-RVM Ruby in a
-[Vagrant](http://vagrantup.com) virtual machine. This recipe adds the
-default vagrant user to the RVM unix group and installs a `chef-solo`
-wrapper script so Chef doesn't need to be re-installed in the default
-RVM Ruby.
+[Vagrant][vagrant] virtual machine. This recipe adds the default vagrant user
+to the RVM unix group and installs a `chef-solo` wrapper script so Chef
+doesn't need to be re-installed in the default RVM Ruby.
 
 ## gem_package
 
-An experimental recipe that patches the
-[gem_package resource](http://wiki.opscode.com/display/chef/Resources#Resources-Package)
+An experimental recipe that patches the [gem_package resource][gem_package]
 to use the `Chef::Provider::Package::RVMRubygems` provider. An attribute
 `rvm/gem_package/rvm_string` will determine which RVM ruby is used for
 install/remove/upgrade/purge actions. This may help when using a third
 party or upstream cookbook that assumes a non-RVM managed system ruby.
 
 **Note:** When this recipe is included it will force RVM to be
-installed in the
-[compilation phase](http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time).
-This will ensure that all rubies can be available if any `gem_package`
-resource calls are issued from other cookbooks during the compilation phase.
+installed in the [compilation phase][compilation]. This will ensure that all
+rubies can be available if any `gem_package` resource calls are issued from
+other cookbooks during the compilation phase.
 
 **Warning:** Here be dragons! This is either brilliant or the dumbest idea
 ever, so feedback is appreciated.
 
-# USAGE
-
-The typical case will be to include the `rvm` recipe which will install RVM
-system-wide, install all listed RVM rubies and gems and set a default RVM ruby.
-
-If node is running in a Vagrant VM, then the `rvm::vagrant` recipe can help
-with resolving the *chef-solo* binary on subsequent provision executions.
-
-There are also several resources declared which can be used in other recipes
-that are RVM-supported. See below for more details.
-
-# ATTRIBUTES
+# Attributes
 
 ## `default_ruby`
 
@@ -80,9 +93,9 @@ set, use an empty string (`""`) or a value of `"system"`.
 
 ## `rubies`
 
-A list of additional RVM rubies to be built and installed. This list does not need to
-necessarily contain your default ruby as the `rvm_default_ruby` resource will take
-care of installing itself. For example:
+A list of additional RVM rubies to be built and installed. This list does not
+need to necessarily contain your default ruby as the `rvm_default_ruby`
+resource will take care of installing itself. For example:
 
     node['rvm']['rubies'] = [ "ree-1.8.7", "jruby-1.5.6" ]
 
@@ -163,9 +176,9 @@ currently 3 valid values:
   current state. **Note** that this is the default.
 * `"latest"`: runs `rvm get latest` which downloads and installs the latest
   *"stable"* RVM release listed by
-  [http://rvm.beginrescueend.com/releases/stable-version.txt](http://rvm.beginrescueend.com/releases/stable-version.txt).
-* `"head"`: runs the infamous `rvm get head` which clones (via git) and installs
-  the latest RVM repository HEAD.
+  [https://rvm.beginrescueend.com/releases/stable-version.txt][stable].
+* `"head"`: runs the infamous `rvm get head` which clones (via git) and
+  installs the latest RVM repository HEAD.
 
 ## `root_path`
 
@@ -216,7 +229,7 @@ unmanaged system ruby you can use `system`.
 
 The default is the value of the `default_ruby` attribute.
 
-# RESOURCES AND PROVIDERS
+# Resources and Providers
 
 ## rvm_ruby
 
@@ -224,9 +237,9 @@ The default is the value of the `default_ruby` attribute.
 
 Action    |Description                   |Default
 ----------|------------------------------|-------
-install   |Build and install an RVM ruby. See [RVM rubies/installing](http://rvm.beginrescueend.com/rubies/installing/) for more details. |Yes
-remove    |Remove the ruby, source files and optional gemsets/archives. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
-uninstall |Just remove the ruby and leave everything else. See [RVM rubies/removing](http://rvm.beginrescueend.com/rubies/removing/) for more details. |
+install   |Build and install an RVM ruby. See [RVM rubies/installing][rvm_install] for more details. |Yes
+remove    |Remove the ruby, source files and optional gemsets/archives. See [RVM rubies/removing][rvm_remove] for more details. |
+uninstall |Just remove the ruby and leave everything else. See [RVM rubies/removing][rvm_remove] for more details. |
 
 ### Attributes
 
@@ -273,7 +286,7 @@ one "wins".
 
 Action    |Description                   |Default
 ----------|------------------------------|-------
-create    |Set the default RVM ruby. See [RVM rubies/default](http://rvm.beginrescueend.com/rubies/default/) for more details. |Yes
+create    |Set the default RVM ruby. See [RVM rubies/default][rvm_default] for more details. |Yes
 
 ### Attributes
 
@@ -320,17 +333,16 @@ ruby_string |**Name attribute:** a fully qualified RVM ruby string that could co
     rvm_environment "ree-1.8.7-2011.01@passenger"
 
 ## rvm_gemset
-See [RVM gemsets](http://rvm.beginrescueend.com/gemsets/) for more background
-concerning gemsets.
+See [RVM gemsets][rvm_gemsets] for more background concerning gemsets.
 
 ### Actions
 
 Action    |Description                   |Default
 ----------|------------------------------|-------
-create    |Creates a new gemset in a given RVM ruby. See [RVM gemsets/creating](http://rvm.beginrescueend.com/gemsets/creating/) for more details. |Yes
+create    |Creates a new gemset in a given RVM ruby. See [RVM gemsets/creating][rvm_create_gemset] for more details. |Yes
 update    |Update all gems installed to the gemset in a given RVM ruby. |
-empty     |Remove all gems installed to the gemset in a given RVM ruby. See [RVM gemsets/emptying](http://rvm.beginrescueend.com/gemsets/emptying/) for more details. |
-delete    |Delete gemset from the given RVM ruby. See [RVM gemsets/deleting](http://rvm.beginrescueend.com/gemsets/deleting/) for more details. |
+empty     |Remove all gems installed to the gemset in a given RVM ruby. See [RVM gemsets/emptying][rvm_empty_gemset] for more details. |
+delete    |Delete gemset from the given RVM ruby. See [RVM gemsets/deleting][rvm_delete_gemset] for more details. |
 
 ### Attributes
 
@@ -374,10 +386,8 @@ usage.
 
 ## rvm_gem
 This resource is a close analog to the `gem_package` provider/resource which
-is RVM-aware. See the Opscode
-[package resource](http://wiki.opscode.com/display/chef/Resources#Resources-Package)
-and [gem package options](http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions)
-pages for more details.
+is RVM-aware. See the Opscode [package resource][package_resource] and
+[gem package options][gem_package_options] pages for more details.
 
 ### Actions
 
@@ -440,10 +450,8 @@ is given.
 ## rvm_global_gem
 This resource will use the `rvm_gem` resource to manage a gem in the *global*
 gemset accross all RVM rubies. An entry will also be made/removed in RVM's
-*global.gems* file. See the Opscode
-[package resource](http://wiki.opscode.com/display/chef/Resources#Resources-Package)
-and [gem package options](http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions)
-pages for more details.
+*global.gems* file. See the Opscode [package resource][package_resource] and
+[gem package options][gem_package_options] pages for more details.
 
 ### Actions
 
@@ -466,7 +474,8 @@ gem_binary  |A gem_package attribute to specify a gem binary. |`gem`
 
 ## rvm_shell
 This resource is a wrapper for the `script` resource which wraps the code block
-in an RVM-aware environment.. See the Opscode [script resource](http://wiki.opscode.com/display/chef/Resources#Resources-Script) page for more details.
+in an RVM-aware environment.. See the Opscode
+[script resource][script_resource] page for more details.
 
 ### Actions
 
@@ -551,21 +560,18 @@ under `node['rvm']['root_path']`.
       action        :create
     end
 
-# DEVELOPMENT
+# Development
 
-* Source hosted at [GitHub](https://github.com/fnichol/chef-rvm)
-* Report issues/Questions/Feature requests on [GitHub Issues](https://github.com/fnichol/chef-rvm/issues)
+* Source hosted at [GitHub][repo]
+* Report issues/Questions/Feature requests on [GitHub Issues][issues]
 
 Pull requests are very welcome! Make sure your patches are well tested.
 Ideally create a topic branch for every seperate change you make.
 
-# LICENSE and AUTHOR
+# License and Author
 
-Author:: Fletcher Nichol (<fnichol@nichol.ca>)
-
-Contributors:: Bram Swenson (<bram@craniumisajar.com>)
-
-Contributors:: Phil Cohen (http://phlippers.net/)
+Author:: [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>)
+Contributors:: https://github.com/fnichol/chef-rvm/contributors
 
 Copyright:: 2010, 2011, Fletcher Nichol
 
@@ -580,3 +586,24 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+[compilation]:          http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
+[gem_package]:          http://wiki.opscode.com/display/chef/Resources#Resources-Package
+[gem_package_options]:  http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions
+[fnichol]:              https://github.com/fnichol
+[java_cb]:              http://community.opscode.com/cookbooks/java
+[jruby]:                http://jruby.org/
+[package_resource]:     http://wiki.opscode.com/display/chef/Resources#Resources-Package
+[rvm_create_gemset]:    http://rvm.beginrescueend.com/gemsets/creating/
+[rvm_delete_gemset]:    http://rvm.beginrescueend.com/gemsets/deleting/
+[rvm_empty_gemset]:     http://rvm.beginrescueend.com/gemsets/emptying/
+[rvm_default]:          http://rvm.beginrescueend.com/rubies/default/
+[rvm_gemsets]:          http://rvm.beginrescueend.com/gemsets/
+[rvm_install]:          http://rvm.beginrescueend.com/rubies/installing/
+[rvm_remove]:           http://rvm.beginrescueend.com/rubies/removing/
+[rvm_stable]:           https://rvm.beginrescueend.com/releases/stable-version.txt
+[script_resource]:      http://wiki.opscode.com/display/chef/Resources#Resources-Script
+[vagrant]:              http://vagrantup.com
+
+[repo]:         https://github.com/fnichol/chef-rvm
+[issues]:       https://github.com/fnichol/chef-rvm/issues
