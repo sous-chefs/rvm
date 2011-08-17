@@ -11,7 +11,7 @@ recipe "rvm::system",       "Installs system-wide RVM"
 recipe "rvm::vagrant",      "An optional recipe to help if running in a Vagrant virtual machine"
 recipe "rvm::gem_package",  "An experimental recipe that patches the gem_package resource"
 
-%w{ debian ubuntu suse centos redhat fedora }.each do |os|
+%w{ debian ubuntu suse centos redhat fedora mac_os_x }.each do |os|
   supports os
 end
 
