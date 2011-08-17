@@ -571,6 +571,7 @@ Ideally create a topic branch for every seperate change you make.
 # License and Author
 
 Author:: [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>)
+
 Contributors:: https://github.com/fnichol/chef-rvm/contributors
 
 Copyright:: 2010, 2011, Fletcher Nichol
