@@ -26,6 +26,7 @@ class Chef
         script_flags = ""
         script_flags += " --version #{version}" if version
         script_flags += " --branch #{branch}"   if branch
+        script_flags
       end
 
       def build_upgrade_strategy(strategy)
