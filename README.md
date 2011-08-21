@@ -293,7 +293,7 @@ To re-enable the documentation generation set:
 
 The default is `"--no-rdoc --no-ri"`.
 
-## install_rubies
+## install_rubies (Future Deprecation)
 
 Can enable or disable installation of a default ruby and additional rubies
 system-wide. For example:
@@ -305,7 +305,7 @@ The default is `"true"`.
 **Note:** This remains a legacy setting and will be deprecated in
 the next minor version release.
 
-## user_install_rubies
+## user_install_rubies (Future Deprecation)
 
 Can enable or disable installation of a default ruby and additional rubies
 per user. For example:
