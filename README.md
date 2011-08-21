@@ -114,57 +114,89 @@ ever, so feedback is appreciated.
 
 ## `default_ruby`
 
-The default ruby for RVM. If the RVM ruby is not installed, it will be
-built as a pre-requisite. The value can also contain a gemset in the form of
-`"ruby-1.8.7-p330@awesome"`.
+The default ruby for RVM installed system-wide. If the RVM ruby is not
+installed, it will be built as a pre-requisite. The value can also contain a
+gemset in the form of `"ruby-1.8.7-p352@awesome"`.
 
-**Note:** a fully qualified RVM string name needs to be used, which can be
-found when running `rvm list known`.
+The default is `"ruby-1.9.2-p290"`. To disable a default ruby from being
+set, use an empty string (`""`) or a value of `"system"`.
 
-The default is `"ruby-1.9.2-p180"`. To disable a default ruby from being
+## `user_default_ruby`
+
+The default ruby for RVMs installed per-user when not explicitly set for that
+user. If the RVM ruby is not installed, it will be built as a pre-requisite.
+The value can also contain a gemset in the form of `"ruby-1.8.7-p352@awesome"`.
+
+The default is `"ruby-1.9.2-p290"`. To disable a default ruby from being
 set, use an empty string (`""`) or a value of `"system"`.
 
 ## `rubies`
 
-A list of additional RVM rubies to be built and installed. This list does not
-need to necessarily contain your default ruby as the `rvm_default_ruby`
-resource will take care of installing itself. For example:
+A list of additional RVM system-wide rubies to be built and installed. This
+list does not need to necessarily contain your default ruby as the
+`rvm_default_ruby` resource will take care of installing itself. For example:
 
-    node['rvm']['rubies'] = [ "ree-1.8.7", "jruby-1.5.6" ]
+    node['rvm']['rubies'] = [ "ree-1.8.7", "jruby" ]
 
-**Note:** a fully qualified RVM string name needs to be used, which can be
-found when running `rvm list known`.
+The default is an empty array.
 
-The default is an empty array. To disable a default ruby from being
-installed, see the `install_rubies` attribute.
+## `user_rubies`
 
-## `install_rubies`
+A list of additional RVM rubies to be built and installed per-user when not
+explicitly set. This list does not need to necessarily contain your default
+ruby as the `rvm_default_ruby` resource will take care of installing itself.
+For example:
 
-Can enable or disable installation of a default ruby and additional rubies set
-attribute metadata. The primary use case for this attribute is when you don't
-want any rubies installed (but you want RVM installed). To do so:
+    node['rvm']['user_rubies'] = [ "ree-1.8.7", "jruby" ]
 
-    node['rvm']['install_rubies'] = "false"
-
-The default is `"true"`.
+The default is an empty array.
 
 ## `global_gems`
 
 A list of gem hashes to be installed into the *global* gemset in each
-installed RVM ruby. The RVM global.gems files will be added to and all
-installed rubies will be iterated over to ensure full installation coverage.
-See the `rvm_gem` resource for more details about the options for each
-gem hash. The default puts bundler in each ruby:
+installed RVM ruby sytem-wide. The **global.gems** files will be added to and
+all installed rubies will be iterated over to ensure full installation
+coverage. See the `rvm_gem` resource for more details about the options for
+each gem hash. The default puts bundler and rake in each ruby:
 
     node['rvm']['global_gems'] = [
-      { 'name' => "bundler" }
+      { 'name'    => 'bundler' },
+      { 'name'    => 'rake',
+        'version' => '0.9.2'
+      }
+    ]
+
+## `user_global_gems`
+
+A list of gem hashes to be installed into the *global* gemset in each
+installed RVM ruby for each user when not explicitly set. The
+**global.gems** files will be added to and all installed rubies will be
+iterated over to ensure full installation coverage. See the `rvm_gem`
+resource for more details about the options for each gem hash. The default
+puts bundler and rake in each ruby:
+
+    node['rvm']['user_global_gems'] = [
+      { 'name'    => 'bundler' },
+      { 'name'    => 'rake',
+        'version' => '0.9.2'
+      }
     ]
 
 ## `gems`
 
-A list of gem hashes to be installed into arbitrary RVM rubies and gemsets.
-See the `rvm_gem` resource for more details about the options for each gem
-hash and target ruby environment. The default is an empty hash.
+A list of gem hashes to be installed into arbitrary RVM rubies and gemsets
+system-wide. See the `rvm_gem` resource for more details about the options for
+each gem hash and target ruby environment.
+
+The default is an empty hash: `{}`.
+
+## `user_gems`
+
+A list of gem hashes to be installed into arbitrary RVM rubies and gemsets
+for each user when not explicitly set. See the `rvm_gem` resource for more
+details about the options for each gem hash and target ruby environment.
+
+The default is an empty hash: `{}`.
 
 ## `rvmrc`
 
@@ -173,11 +205,21 @@ A hash of system-wide `rvmrc` options. The key is the RVM setting name
 An example used on a build box might be:
 
     node['rvm']['rvmrc'] = {
+      'rvm_project_rvmrc'             => 1,
       'rvm_gemset_create_on_use_flag' => 1,
       'rvm_trust_rvmrcs_flag'         => 1
     }
 
 The default is an empty hash.
+
+## `user_installs`
+
+...
+
+## `installer_url`
+
+The URL that provides the RVM installer. The default is
+`http://rvm.beginrescueend.com/install/rvm`.
 
 ## `branch`
 
@@ -196,14 +238,14 @@ version) and a specific tagged version of the form `"1.2.3"`. You may want
 to use a specific version of RVM to prevent differences in deployment from
 one day to the next (RVM head moves pretty darn quickly):
 
-    node['rvm']['version'] = "1.5.3"
+    node['rvm']['version'] = "1.7.0"
 
 The default is `nil`, which corresponds to RVM `"head"`.
 
 ## `upgrade`
 
-Determines how to handle installing updates to the RVM framework. There are
-currently 3 valid values:
+Determines how to handle installing updates to the RVM framework system-wide.
+There are currently 3 valid values:
 
 * `"none"`, `false`, or `nil`: will not update RVM and leave it in its
   current state. **Note** that this is the default.
@@ -215,31 +257,29 @@ currently 3 valid values:
 
 ## `root_path`
 
-The path prefix to RVM in a system-wide installation. The default is
-`"/usr/local/rvm"`.
+The path prefix to RVM in a system-wide installation.
+
+The default is `"/usr/local/rvm"`.
 
 ## `group_id`
 
 The Unix *GID* to be used for the `rvm` group. If this attribute is set,
 the group will be created in the compilation phase to avoid any collisions
 with expected *GID*s in other cookbooks. If left at the default value,
-the RVM installer will create this group as normal. The default is
-`default`.
+the RVM installer will create this group as normal.
 
-## `installer_url`
-
-The URL that provides the RVM installer. The default is
-`http://rvm.beginrescueend.com/install/rvm`.
+The default is `default`.
 
 ## `group_users`
 
 A list of users that will be added to the `rvm` group. These users
-will then be able to manage RVM in a system-wide installation. The default
-is an empty list.
+will then be able to manage RVM in a system-wide installation.
+
+The default is an empty list: `[]`.
 
 ## `rvm_gem_options`
 
-These options are passed to the *gem* command in a RVM environment.
+These options are passed to the *gem* command in an RVM environment.
 In the interest of speed, rdoc and ri docs will not be generated by default.
 To re-enable the documentation generation set:
 
@@ -247,10 +287,29 @@ To re-enable the documentation generation set:
 
 The default is `"--no-rdoc --no-ri"`.
 
-## `vagrant/system_chef_solo`
+## `install_rubies`
 
-If using the `vagrant` recipe, this sets the path to the package-installed
-*chef-solo* binary. The default is `"/opt/ruby/bin/chef-solo"`.
+Can enable or disable installation of a default ruby and additional rubies
+system-wide. For example:
+
+    node['rvm']['install_rubies'] = "false"
+
+The default is `"true"`.
+
+**Note:** This remains a legacy setting and will be deprecated in
+the next minor version release.
+
+## `user_install_rubies`
+
+Can enable or disable installation of a default ruby and additional rubies
+per user. For example:
+
+    node['rvm']['user_install_rubies'] = "false"
+
+The default is `"true"`.
+
+**Note:** This remains a legacy setting and will be deprecated in
+the next minor version release.
 
 ## `gem_package/rvm_string`
 
@@ -261,6 +320,11 @@ strings (for example `['ruby-1.8.7-p334', 'system']`). To target an underlying
 unmanaged system ruby you can use `system`.
 
 The default is the value of the `default_ruby` attribute.
+
+## `vagrant/system_chef_solo`
+
+If using the `vagrant` recipe, this sets the path to the package-installed
+*chef-solo* binary. The default is `"/opt/ruby/bin/chef-solo"`.
 
 # Resources and Providers
 

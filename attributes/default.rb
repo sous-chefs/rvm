@@ -19,26 +19,9 @@
 # limitations under the License.
 #
 
-default['rvm']['root_path']     = "/usr/local/rvm"
-default['rvm']['group_id']      = 'default'
-default['rvm']['group_users']   = []
-default['rvm']['rvmrc']         = Hash.new
-default['rvm']['user_installs'] = []
-
-default['rvm']['installer_url'] = "https://rvm.beginrescueend.com/install/rvm"
-
-default['rvm']['branch']  = nil
-default['rvm']['version'] = nil
-
-default['rvm']['upgrade'] = "none"
-
-# a hook to disable installing any default/additional rubies
-default['rvm']['install_rubies']      = "true"
-default['rvm']['user_install_rubies'] = "true"
-
 # ruby that will get installed and set to `rvm use default`.
-default['rvm']['default_ruby']      = "ruby-1.9.2-p180"
-default['rvm']['user_default_ruby'] = "ruby-1.9.2-p180"
+default['rvm']['default_ruby']      = "ruby-1.9.2-p290"
+default['rvm']['user_default_ruby'] = "ruby-1.9.2-p290"
 
 # list of additional rubies that will be installed
 default['rvm']['rubies']      = []
@@ -46,8 +29,10 @@ default['rvm']['user_rubies'] = []
 
 # list of gems to be installed in global gemset of all rubies
 _global_gems_ = [
-  { 'name' => "bundler" },
-  { 'name' => "rake" }
+  { 'name'    => 'bundler' },
+  { 'name'    => 'rake',
+    'version' => '0.9.2'
+  }
 ]
 default['rvm']['global_gems']       = _global_gems_.dup
 default['rvm']['user_global_gems']  = _global_gems_.dup
@@ -56,8 +41,29 @@ default['rvm']['user_global_gems']  = _global_gems_.dup
 default['rvm']['gems']      = Hash.new
 default['rvm']['user_gems'] = Hash.new
 
+# hash of rvmrc options
+default['rvm']['rvmrc']         = Hash.new
+
+# a list of user hashes, each an isolated per-user RVM installation
+default['rvm']['user_installs'] = []
+
+# system-wide installer options
+default['rvm']['installer_url'] = "https://rvm.beginrescueend.com/install/rvm"
+default['rvm']['branch']  = nil
+default['rvm']['version'] = nil
+default['rvm']['upgrade'] = "none"
+
+# extra system-wide tunables
+default['rvm']['root_path']     = "/usr/local/rvm"
+default['rvm']['group_id']      = 'default'
+default['rvm']['group_users']   = []
+
 # default rvm_gem_options (skip rdoc/ri generation)
 default['rvm']['rvm_gem_options'] = "--no-rdoc --no-ri"
+
+# a hook to disable installing any default/additional rubies
+default['rvm']['install_rubies']      = "true"
+default['rvm']['user_install_rubies'] = "true"
 
 case platform
 when "redhat","centos","fedora"
