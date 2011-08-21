@@ -138,7 +138,7 @@ list does not need to necessarily contain your default ruby as the
 
     node['rvm']['rubies'] = [ "ree-1.8.7", "jruby" ]
 
-The default is an empty array.
+The default is an empty array: `[]`.
 
 ## user_rubies
 
@@ -149,7 +149,7 @@ For example:
 
     node['rvm']['user_rubies'] = [ "ree-1.8.7", "jruby" ]
 
-The default is an empty array.
+The default is an empty array: `[]`.
 
 ## global_gems
 
@@ -157,7 +157,9 @@ A list of gem hashes to be installed into the *global* gemset in each
 installed RVM ruby sytem-wide. The **global.gems** files will be added to and
 all installed rubies will be iterated over to ensure full installation
 coverage. See the `rvm_gem` resource for more details about the options for
-each gem hash. The default puts bundler and rake in each ruby:
+each gem hash.
+
+The default puts bundler and rake in each ruby:
 
     node['rvm']['global_gems'] = [
       { 'name'    => 'bundler' },
@@ -172,8 +174,9 @@ A list of gem hashes to be installed into the *global* gemset in each
 installed RVM ruby for each user when not explicitly set. The
 **global.gems** files will be added to and all installed rubies will be
 iterated over to ensure full installation coverage. See the `rvm_gem`
-resource for more details about the options for each gem hash. The default
-puts bundler and rake in each ruby:
+resource for more details about the options for each gem hash.
+
+The default puts bundler and rake in each ruby:
 
     node['rvm']['user_global_gems'] = [
       { 'name'    => 'bundler' },
@@ -210,7 +213,7 @@ An example used on a build box might be:
       'rvm_trust_rvmrcs_flag'         => 1
     }
 
-The default is an empty hash.
+The default is an empty hash: `{}`.
 
 ## user_installs
 
@@ -218,8 +221,9 @@ The default is an empty hash.
 
 ## installer_url
 
-The URL that provides the RVM installer. The default is
-`http://rvm.beginrescueend.com/install/rvm`.
+The URL that provides the RVM installer.
+
+The default is `"https://rvm.beginrescueend.com/install/rvm"`.
 
 ## branch
 
@@ -248,12 +252,14 @@ Determines how to handle installing updates to the RVM framework system-wide.
 There are currently 3 valid values:
 
 * `"none"`, `false`, or `nil`: will not update RVM and leave it in its
-  current state. **Note** that this is the default.
+  current state.
 * `"latest"`: runs `rvm get latest` which downloads and installs the latest
   *"stable"* RVM release listed by
   [https://rvm.beginrescueend.com/releases/stable-version.txt][stable].
 * `"head"`: runs the infamous `rvm get head` which clones (via git) and
   installs the latest RVM repository HEAD.
+
+The default is `"none"`.
 
 ## root_path
 
@@ -324,7 +330,9 @@ The default is the value of the `default_ruby` attribute.
 ## vagrant/system_chef_solo
 
 If using the `vagrant` recipe, this sets the path to the package-installed
-*chef-solo* binary. The default is `"/opt/ruby/bin/chef-solo"`.
+*chef-solo* binary.
+
+The default is `"/opt/ruby/bin/chef-solo"`.
 
 # Resources and Providers
 
