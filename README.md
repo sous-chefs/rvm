@@ -46,25 +46,45 @@ that are RVM-supported. See below for more details.
 
 ## default
 
-Installs RVM system-wide, builds RVM Rubies, sets a default Ruby, installs
-any gems and global gems. **Note** that the `system` recipe is included to
-install RVM.
+Installs the RVM gem and initializes Chef to use the Lightweight Resources
+and Providers ([LWRPs][lwrp]).
+
+Use this recipe explicitly if you only want access to the LWRPs provided.
 
 ## system
 
-Installs any package dependencies and installs RVM system-wide.
+Installs the RVM codebase system-wide (that is, into `usr/local/rvm`) and
+installs Rubies, global gems, and specific gems driven off attribute metadata.
+This recipe includes *default* and *system_install*.
+
+Use this recipe by itself if you want RVM system-wide with Rubies installed,
+etc.
 
 ## system_install
 
-...
+Installs the RVM codebase system-wide (that is, into `/usr/local/rvm`). This
+recipe includes *default*.
+
+Use this recipe by itself if you want RVM installed system-wide but want
+to handle installing Rubies, invoking LWRPs, etc..
 
 ## user
 
-...
+Installs the RVM codebase for a list of users (selected from the
+`node['rvm']['user_installs']` hash) and installs Rubies, global gems, and
+specific gems driven off attribute metadata. This recipe includes *default*
+and *user_install*.
+
+Use this recipe by itself if you want RVM installed for specific users in
+isolation with Rubies installed, etc.
 
 ## user_install
 
-...
+Installs the RVM codebase for a list of users (selected from the
+`node['rvm']['user_installs']` hash). This recipe includes *default*.
+
+Use this recipe by itself if you want RVM installed for specific users in
+isolation but want each user to handle installing Rubies, invoking LWRPs, etc.
 
 ## vagrant
 
@@ -606,6 +626,7 @@ limitations under the License.
 [fnichol]:              https://github.com/fnichol
 [java_cb]:              http://community.opscode.com/cookbooks/java
 [jruby]:                http://jruby.org/
+[lwrp]:                 http://wiki.opscode.com/display/chef/Lightweight+Resources+and+Providers+%28LWRP%29
 [package_resource]:     http://wiki.opscode.com/display/chef/Resources#Resources-Package
 [rvm_create_gemset]:    http://rvm.beginrescueend.com/gemsets/creating/
 [rvm_delete_gemset]:    http://rvm.beginrescueend.com/gemsets/deleting/
