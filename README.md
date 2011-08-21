@@ -51,6 +51,14 @@ and Providers ([LWRPs][lwrp]).
 
 Use this recipe explicitly if you only want access to the LWRPs provided.
 
+## system_install
+
+Installs the RVM codebase system-wide (that is, into `/usr/local/rvm`). This
+recipe includes *default*.
+
+Use this recipe by itself if you want RVM installed system-wide but want
+to handle installing Rubies, invoking LWRPs, etc..
+
 ## system
 
 Installs the RVM codebase system-wide (that is, into `usr/local/rvm`) and
@@ -60,13 +68,13 @@ This recipe includes *default* and *system_install*.
 Use this recipe by itself if you want RVM system-wide with Rubies installed,
 etc.
 
-## system_install
+## user_install
 
-Installs the RVM codebase system-wide (that is, into `/usr/local/rvm`). This
-recipe includes *default*.
+Installs the RVM codebase for a list of users (selected from the
+`node['rvm']['user_installs']` hash). This recipe includes *default*.
 
-Use this recipe by itself if you want RVM installed system-wide but want
-to handle installing Rubies, invoking LWRPs, etc..
+Use this recipe by itself if you want RVM installed for specific users in
+isolation but want each user to handle installing Rubies, invoking LWRPs, etc.
 
 ## user
 
@@ -77,14 +85,6 @@ and *user_install*.
 
 Use this recipe by itself if you want RVM installed for specific users in
 isolation with Rubies installed, etc.
-
-## user_install
-
-Installs the RVM codebase for a list of users (selected from the
-`node['rvm']['user_installs']` hash). This recipe includes *default*.
-
-Use this recipe by itself if you want RVM installed for specific users in
-isolation but want each user to handle installing Rubies, invoking LWRPs, etc.
 
 ## vagrant
 
