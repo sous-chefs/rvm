@@ -33,8 +33,9 @@ The Opscode [java cookbook][java_cb] can be used on supported platforms.
 
 # Usage
 
-The typical case will be to include the `rvm` recipe which will install RVM
-system-wide, install all listed RVM rubies and gems and set a default RVM ruby.
+The typical case will be to include the `rvm::system` recipe which will
+install RVM system-wide, install all listed RVM rubies and gems and set a
+default RVM ruby.
 
 If node is running in a Vagrant VM, then the `rvm::vagrant` recipe can help
 with resolving the *chef-solo* binary on subsequent provision executions.
