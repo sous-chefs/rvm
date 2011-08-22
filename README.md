@@ -164,7 +164,7 @@ to handle installing Rubies, invoking LWRPs, etc..
 
 ## system
 
-Installs the RVM codebase system-wide (that is, into `usr/local/rvm`) and
+Installs the RVM codebase system-wide (that is, into `/usr/local/rvm`) and
 installs Rubies, global gems, and specific gems driven off attribute metadata.
 This recipe includes *default* and *system_install*.
 
