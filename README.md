@@ -152,8 +152,8 @@ installed in the [compilation phase][compilation]. This will ensure that all
 Rubies can be available if any `gem_package` resource calls are issued from
 other cookbooks during the compilation phase.
 
-**Warning:** Here be dragons! This is either brilliant or the dumbest idea
-ever, so feedback is appreciated.
+**Warning:** [Here be dragons][dragons]! This is either brilliant or the
+dumbest idea ever, so feedback is appreciated.
 
 # Attributes
 
@@ -806,6 +806,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 [compilation]:          http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
+[dragons]:              http://en.wikipedia.org/wiki/Here_be_dragons
 [gem_package]:          http://wiki.opscode.com/display/chef/Resources#Resources-Package
 [gem_package_options]:  http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions
 [fnichol]:              https://github.com/fnichol
