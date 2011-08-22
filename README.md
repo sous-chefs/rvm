@@ -1,6 +1,6 @@
 # Description
 
-Manages system-wide and per-user RVMs and manages installed Rubies.
+Manages system-wide and per-user [RVM][rvm]s and manages installed Rubies.
 Several lightweight resources and providers (LWRP) are also defined.
 
 # Requirements
@@ -814,6 +814,7 @@ limitations under the License.
 [jruby]:                http://jruby.org/
 [lwrp]:                 http://wiki.opscode.com/display/chef/Lightweight+Resources+and+Providers+%28LWRP%29
 [package_resource]:     http://wiki.opscode.com/display/chef/Resources#Resources-Package
+[rvm]:                  http://rvm.beginrescueend.com
 [rvm_create_gemset]:    http://rvm.beginrescueend.com/gemsets/creating/
 [rvm_delete_gemset]:    http://rvm.beginrescueend.com/gemsets/deleting/
 [rvm_empty_gemset]:     http://rvm.beginrescueend.com/gemsets/emptying/
