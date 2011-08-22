@@ -30,6 +30,7 @@
 * Normalize 'missing gem' logging notices. ([@fnichol][])
 * Add Chef::RVM::StringCache to get and cache canonical RVM strings. ([@fnichol][])
 * Modularize `libraries/helpers.rb` in modules. ([@fnichol][])
+* Issue [#25](https://github.com/fnichol/chef-rvm/issues/25): Add installation options/instructions to README. ([@fnichol][])
 
 
 ## 0.7.1 (May 15, 2011)
