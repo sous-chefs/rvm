@@ -1,7 +1,7 @@
 # Description
 
 Manages system-wide and per-user [RVM][rvm]s and manages installed Rubies.
-Several lightweight resources and providers (LWRP) are also defined.
+Several lightweight resources and providers ([LWRP][lwrp]) are also defined.
 
 # Requirements
 
@@ -56,7 +56,7 @@ See below for more details.
 
 ## RVM Installed System-Wide and LWRPs Defined
 
-If you want to manage your own RVM environment with the provided LWRPs,
+If you want to manage your own RVM environment with the provided [LWRP][lwrp]s,
 then include `recipe[rvm::system_install]` in your run_list to prevent
 a default RVM Ruby being installed. See the **Resources and Providers**
 section for more details.
