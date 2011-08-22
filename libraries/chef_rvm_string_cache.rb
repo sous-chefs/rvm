@@ -33,6 +33,13 @@ class Chef
         include Chef::RVM::ShellHelpers
       end
 
+      ##
+      # Returns a fully qualified RVM Ruby string for the given input string
+      #
+      # @param [String] a string that can interpreted by RVM
+      # @param [String] the username if this is for a user install or nil if
+      #                 it is a system install
+      # @return [String] a fully qualified RVM Ruby string
       def self.fetch(str, user = nil)
         @@strings ||= Hash.new
         rvm_install = user || "system"

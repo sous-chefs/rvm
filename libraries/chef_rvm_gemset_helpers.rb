@@ -23,12 +23,12 @@ class Chef
   module RVM
     module GemsetHelpers
       ##
-      # Lists all gemsets for a given RVM ruby.
+      # Lists all gemsets for a given RVM Ruby.
       #
       # **Note** that these values are cached for lookup speed. To flush these
       # values and force an update, call #update_installed_gemsets.
       #
-      # @param [String, #to_s] the fully qualified RVM ruby string
+      # @param [String, #to_s] the RVM Ruby string
       # @return [Array] a cached list of gemset names
       def installed_gemsets(rubie)
         @installed_gemsets = Hash.new if @installed_gemsets.nil?
@@ -36,9 +36,9 @@ class Chef
       end
 
       ##
-      # Updates the list of all gemsets for a given RVM ruby on the system
+      # Updates the list of all gemsets for a given RVM Ruby on the system
       #
-      # @param [String, #to_s] the fully qualified RVM ruby string
+      # @param [String, #to_s] the RVM Ruby string
       # @return [Array] the current list of gemsets
       def update_installed_gemsets(rubie)
         original_rubie = @rvm_env.environment_name
@@ -51,10 +51,10 @@ class Chef
       end
 
       ##
-      # Determines whether or not a gemset exists for a given ruby
+      # Determines whether or not a gemset exists for a given Ruby
       #
       # @param [Hash] the options to query a gemset with
-      # @option opts [String] :ruby the ruby the query within
+      # @option opts [String] :ruby the Ruby the query within
       # @option opts [String] :gemset the gemset to look for
       def gemset_exists?(opts={})
         return false if opts[:ruby].nil? || opts[:gemset].nil?

@@ -26,7 +26,8 @@ class Chef
       # Finds the correct shell profile to source to init an RVM-aware
       # shell environment
       #
-      # @param [true, false] whether this is for a user or system rvm context
+      # @param [String] a user's home directory path if this is for a user or
+      #                 nil if it is in a system context
       # @return [String] full path the shell profile
       def find_profile_to_source(user_dir = nil)
         if user_dir
@@ -44,7 +45,8 @@ class Chef
       # Returns a shell command that is RVM-aware
       #
       # @param [String, #to_s] the shell command to be wrapped
-      # @param [true, false] whether this is for a user or system rvm context
+      # @param [String] A user's home directory path if this is for a user or
+      #                 nil if it is in a system context
       # @return [String] the command wrapped in RVM-initialized bash command
       def rvm_wrap_cmd(cmd, user_dir = nil)
         profile = find_profile_to_source(user_dir)
@@ -53,4 +55,3 @@ class Chef
     end
   end
 end
-

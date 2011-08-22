@@ -23,19 +23,19 @@ class Chef
   module RVM
     module StringHelpers
       ##
-      # Filters out any gemset declarations in an RVM ruby string
+      # Filters out any gemset declarations in an RVM Ruby string
       #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [String] the ruby string, minus gemset
+      # @param [String, #to_s] the RVM Ruby string
+      # @return [String] the Ruby string, minus gemset
       def select_ruby(ruby_string)
         ruby_string.split('@').first
       end
 
       ##
-      # Filters out any ruby declaration in an RVM ruby string
+      # Filters out any Ruby declaration in an RVM Ruby string
       #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [String] the gemset string, minus ruby or nil if no gemset given
+      # @param [String, #to_s] the RVM Ruby string
+      # @return [String] the gemset string, minus Ruby or nil if no gemset given
       def select_gemset(ruby_string)
         if ruby_string.include?('@')
           ruby_string.split('@').last
@@ -45,10 +45,10 @@ class Chef
       end
 
       ##
-      # Sanitizes a ruby string so that it's more normalized.
+      # Sanitizes a Ruby string so that it's more normalized.
       #
-      # @param [String, #to_s] an RVM ruby string
-      # @return [String] a fully qualified RVM ruby string
+      # @param [String, #to_s] an RVM Ruby string
+      # @return [String] a fully qualified RVM Ruby string
       def normalize_ruby_string(ruby_string)
         return "system" if ruby_string == "system"
         StringCache.fetch(ruby_string, new_resource.user)

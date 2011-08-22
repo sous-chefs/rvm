@@ -20,7 +20,7 @@
 #
 
 ##
-# Patch Chef::Reousrce::GemPackage resource to use the RVMRubygems provider.
+# Patch Chef::Resource::GemPackage resource to use the RVMRubygems provider.
 # This has potentially dangerous side effects and should be considered
 # experimental. You have been warned.
 def patch_gem_package

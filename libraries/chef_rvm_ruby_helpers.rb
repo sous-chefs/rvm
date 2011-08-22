@@ -23,47 +23,47 @@ class Chef
   module RVM
     module RubyHelpers
       ##
-      # Lists all installed RVM rubies on the system.
+      # Lists all installed RVM Rubies on the system.
       #
       # **Note** that these values are cached for lookup speed. To flush these
       # values and force an update, call #update_installed_rubies.
       #
-      # @return [Array] the cached list of currently installed rvm rubies
+      # @return [Array] the cached list of currently installed RVM Rubies
       def installed_rubies
         @installed_rubies ||= update_installed_rubies
       end
 
       ##
-      # Updates the list of all installed RVM rubies on the system
+      # Updates the list of all installed RVM Rubies on the system
       #
-      # @return [Array] the list of currently installed rvm rubies
+      # @return [Array] the list of currently installed RVM Rubies
       def update_installed_rubies
         @installed_rubies = @rvm_env.list_strings
         @installed_rubies
       end
 
       ##
-      # Determines whether or not the given ruby is already installed
+      # Determines whether or not the given Ruby is already installed
       #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [Boolean] is this ruby installed?
+      # @param [String, #to_s] the RVM Ruby string
+      # @return [Boolean] is this Ruby installed?
       def ruby_installed?(rubie)
         ! installed_rubies.select { |r| r.start_with?(rubie) }.empty?
       end
 
       ##
-      # Fetches the current default ruby string, potentially with gemset
+      # Fetches the current default Ruby string, potentially with gemset
       #
-      # @return [String] the fully qualified RVM ruby string, nil if none is set
+      # @return [String] the RVM Ruby string, nil if none is set
       def current_ruby_default
         @rvm_env.list_default
       end
 
       ##
-      # Determines whether or not the given ruby is the default one
+      # Determines whether or not the given Ruby is the default one
       #
-      # @param [String, #to_s] the fully qualified RVM ruby string
-      # @return [Boolean] is this ruby the default one?
+      # @param [String, #to_s] the RVM Ruby string
+      # @return [Boolean] is this Ruby the default one?
       def ruby_default?(rubie)
         current_default = current_ruby_default
 
@@ -79,11 +79,11 @@ class Chef
       end
 
       ##
-      # Determines whether or not the given ruby could be considered the system
-      # ruby.
+      # Determines whether or not the given Ruby could be considered the
+      # system Ruby.
       #
-      # @param [String, #to_s] an RVM ruby string
-      # @return [Boolean] is this ruby string the a system ruby?
+      # @param [String, #to_s] the RVM Ruby string
+      # @return [Boolean] is this Ruby string the a system Ruby?
       def system_ruby?(rubie)
         return true if rubie.nil?         # nil should be system
         return true if rubie.empty?       # an empty string should be system
