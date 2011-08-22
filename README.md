@@ -350,7 +350,8 @@ uninstall |Just remove the ruby and leave everything else. See [RVM rubies/remov
 
 Attribute   |Description |Default value
 ------------|------------|-------------
-ruby_string |**Name attribute:** a fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be stripped. |`nil`
+ruby_string |**Name attribute:** an RVM ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be stripped. |`nil`
+user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
 
 ### Examples
 
@@ -377,8 +378,11 @@ using uninstall since it purges almost everything.
 #### Uninstall Ruby
 
     rvm_ruby "ree-1.8.7-2011.01" do
-      action :uninstall
+      action  :uninstall
+      user    "jenkins"
     end
+
+**Note:** The RVM installation for the *jenkins* user will be acted upon.
 
 ## rvm_default_ruby
 
@@ -541,7 +545,7 @@ usage. Gemsets can also be specified.
       action :upgrade
     end
 
-**Note:** the default RVM ruby will be targetted if no `ruby_string` attribute
+**Note:** the default RVM ruby will be targeted if no `ruby_string` attribute
 is given.
 
 #### Remove A Gem
