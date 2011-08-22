@@ -1,4 +1,4 @@
-## 0.8.0 (unreleased)
+## 0.8.0 (August 22, 2011)
 
 ### Bug fixes
 
