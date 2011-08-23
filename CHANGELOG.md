@@ -1,3 +1,10 @@
+## 0.8.1 (unreleased)
+
+### Bug fixes
+
+* Ensure Ruby/gemset is installed in rvm_shell provider. ([@fnichol][])
+
+
 ## 0.8.0 (August 22, 2011)
 
 ### Bug fixes
