@@ -24,17 +24,20 @@ include Chef::RVM::EnvironmentHelpers
 include Chef::RVM::ShellHelpers
 
 def load_current_resource
-  @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
+  @user_rvm     = user_installed_rvm? ? new_resource.user : nil
+  @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string), @user_rvm)
   @gemset       = select_gemset(new_resource.ruby_string)
   @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(@user_rvm)
 end
 
 action :run do
+  user_rvm = @user_rvm
+
   # ensure ruby is installed and gemset exists
   unless env_exists?(@ruby_string)
     e = rvm_environment @ruby_string do
-      user    new_resource.user
+      user    user_rvm
       action :nothing
     end
     e.run_action(:create)
@@ -64,16 +67,21 @@ def script_wrapper(exec_action)
     #{new_resource.code}
   CODE
 
+  if new_resource.user
+    user_rvm  = user_installed_rvm?
+    user_home = user_dir
+  end
+
   s = script new_resource.name do
     interpreter   "bash"
 
     if new_resource.user
       user        new_resource.user
-      if new_resource.environment
-        environment({ 'USER' => opts[:user], 'HOME' => user_dir }.merge(
+      if user_rvm && new_resource.environment
+        environment({ 'USER' => new_resource.user, 'HOME' => user_home }.merge(
           new_resource.environment))
-      else
-        environment({ 'USER' => opts[:user], 'HOME' => user_dir })
+      elsif user_rvm
+        environment({ 'USER' => new_resource.user, 'HOME' => user_home })
       end
     end
 
@@ -88,4 +96,24 @@ def script_wrapper(exec_action)
     action        :nothing
   end
   s.run_action(exec_action)
+end
+
+##
+# Whether or not the user has an isolated RVM installation
+#
+# @return [true,false] does the user have RVM installed for themselves?
+def user_installed_rvm?
+  return false unless new_resource.user
+
+  ::File.exists?("#{user_dir}/.rvm/VERSION")
+end
+
+##
+# Determines the user's home directory
+#
+# @return [String] the path to the user's home directory
+def user_dir
+  return nil unless new_resource.user
+
+  Etc.getpwnam(new_resource.user).dir
 end

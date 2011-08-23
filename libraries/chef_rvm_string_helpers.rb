@@ -48,10 +48,11 @@ class Chef
       # Sanitizes a Ruby string so that it's more normalized.
       #
       # @param [String, #to_s] an RVM Ruby string
+      # @param [String] a specific user RVM or nil for system-wide
       # @return [String] a fully qualified RVM Ruby string
-      def normalize_ruby_string(ruby_string)
+      def normalize_ruby_string(ruby_string, user = new_resource.user)
         return "system" if ruby_string == "system"
-        StringCache.fetch(ruby_string, new_resource.user)
+        StringCache.fetch(ruby_string, user)
       end
     end
   end
