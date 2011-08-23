@@ -31,21 +31,19 @@ def load_current_resource
 end
 
 action :run do
-  next if skip_shell?
+  # ensure ruby is installed and gemset exists
+  unless env_exists?(@ruby_string)
+    e = rvm_environment @ruby_string do
+      user    new_resource.user
+      action :nothing
+    end
+    e.run_action(:create)
+  end
 
   script_wrapper :run
 end
 
 private
-
-def skip_shell?
-  if env_exists?(@ruby_string)
-    false
-  else
-    Chef::Log.warn("rvm_environment[#{ruby_string}] not created, so skipping")
-    true
-  end
-end
 
 ##
 # Wraps the script resource for RVM-dependent code.
