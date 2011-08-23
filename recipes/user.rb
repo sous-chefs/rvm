@@ -19,7 +19,7 @@
 
 include_recipe 'rvm::user_install'
 
-node['rvm']['user_installs'].each do |rvm_user|
+Array(node['rvm']['user_installs']).each do |rvm_user|
   perform_install_rubies  = rvm_user['install_rubies'] == true ||
                             rvm_user['install_rubies'] == "true" ||
                             node['rvm']['user_install_rubies'] == true ||

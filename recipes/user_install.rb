@@ -21,7 +21,7 @@ include_recipe 'rvm'
 
 install_pkg_prereqs
 
-node['rvm']['user_installs'].each do |rvm_user|
+Array(node['rvm']['user_installs']).each do |rvm_user|
   script_flags      = build_script_flags(rvm_user['version'], rvm_user['branch'])
   upgrade_strategy  = build_upgrade_strategy(rvm_user['upgrade'])
   installer_url     = rvm_user['installer_url'] || node['rvm']['installer_url']
