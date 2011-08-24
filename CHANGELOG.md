@@ -1,8 +1,13 @@
-## 0.8.1 (unreleased)
+## 0.8.2 (August 24, 2011)
 
 ### Bug fixes
 
 * Ensure Ruby/gemset is installed in rvm_shell provider. ([@fnichol][])
+* Issue [#35](https://github.com/fnichol/chef-rvm/issues/35): Detect if user has RVM installed in rvm_shell provider. ([@fnichol][])
+
+### Improvments
+
+* Array-ize node['rvm']['user_installs']. ([@fnichol][])
 
 
 ## 0.8.0 (August 22, 2011)
