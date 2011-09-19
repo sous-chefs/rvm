@@ -145,7 +145,7 @@ def install_ruby_dependencies(rubie)
     #include_recipe "java"
     case node['platform']
     when "debian","ubuntu"
-      pkgs += "g++"
+      pkgs += %w{ g++ }
     end
   end
 
