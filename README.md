@@ -103,7 +103,7 @@ development), include `recipe[rvm::user]` in your run_list and add a user
 hash to the `user_installs` attribute list. For example:
 
     node['rvm']['user_installs'] = [
-      'wigglebottom'  => {
+      { 'user'          => 'wigglebottom'
         'default_ruby'  => 'rbx',
         'rubies'        => ['1.9.2', '1.8.7']
       }
@@ -125,7 +125,7 @@ LWRPs, then include `recipe[rvm::user_install]` in your run_list and add a
 user hash to the `user_installs` attribute list. For example:
 
     node['rvm']['user_installs'] = [
-      'wigglebottom'  => {}
+      { 'user' => 'wigglebottom' }
     ]
 
 See the **Resources and Providers** section for more details.
@@ -341,7 +341,7 @@ A list of user specific RVM installation hashes. The `user_install` and
 The hash keys correspond to the default/system equivalents. For example:
 
     node['rvm']['user_installs'] = [
-      'jdoe'    => {
+      { 'user'            => 'jdoe',
         'upgrade'         => "head",
         'default_ruby'    => 'ree',
         'rvm_gem_options' => "",
@@ -352,7 +352,7 @@ The hash keys correspond to the default/system equivalents. For example:
           { 'name'    => 'rake' }
         ]
       },
-      'jenkins' => {
+      { 'user'          => 'jenkins',
         'version'       => '1.7.0',
         'default_ruby'  => 'jruby-1.6.3',
         'rubies'        => ['1.8.7', '1.9.2', 'ree', 'rbx'],
