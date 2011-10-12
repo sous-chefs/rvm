@@ -134,7 +134,7 @@ def install_ruby_dependencies(rubie)
           pkgs += %w{ readline readline-devel openssl-devel }
         end
         pkgs += %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
-      when "centos","redhat","fedora"
+      when "centos","redhat","fedora","amazon"
         pkgs = %w{ gcc-c++ patch readline readline-devel zlib zlib-devel
                    libyaml-devel libffi-devel openssl-devel }
         pkgs += %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
