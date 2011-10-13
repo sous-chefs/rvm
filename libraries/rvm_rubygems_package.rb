@@ -131,8 +131,13 @@ class Chef
         end
 
         def install_via_gem_command(name, version)
-          src = @new_resource.source &&
-            "  --source=#{@new_resource.source} --source=http://rubygems.org"
+          # Handle installing from a local file.
+          if source_is_remote?
+            src = @new_resource.source &&
+              "  --source=#{@new_resource.source} --source=http://rubygems.org"
+          else
+            name = @new_resource.source
+          end
 
           cmd = %{rvm #{ruby_strings.join(',')} #{gem_binary_path}}
           cmd << %{ install #{name} -q --no-rdoc --no-ri -v "#{version}"}
