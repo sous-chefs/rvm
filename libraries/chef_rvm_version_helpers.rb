@@ -32,7 +32,11 @@ class Chef
         end
 
         version = shell_out!(
-          rvm_wrap_cmd(cmd, user_dir), :env => environment).stdout
+          rvm_wrap_cmd(cmd, user_dir), :env => environment).stdout.strip
+
+        Chef::Log.debug "RVM version = #{version}"
+
+        version
       end
     end
   end
