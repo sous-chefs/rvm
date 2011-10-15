@@ -95,6 +95,12 @@ def update_global_gems_file(exec_action)
   global_gems_file  = if new_resource.user
                         "#{user_dir}/.rvm/gemsets/global.gems"
                       else
+                        d = directory "#{node['rvm']['root_path']}/gemsets" do
+              						recursive true
+		  			          		action :nothing
+		            				end
+						            d.run_action(:create)
+                      
                         "#{node['rvm']['root_path']}/gemsets/global.gems"
                       end
 
