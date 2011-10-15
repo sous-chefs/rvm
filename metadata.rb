@@ -13,7 +13,7 @@ recipe "rvm:user",            "Installs the RVM codebase for a list of users (se
 recipe "rvm::vagrant",      "An optional recipe to help if running in a Vagrant virtual machine"
 recipe "rvm::gem_package",  "An experimental recipe that patches the gem_package resource"
 
-%w{ debian ubuntu suse centos redhat fedora mac_os_x }.each do |os|
+%w{ debian ubuntu suse centos amazon redhat fedora mac_os_x }.each do |os|
   supports os
 end
 
