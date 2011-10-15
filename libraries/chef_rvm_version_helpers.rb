@@ -17,7 +17,9 @@ class Chef
       end
 
       def self.fetch_version(user = nil)
-        @@version ||= rvm_version(user)
+        @@versions ||= Hash.new
+        rvm_install = user || "system"
+        @@versions[rvm_install] ||= rvm_version(user)
       end
 
       def self.rvm_version(user = nil)
