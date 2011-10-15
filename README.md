@@ -20,6 +20,7 @@ the recipes and LWRPs run on these platforms without error:
 * mac_os_x (10.6/10.7)
 * suse (openSUSE, SLES)
 * centos
+* amazon (2011.09)
 * redhat
 * fedora
 

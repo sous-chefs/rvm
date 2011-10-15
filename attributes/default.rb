@@ -66,7 +66,7 @@ default['rvm']['install_rubies']      = "true"
 default['rvm']['user_install_rubies'] = "true"
 
 case platform
-when "redhat","centos","fedora"
+when "redhat","centos","fedora", "amazon"
   node.set['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git}
   default['rvm']['user_home_root']  = '/home'
 when "debian","ubuntu","suse"
