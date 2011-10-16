@@ -1,4 +1,24 @@
-## 0.8.3 (unreleased)
+## 0.8.5 (unreleased)
+
+
+## 0.8.4 (October 16, 2011)
+
+### RVM API tracking updates
+
+* Issue [#43](https://github.com/fnichol/chef-rvm/issues/43), Pull request [#46](https://github.com/fnichol/chef-rvm/pull/46): Make explicit use of `exec` for RVM versions older than 1.8.6 and `do` for newer versions. ([@ryansch][], [@fnichol][])
+
+### Bug fixes
+
+* Pull request [#39](https://github.com/fnichol/chef-rvm/pull/39): Fix rvm_ruby provider on Ubuntu/Debian when installing JRuby. ([@exempla][])
+* Issues [#38](https://github.com/fnichol/chef-rvm/issues/38), [#42](https://github.com/fnichol/chef-rvm/issues/42): Update user_installs attribute to be an array of hashes in README. ([@fnichol][])
+
+### New features
+
+* Pull request [#47](https://github.com/fnichol/chef-rvm/pull/47): Handle installing a gem from a local file. ([@ryansch][])
+
+### Improvments
+
+* Pull request [#44](https://github.com/fnichol/chef-rvm/pull/44): Add Amazon's Linux AMI support. ([@adrianpike][])
 
 
 ## 0.8.2 (August 24, 2011)
@@ -92,8 +112,11 @@
 The changelog began with version 0.6.0 so any changes prior to that can be
 seen by checking the tagged releases and reading git commit messages.
 
+[@adrianpike]: https://github.com/adrianpike
+[@exempla]: https://github.com/exempla
 [@fnichol]: https://github.com/fnichol
 [@juzzin]: https://github.com/juzzin
 [@phlipper]: https://github.com/phlipper
 [@relistan]: https://github.com/relistan
+[@ryansch]: https://github.com/ryansch
 [@temujin9]: https://github.com/temujin9

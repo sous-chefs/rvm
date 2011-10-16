@@ -50,7 +50,7 @@ Include a reference to the cookbook in a **Cheffile** and run
     librarian-chef init
     cat >> Cheffile <<END_OF_CHEFFILE
     cookbook 'rvm',
-      :git => 'git://github.com/fnichol/chef-rvm.git', :ref => 'v0.8.2'
+      :git => 'git://github.com/fnichol/chef-rvm.git', :ref => 'v0.8.4'
     END_OF_CHEFFILE
     librarian-chef install
 
@@ -62,7 +62,7 @@ plugin:
 
     gem install knife-github-cookbooks
     cd chef-repo
-    knife cookbook github install fnichol/chef-rvm/v0.8.2
+    knife cookbook github install fnichol/chef-rvm/v0.8.4
 
 ## As a Git Submodule
 
@@ -81,7 +81,7 @@ If the cookbook needs to downloaded temporarily just to be uploaded to a Chef
 Server or Opscode Hosted Chef, then a tarball installation might fit the bill:
 
     cd chef-repo/cookbooks
-    curl -Ls https://github.com/fnichol/chef-rvm/tarball/v0.8.2 | tar xfz - && \
+    curl -Ls https://github.com/fnichol/chef-rvm/tarball/v0.8.4 | tar xfz - && \
       mv fnichol-chef-rvm-* rvm
 
 ## From the Opscode Community Platform
