@@ -7,8 +7,11 @@ Several lightweight resources and providers ([LWRP][lwrp]) are also defined.
 
 ## Chef
 
-Tested on 0.10.2 and 0.10.4 but newer and older version should work just
-fine. File an [issue][issues] if this isn't the case.
+Tested on 0.10.2/0.10.4 and 0.9.16 but newer and older versions (of 0.9.x)
+should work just fine. Due to the `rvm_gem` implementation, versions 0.8.x
+of Chef currently will **not** work (see [GH-50][gh50]).
+
+File an [issue][issues] if this isn't the case.
 
 ## Platform
 
@@ -868,6 +871,7 @@ limitations under the License.
 [dragons]:              http://en.wikipedia.org/wiki/Here_be_dragons
 [gem_package]:          http://wiki.opscode.com/display/chef/Resources#Resources-Package
 [gem_package_options]:  http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions
+[gh50]:                 https://github.com/fnichol/chef-rvm/issues/50
 [fnichol]:              https://github.com/fnichol
 [java_cb]:              http://community.opscode.com/cookbooks/java
 [jruby]:                http://jruby.org/
