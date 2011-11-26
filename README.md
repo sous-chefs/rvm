@@ -382,7 +382,7 @@ The default is an empty list: `[]`.
 
 The URL that provides the RVM installer.
 
-The default is `"https://rvm.beginrescueend.com/install/rvm"`.
+The default is `"https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer"`.
 
 ## branch
 
