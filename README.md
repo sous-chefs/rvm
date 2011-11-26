@@ -678,7 +678,7 @@ package_name |**Name Attribute:** the name of the gem to install.|`nil`
 ruby_string |An RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be used. |`"default"`
 version     |The specific version of the gem to install/upgrade. |`nil`
 options     |Add additional options to the underlying gem command. |`nil`
-source      |Provide an additional source for gem providers (such as RubyGems). |`nil`
+source      |Provide an additional source for gem providers (such as RubyGems). This can also include a file system path to a `.gem` file such as `/tmp/json-1.5.1.gem`. |`nil`
 user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
 
 ### Examples
@@ -702,6 +702,14 @@ user        |A users's isolated RVM installation on which to apply an action. Th
 
 **Note:** the install action is default, so the second example is a more common
 usage. Gemsets can also be specified.
+
+#### Install A Gem From A Local File
+
+    rvm_gem "json" do
+      ruby_string "ree@project"
+      source      "/tmp/json-1.5.1.gem"
+      version     "1.5.1"
+    end
 
 #### Keep A Gem Up To Date
 
