@@ -123,7 +123,7 @@ class Chef
         def install_package(name, version)
           # ensure each ruby is installed and gemset exists
           ruby_strings.each do |rubie|
-            next if rubie = 'system'
+            next if rubie == 'system'
             e = rvm_environment rubie do
               user    new_resource.user if new_user.respond_to?("user")
               action :nothing
