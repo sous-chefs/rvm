@@ -1,4 +1,22 @@
-## 0.8.5 (unreleased)
+## 0.8.7 (unreleased)
+
+
+## 0.8.6 (November 28, 2011)
+
+### RVM API tracking updates
+
+* Issue [#56](https://github.com/fnichol/chef-rvm/issues/56): Ensure that RVM version strings can be converted to RubyGems format. ([@fnichol][])
+* Issue [#53](https://github.com/fnichol/chef-rvm/issues/53): Update rvm/installer\_url default to latest URL. ([@fnichol][])
+
+### Bug fixes
+
+* Issue [#54](https://github.com/fnichol/chef-rvm/issues/54), Pull request [#55](https://github.com/fnichol/chef-rvm/pull/55): Fix if statement typo in `RVM::RubyGems::Package`. ([@bradphelan][])
+* Pull request [#57](https://github.com/fnichol/chef-rvm/pull/57): Fix typo in `RVM::RubyGems::Package`. ([@bradphelan][])
+
+### Improvments
+
+* Add note to README warning that chef 0.8.x will not work. ([@fnichol][])
+* Issue [#48](https://github.com/fnichol/chef-rvm/issues/48): Add example of local gem source installation in README. ([@fnichol][])
 
 
 ## 0.8.4 (October 16, 2011)
@@ -113,6 +131,7 @@ The changelog began with version 0.6.0 so any changes prior to that can be
 seen by checking the tagged releases and reading git commit messages.
 
 [@adrianpike]: https://github.com/adrianpike
+[@bradphelan]: https://github.com/bradphelan
 [@exempla]: https://github.com/exempla
 [@fnichol]: https://github.com/fnichol
 [@juzzin]: https://github.com/juzzin
