@@ -125,7 +125,7 @@ class Chef
           ruby_strings.each do |rubie|
             next if rubie == 'system'
             e = rvm_environment rubie do
-              user    new_resource.user if new_user.respond_to?("user")
+              user    new_resource.user if new_resource.respond_to?("user")
               action :nothing
             end
             e.run_action(:create)
