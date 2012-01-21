@@ -90,7 +90,11 @@ end
 #
 # @oaram [Symbol] action to :create or :remove the gem from the file
 def update_global_gems_file(exec_action)
-  gem               = new_resource.package_name
+  gem               = if new_resource.version
+                        "#{new_resource.package_name} -v#{new_resource.version}"
+                      else
+                        new_resource.package_name
+                      end
   user_dir          = Etc.getpwnam(new_resource.user).dir if new_resource.user
   global_gems_file  = if new_resource.user
                         "#{user_dir}/.rvm/gemsets/global.gems"
