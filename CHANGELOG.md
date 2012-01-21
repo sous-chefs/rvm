@@ -1,5 +1,22 @@
 ## 0.8.7 (unreleased)
 
+### RVM API tracking updates
+
+* Drop rake 0.9.2 from default global gems to match upstream default. ([@fnichol][])
+
+### Bug fixes
+
+* Pull request [#64](https://github.com/fnichol/chef-rvm/pull/64): Fix check for rvm in user install. ([@dokipen][])
+* Issue [#61](https://github.com/fnichol/chef-rvm/issues/61): Include Chef::RVM::StringHelpers to provide select_ruby function. ([@jheth][])
+
+### New features
+
+* Update default Ruby to ruby-1.9.3-p0 (it's time). ([@fnichol][])
+
+### Improvements
+
+* Now rvm\_global\_gem respects version attr in global.gems file. ([@fnichol][])
+
 
 ## 0.8.6 (November 28, 2011)
 
@@ -13,7 +30,7 @@
 * Issue [#54](https://github.com/fnichol/chef-rvm/issues/54), Pull request [#55](https://github.com/fnichol/chef-rvm/pull/55): Fix if statement typo in `RVM::RubyGems::Package`. ([@bradphelan][])
 * Pull request [#57](https://github.com/fnichol/chef-rvm/pull/57): Fix typo in `RVM::RubyGems::Package`. ([@bradphelan][])
 
-### Improvments
+### Improvements
 
 * Add note to README warning that chef 0.8.x will not work. ([@fnichol][])
 * Issue [#48](https://github.com/fnichol/chef-rvm/issues/48): Add example of local gem source installation in README. ([@fnichol][])
@@ -34,7 +51,7 @@
 
 * Pull request [#47](https://github.com/fnichol/chef-rvm/pull/47): Handle installing a gem from a local file. ([@ryansch][])
 
-### Improvments
+### Improvements
 
 * Pull request [#44](https://github.com/fnichol/chef-rvm/pull/44): Add Amazon's Linux AMI support. ([@adrianpike][])
 
@@ -46,7 +63,7 @@
 * Ensure Ruby/gemset is installed in rvm_shell provider. ([@fnichol][])
 * Issue [#35](https://github.com/fnichol/chef-rvm/issues/35): Detect if user has RVM installed in rvm_shell provider. ([@fnichol][])
 
-### Improvments
+### Improvements
 
 * Array-ize node['rvm']['user_installs']. ([@fnichol][])
 
@@ -72,7 +89,7 @@
 * Pull request [#26](https://github.com/fnichol/chef-rvm/pull/26): Add new attribute `group_id`. ([@temujin9][])
 * General refactoring and re-modularizing. ([@fnichol][])
 
-### Improvments
+### Improvements
 
 * Pull request [#26](https://github.com/fnichol/chef-rvm/pull/26): RVM unix group is created in compilation phase if GID is provided. ([@temujin9][])
 * Revamp CHANGELOG in the style of [guard](https://github.com/guard/guard). ([@fnichol][])
@@ -96,7 +113,7 @@
 
 * Add Rakefile for opscode platform deploy builds. ([@fnichol][])
 
-### Improvments
+### Improvements
 
 * Update metadata.rb properties. ([@fnichol][])
 
@@ -116,7 +133,7 @@
 * New experimental recipe gem_package which patches gem_package resource. ([@fnichol][])
 * Add rvm_global_gem resource. ([@fnichol][])
 
-### Improvments
+### Improvements
 
 * Issue [#3](https://github.com/fnichol/chef-rvm/issues/3): Revamp and update README.md. ([@fnichol][])
 * Issue [#3](https://github.com/fnichol/chef-rvm/issues/5): Add CHANGELOG.md. ([@fnichol][])
@@ -132,8 +149,10 @@ seen by checking the tagged releases and reading git commit messages.
 
 [@adrianpike]: https://github.com/adrianpike
 [@bradphelan]: https://github.com/bradphelan
+[@dokipen]: https://github.com/dokipen
 [@exempla]: https://github.com/exempla
 [@fnichol]: https://github.com/fnichol
+[@jheth]: https://github.com/jheth
 [@juzzin]: https://github.com/juzzin
 [@phlipper]: https://github.com/phlipper
 [@relistan]: https://github.com/relistan
