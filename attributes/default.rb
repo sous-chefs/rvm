@@ -29,10 +29,7 @@ default['rvm']['user_rubies'] = []
 
 # list of gems to be installed in global gemset of all rubies
 _global_gems_ = [
-  { 'name'    => 'bundler' },
-  { 'name'    => 'rake',
-    'version' => '0.9.2'
-  }
+  { 'name'    => 'bundler' }
 ]
 default['rvm']['global_gems']       = _global_gems_.dup
 default['rvm']['user_global_gems']  = _global_gems_.dup
