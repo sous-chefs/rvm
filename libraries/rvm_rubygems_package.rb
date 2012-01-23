@@ -125,7 +125,7 @@ class Chef
           ruby_strings.each do |rubie|
             next if rubie == 'system'
             e = rvm_environment rubie do
-              user    new_resource.user if new_resource.respond_to?("user")
+              user    gem_env.user if gem_env.user
               action :nothing
             end
             e.run_action(:create)
@@ -144,13 +144,13 @@ class Chef
             name = @new_resource.source
           end
 
-          cmd = %{rvm #{ruby_strings.join(',')} #{rvm_do(new_resource.user)} #{gem_binary_path}}
+          cmd = %{rvm #{ruby_strings.join(',')} #{rvm_do(gem_env.user)} #{gem_binary_path}}
           cmd << %{ install #{name} -q --no-rdoc --no-ri -v "#{version}"}
           cmd << %{#{src}#{opts}}
 
-          if new_resource.respond_to?("user") && new_resource.user
-            user_dir    = Etc.getpwnam(new_resource.user).dir
-            environment = { 'USER' => new_resource.user, 'HOME' => user_dir }
+          if gem_env.user
+            user_dir    = Etc.getpwnam(gem_env.user).dir
+            environment = { 'USER' => gem_env.user, 'HOME' => user_dir }
           else
             user_dir    = nil
             environment = nil
@@ -164,7 +164,7 @@ class Chef
         end
 
         def uninstall_via_gem_command(name, version)
-          cmd = %{rvm #{ruby_strings.join(',')} #{rvm_do(new_resource.user)} #{gem_binary_path}}
+          cmd = %{rvm #{ruby_strings.join(',')} #{rvm_do(gem_env.user)} #{gem_binary_path}}
           cmd << %{ uninstall #{name} -q -x -I}
           if version
             cmd << %{ -v "#{version}"#{opts}}
@@ -172,9 +172,9 @@ class Chef
             cmd << %{ -a#{opts}}
           end
 
-          if new_resource.respond_to?("user") && new_resource.user
-            user_dir    = Etc.getpwnam(new_resource.user).dir
-            environment = { 'USER' => new_resource.user, 'HOME' => user_dir }
+          if gem_env.user
+            user_dir    = Etc.getpwnam(gem_env.user).dir
+            environment = { 'USER' => gem_env.user, 'HOME' => user_dir }
           else
             user_dir    = nil
             environment = nil
