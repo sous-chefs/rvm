@@ -501,56 +501,18 @@ The default is `"/opt/ruby/bin/chef-solo"`.
 
 #### Actions
 
-<table>
-  <thead>
-    <tr>
-      <th>Action</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>install</td>
-      <td>Build and install an RVM Ruby. See [RVM rubies/installing][rvm_install] for more details.</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>remove</td>
-      <td>Remove the Ruby, source files and optional gemsets/archives. See [RVM rubies/removing][rvm_remove] for more details.</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>uninstall</td>
-      <td>Just remove the Ruby and leave everything else. See [RVM rubies/removing][rvm_remove] for more details.</td>
-      <td>&nbsp;</td>
-    </tr>
-  </tbody>
-</table>
+Action    |Description                   |Default
+----------|------------------------------|-------
+install   |Build and install an RVM Ruby. See [RVM rubies/installing][rvm_install] for more details. |Yes
+remove    |Remove the Ruby, source files and optional gemsets/archives. See [RVM rubies/removing][rvm_remove] for more details. |
+uninstall |Just remove the Ruby and leave everything else. See [RVM rubies/removing][rvm_remove] for more details. |
 
 #### Attributes
 
-<table>
-  <thead>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-      <th>Default Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>ruby_string</td>
-      <td>**Name attribute:** an RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be stripped.</td>
-      <td>`nil`</td>
-    </tr>
-    <tr>
-      <td>user</td>
-      <td>A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist.</td>
-      <td>`nil`</td>
-    </tr>
-  </tbody>
-</table>
+Attribute   |Description |Default value
+------------|------------|-------------
+ruby_string |**Name attribute:** an RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be stripped. |`nil`
+user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
 
 #### Examples
 
