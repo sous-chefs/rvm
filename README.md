@@ -903,21 +903,21 @@ is RVM-aware. See the Opscode [package resource][package_resource] and
         Upgrade a gem - if version is provided, upgrade to that specific
         version
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
       <td>remove</td>
       <td>
         Remove a gem.
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
       <td>purge</td>
       <td>
         Purge a gem.
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
   </tbody>
 </table>
