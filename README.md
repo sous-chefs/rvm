@@ -774,7 +774,7 @@ See [RVM gemsets][rvm_gemsets] for more background concerning gemsets.
       <td>
         Update all gems installed to the gemset in a given RVM Ruby.
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
       <td>empty</td>
@@ -782,7 +782,7 @@ See [RVM gemsets][rvm_gemsets] for more background concerning gemsets.
         Remove all gems installed to the gemset in a given RVM Ruby. See RVM
         gemsets/emptying<sup>(2)</sup> for more details.
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
       <td>delete</td>
@@ -790,7 +790,7 @@ See [RVM gemsets][rvm_gemsets] for more background concerning gemsets.
         Delete gemset from the given RVM Ruby. See RVM
         gemsets/deleting<sup>(3)</sup> for more details.
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
   </tbody>
 </table>
