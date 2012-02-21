@@ -501,18 +501,77 @@ The default is `"/opt/ruby/bin/chef-solo"`.
 
 #### <a name="lwrps-rvmruby-actions"></a> Actions
 
-Action    |Description                   |Default
-----------|------------------------------|-------
-install   |Build and install an RVM Ruby. See [RVM rubies/installing][rvm_install] for more details. |Yes
-remove    |Remove the Ruby, source files and optional gemsets/archives. See [RVM rubies/removing][rvm_remove] for more details. |
-uninstall |Just remove the Ruby and leave everything else. See [RVM rubies/removing][rvm_remove] for more details. |
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>install</td>
+      <td>
+        Build and install an RVM Ruby. See RVM rubies/installing<sup>(1)</sup>
+        for more details.
+      </td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>remove</td>
+      <td>
+        Remove the Ruby, source files and optional gemsets/archives. See RVM
+        rubies/removing<sup>(2)</sup> for more details.
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>uninstall</td>
+      <td>
+        Just remove the Ruby and leave everything else. See RVM rubies/removing<sup>(3)</sup> for more details.
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+1. [RVM rubies/installing][rvm_install]
+2. [RVM rubies/removing][rvm_remove]
+3. [RVM rubies/removing][rvm_remove]
 
 #### <a name="lwrps-rvmruby-actions"></a> Attributes
 
-Attribute   |Description |Default value
-------------|------------|-------------
-ruby_string |**Name attribute:** an RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be stripped. |`nil`
-user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ruby_string</td>
+      <td>
+        <b>Name attribute:</b> an RVM Ruby string that could contain a gemset.
+        If a gemset is given (for example,
+        <code>"ruby-1.8.7-p330@awesome"</code>), then it will be stripped.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+        A users's isolated RVM installation on which to apply an action. The
+        default value of <code>nil</code> denotes a system-wide RVM
+        installation is being targeted. <b>Note:</b> if specified, the user
+        must already exist.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmruby-examples"></a> Examples
 
@@ -554,16 +613,60 @@ one "wins".
 
 #### <a name="lwrps-rvmdefaultruby-actions"></a> Actions
 
-Action    |Description                   |Default
-----------|------------------------------|-------
-create    |Set the default RVM Ruby. See [RVM rubies/default][rvm_default] for more details. |Yes
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>create</td>
+      <td>
+        Set the default RVM Ruby. See RVM rubies/default<sup>(1)</sup> for
+        more details.
+      </td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+1. [RVM rubies/default][rvm_default]
 
 #### <a name="lwrps-rvmdefaultruby-attributes"></a> Attributes
 
-Attribute   |Description |Default value
-------------|------------|-------------
-ruby_string |**Name attribute:** an RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be included. |`nil`
-user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ruby_string</td>
+      <td>
+        <b>Name attribute:</b> an RVM Ruby string that could contain a gemset.
+        If a gemset is given (for example,
+        <code>"ruby-1.8.7-p330@awesome"</code>), then it will be included.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+        A users's isolated RVM installation on which to apply an action. The
+        default value of <code>nil</code> denotes a system-wide RVM
+        installation is being targeted. <b>Note:</b> if specified, the
+        user must already exist.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmdefaultruby-examples"></a> Examples
 
@@ -587,16 +690,55 @@ parallels the `rvm_default_ruby` resource.
 
 #### <a name="lwrps-rvmenvironment-actions"></a> Actions
 
-Action    |Description                   |Default
--------|------------------------------|-------
-create |Installs the specified RVM Ruby and gemset. |Yes
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>create</td>
+      <td>Installs the specified RVM Ruby and gemset.</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmenvironment-attributes"></a> Attributes
 
-Attribute   |Description |Default value
-------------|------------|-------------
-ruby_string |**Name attribute:** an RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be used. |`nil`
-user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ruby_string</td>
+      <td>
+        <b>Name attribute:</b> an RVM Ruby string that could contain a gemset.
+        If a gemset is given (for example,
+        <code>"ruby-1.8.7-p330@awesome"</code>), then it will be used.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+        A users's isolated RVM installation on which to apply an action. The
+        default value of <code>nil</code> denotes a system-wide RVM
+        installation is being targeted. <b>Note:</b> if specified, the
+        user must already exist.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmenvironment-examples"></a> Examples
 
@@ -605,24 +747,98 @@ user        |A users's isolated RVM installation on which to apply an action. Th
     rvm_environment "ree-1.8.7-2011.01@passenger"
 
 ### <a name="lwrps-rvmgemset"></a> rvm_gemset
+
 See [RVM gemsets][rvm_gemsets] for more background concerning gemsets.
 
 #### <a name="lwrps-rvmgemset-actions"></a> Actions
 
-Action    |Description                   |Default
-----------|------------------------------|-------
-create    |Creates a new gemset in a given RVM Ruby. See [RVM gemsets/creating][rvm_create_gemset] for more details. |Yes
-update    |Update all gems installed to the gemset in a given RVM Ruby. |
-empty     |Remove all gems installed to the gemset in a given RVM Ruby. See [RVM gemsets/emptying][rvm_empty_gemset] for more details. |
-delete    |Delete gemset from the given RVM Ruby. See [RVM gemsets/deleting][rvm_delete_gemset] for more details. |
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>create</td>
+      <td>
+        Creates a new gemset in a given RVM Ruby. See RVM
+        gemsets/creating<sup>(1)</sup> for more details.
+      </td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>update</td>
+      <td>
+        Update all gems installed to the gemset in a given RVM Ruby.
+      </td>
+      <td>nbsp;</td>
+    </tr>
+    <tr>
+      <td>empty</td>
+      <td>
+        Remove all gems installed to the gemset in a given RVM Ruby. See RVM
+        gemsets/emptying<sup>(2)</sup> for more details.
+      </td>
+      <td>nbsp;</td>
+    </tr>
+    <tr>
+      <td>delete</td>
+      <td>
+        Delete gemset from the given RVM Ruby. See RVM
+        gemsets/deleting<sup>(3)</sup> for more details.
+      </td>
+      <td>nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+1. [RVM gemsets/creating][rvm_create_gemset]
+2. [RVM gemsets/emptying][rvm_empty_gemset]
+3. [RVM gemsets/deleting][rvm_delete_gemset]
 
 #### <a name="lwrps-rvmgemset-attributes"></a> Attributes
 
-Attribute   |Description |Default value
-------------|------------|-------------
-gemset      |**Name attribute:**  Either an RVM Ruby string containing a gemset or a bare gemset name. If only the gemset name is given, then the `ruby_string` attribute must be used to indicate which RVM Ruby to target. |`nil`
-ruby_string |An RVM Ruby string that should not contain a gemset. |`nil`
-user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>gemset</td>
+      <td>
+        <b>Name attribute:</b> Either an RVM Ruby string containing a gemset
+        or a bare gemset name. If only the gemset name is given, then the
+        <code>ruby_string</code> attribute must be used to indicate which
+        RVM Ruby to target.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>ruby_string</td>
+      <td>
+        An RVM Ruby string that should not contain a gemset.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+        A users's isolated RVM installation on which to apply an action. The
+        default value of <code>nil</code> denotes a system-wide RVM
+        installation is being targeted. <b>Note:</b> if specified, the
+        user must already exist.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmgemset-examples"></a> Examples
 
@@ -665,23 +881,105 @@ is RVM-aware. See the Opscode [package resource][package_resource] and
 
 #### <a name="lwrps-rvmgem-actions"></a> Actions
 
-Action    |Description                   |Default
-----------|------------------------------|-------
-install   |Install a gem - if version is provided, install that specific version. |Yes
-upgrade   |Upgrade a gem - if version is provided, upgrade to that specific version.|
-remove    |Remove a gem.|
-purge     |Purge a gem.|
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>install</td>
+      <td>
+        Install a gem - if version is provided, install that specific version.
+      </td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>upgrade</td>
+      <td>
+        Upgrade a gem - if version is provided, upgrade to that specific
+        version
+      </td>
+      <td>nbsp;</td>
+    </tr>
+    <tr>
+      <td>remove</td>
+      <td>
+        Remove a gem.
+      </td>
+      <td>nbsp;</td>
+    </tr>
+    <tr>
+      <td>purge</td>
+      <td>
+        Purge a gem.
+      </td>
+      <td>nbsp;</td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmgem-attributes"></a> Attributes
 
-Attribute   |Description |Default value
-------------|------------|-------------
-package_name |**Name Attribute:** the name of the gem to install.|`nil`
-ruby_string |An RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be used. |`"default"`
-version     |The specific version of the gem to install/upgrade. |`nil`
-options     |Add additional options to the underlying gem command. |`nil`
-source      |Provide an additional source for gem providers (such as RubyGems). This can also include a file system path to a `.gem` file such as `/tmp/json-1.5.1.gem`. |`nil`
-user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>package_name</td>
+      <td>
+        <b>Name attribute:</b> the name of the gem to install.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>version</td>
+      <td>
+        The specific version of the gem to install/upgrade.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>options</td>
+      <td>
+        Add additional options to the underlying gem command.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>source</td>
+      <td>
+        Provide an additional source for gem providers (such as RubyGems).
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>gem_binary</td>
+      <td>
+        A gem_package attribute to specify a gem binary. 
+      </td>
+      <td><code>"gem"</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+        A users's isolated RVM installation on which to apply an action. The
+        default value of <code>nil</code> denotes a system-wide RVM
+        installation is being targeted. <b>Note:</b> if specified, the
+        user must already exist.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmgem-examples"></a> Examples
 
@@ -739,23 +1037,110 @@ gemset accross all RVM Rubies. An entry will also be made/removed in RVM's
 
 #### <a name="lwrps-rvmglobalgem-actions"></a> Actions
 
-Action    |Description                   |Default
-----------|------------------------------|-------
-install   |Install a gem across all Rubies - if version is provided, install that specific version. |Yes
-upgrade   |Upgrade a gem across all Rubies - if version is provided, upgrade to that specific version.|
-remove    |Remove a gem across all Rubies.|
-purge     |Purge a gem across all Rubies.|
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>install</td>
+      <td>
+        Install a gem across all Rubies - if version is provided, install that
+        specific version.
+      </td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>upgrade</td>
+      <td>
+        Upgrade a gem across all Rubies - if version is provided, upgrade to
+        that specific version.
+      </td>
+      <td>nbsp;</td>
+    </tr>
+    <tr>
+      <td>remove</td>
+      <td>
+        Remove a gem across all Rubies.
+      </td>
+      <td>nbsp;</td>
+    </tr>
+    <tr>
+      <td>purge</td>
+      <td>
+        Purge a gem across all Rubies.
+      </td>
+      <td>nbsp;</td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmglobalgem-attributes"></a> Attributes
 
-Attribute   |Description |Default value
-------------|------------|-------------
-package_name |**Name Attribute:** the name of the gem to install.|`nil`
-version     |The specific version of the gem to install/upgrade. |`nil`
-options     |Add additional options to the underlying gem command. |`nil`
-source      |Provide an additional source for gem providers (such as RubyGems). |`nil`
-gem_binary  |A gem_package attribute to specify a gem binary. |`gem`
-user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>package_name</td>
+      <td>
+        <b>Name attribute:</b> the name of the gem to install.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>ruby_string</td>
+      <td>
+        An RVM Ruby string that could contain a gemset. If a gemset is given
+        (for example, <code>"ruby-1.8.7-p330@awesome"</code>), then it will
+        be used.
+      </td>
+      <td><code>"default"</code></td>
+    </tr>
+    <tr>
+      <td>version</td>
+      <td>
+        The specific version of the gem to install/upgrade.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>options</td>
+      <td>
+        Add additional options to the underlying gem command.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>source</td>
+      <td>
+        Provide an additional source for gem providers (such as RubyGems).
+        This can also include a file system path to a <code>.gem</code> file
+        such as <code>/tmp/json-1.5.1.gem</code>.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+        A users's isolated RVM installation on which to apply an action. The
+        default value of <code>nil</code> denotes a system-wide RVM
+        installation is being targeted. <b>Note:</b> if specified, the
+        user must already exist.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ### <a name="lwrps-rvmshell"></a> rvm_shell
 
@@ -765,31 +1150,142 @@ in an RVM-aware environment.. See the Opscode
 
 #### <a name="lwrps-rvmshell-actions"></a> Actions
 
-Action    |Description                   |Default
-----------|------------------------------|-------
-run       |Run the script                |Yes
-nothing   |Do not run this command       |
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>run</td>
+      <td>Run the script</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>nothing</td>
+      <td>Do not run this command</td>
+      <td>nbsp;</td>
+    </tr>
+  </tbody>
+</table>
 
 Use `action :nothing` to set a command to only run if another resource
 notifies it.
 
 #### <a name="lwrps-rvmshell-attributes"></a> Attributes
 
-Attribute   |Description |Default value
-------------|------------|-------------
-name        |**Name Attribute:** Name of the command to execute. |name
-ruby_string |An RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be used. |`"default"`
-code        |Quoted script of code to execute. |`nil`
-creates     |A file this command creates - if the file exists, the command will not be run. |`nil`
-cwd         |Current working director to run the command from. |`nil`
-environment |A has of environment variables to set before running this command. |`nil`
-group       |A group or group ID that we should change to before running this command. |`nil`
-path        |An array of paths to use when searching for the command. |`nil`, uses system path
-returns     |The return value of the command (may be an array of accepted values) - this resource raises an exception if the return value(s) do not match. |`0`
-timeout     |How many seconds to let the command run before timing out. |`nil`
-user        |A user name or user ID that we should change to before running this command. |`nil`
-user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
-umask       |Umask for files created by the command. |`nil`
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td>
+        <b>Name attribute:</b> Name of the command to execute.
+      </td>
+      <td><code>name</code></td>
+    </tr>
+    <tr>
+      <td>ruby_string</td>
+      <td>
+        An RVM Ruby string that could contain a gemset. If a gemset is given
+        (for example, <code>"ruby-1.8.7-p330@awesome"</code>), then it will
+        be used.
+      </td>
+      <td><code>"default"</code></td>
+    </tr>
+    <tr>
+      <td>code</td>
+      <td>
+        Quoted script of code to execute.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>creates</td>
+      <td>
+        A file this command creates - if the file exists, the command will not
+        be run.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>cwd</td>
+      <td>
+        Current working director to run the command from.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>environment</td>
+      <td>
+        A hash of environment variables to set before running this command.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>group</td>
+      <td>
+        A group or group ID that we should change to before running this command.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>path</td>
+      <td>
+        An array of paths to use when searching for the command.
+      </td>
+      <td><code>nil</code>, uses system path</td>
+    </tr>
+    <tr>
+      <td>returns</td>
+      <td>
+        The return value of the command (may be an array of accepted values) -
+        this resource raises an exception if the return value(s) do not match.
+      </td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td>timeout</td>
+      <td>
+        How many seconds to let the command run before timing out.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+       A user name or user ID that we should change to before running this command.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+        A users's isolated RVM installation on which to apply an action. The
+        default value of <code>nil</code> denotes a system-wide RVM
+        installation is being targeted. <b>Note:</b> if specified, the
+        user must already exist.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>umask</td>
+      <td>
+        Umask for files created by the command.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmshell-examples"></a> Examples
 
@@ -811,19 +1307,78 @@ it isn't already and a gemset will be created in none currently exist.
 
 #### <a name="lwrps-rvmwrapper-actions"></a> Actions
 
-Action    |Description                   |Default
--------|------------------------------|-------
-create |Creates one or more wrapper scripts. |Yes
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>create</td>
+      <td>Creates on or more wrapper scripts.</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
 
 #### <a name="lwrps-rvmwrapper-attributes"></a> Attributes
 
-Attribute   |Description |Default value
-------------|------------|-------------
-prefix      |**Name attribute:** a prefix string for the wrapper script name. |`nil`
-ruby_string |An RVM Ruby string that could contain a gemset. If a gemset is given (for example, `"ruby-1.8.7-p330@awesome"`), then it will be used. |`nil`
-binary      |A single binary to be wrapped. If this attribute is used do not set values for the `binaries` attribute. |`nil`
-binaries    |A list of binaries to be wrapped. If this attribute is used do not set a value for the `binary` attribute. |`nil`
-user        |A users's isolated RVM installation on which to apply an action. The default value of `nil` denotes a system-wide RVM installation is being targeted. **Note:** if specified, the user must already exist. |`nil`
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>prefix</td>
+      <td>
+        <b>Name attribute:</b> a prefix string for the wrapper script name.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>ruby_string</td>
+      <td>
+        An RVM Ruby string that could contain a gemset. If a gemset is given
+        (for example, <code>"ruby-1.8.7-p330@awesome"</code>), then it will
+        be used.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>binary</td>
+      <td>
+        A single binary to be wrapped. If this attribute is used do not set
+        values for the <code>binaries</code> attribute.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>binaries</td>
+      <td>
+        A list of binaries to be wrapped. If this attribute is used do not set
+        a value for the <code>binary</code> attribute.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>
+        A users's isolated RVM installation on which to apply an action. The
+        default value of <code>nil</code> denotes a system-wide RVM
+        installation is being targeted. <b>Note:</b> if specified, the user
+        must already exist.
+      </td>
+      <td><code>nil</code></td>
+    </tr>
+  </tbody>
+</table>
 
 **Note:** only `binary` or `binaries` should be used by themselves (never at
 the same time).
