@@ -1060,21 +1060,21 @@ gemset accross all RVM Rubies. An entry will also be made/removed in RVM's
         Upgrade a gem across all Rubies - if version is provided, upgrade to
         that specific version.
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
       <td>remove</td>
       <td>
         Remove a gem across all Rubies.
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
       <td>purge</td>
       <td>
         Purge a gem across all Rubies.
       </td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
   </tbody>
 </table>
@@ -1167,7 +1167,7 @@ in an RVM-aware environment.. See the Opscode
     <tr>
       <td>nothing</td>
       <td>Do not run this command</td>
-      <td>nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
   </tbody>
 </table>
