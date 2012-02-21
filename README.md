@@ -964,7 +964,7 @@ is RVM-aware. See the Opscode [package resource][package_resource] and
     <tr>
       <td>gem_binary</td>
       <td>
-        A gem_package attribute to specify a gem binary. 
+        A gem_package attribute to specify a gem binary.
       </td>
       <td><code>"gem"</code></td>
     </tr>
