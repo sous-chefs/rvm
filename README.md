@@ -5,6 +5,63 @@
 Manages system-wide and per-user [RVM][rvm]s and manages installed Rubies.
 Several lightweight resources and providers ([LWRP][lwrp]) are also defined.
 
+## <a name="usage"></a> Usage
+
+### <a name="usage-system-rubies"></a> RVM Installed System-Wide with Rubies
+
+Most likely, this is the typical case. Include `recipe[rvm::system]` in your
+run_list and override the defaults you want changed. See below for more
+details.
+
+### <a name="usage-user-rubies"></a> RVM Installed For A Specific User with Rubies
+
+If you want a per-user install (like on a Mac/Linux workstation for
+development), include `recipe[rvm::user]` in your run_list and add a user
+hash to the `user_installs` attribute list. For example:
+
+    node['rvm']['user_installs'] = [
+      { 'user'          => 'wigglebottom'
+        'default_ruby'  => 'rbx',
+        'rubies'        => ['1.9.2', '1.8.7']
+      }
+    ]
+
+See below for more details.
+
+### <a name="usage-system"></a> RVM Installed System-Wide and LWRPs Defined
+
+If you want to manage your own RVM environment with the provided [LWRP][lwrp]s,
+then include `recipe[rvm::system_install]` in your run_list to prevent
+a default RVM Ruby being installed. See the **Resources and Providers**
+section for more details.
+
+### <a name="usage-user"></a> RVM Installed For A Specific User and LWRPs Defined
+
+If you want to manage your own RVM environment for users with the provided
+LWRPs, then include `recipe[rvm::user_install]` in your run_list and add a
+user hash to the `user_installs` attribute list. For example:
+
+    node['rvm']['user_installs'] = [
+      { 'user' => 'wigglebottom' }
+    ]
+
+See the **Resources and Providers** section for more details.
+
+### <a name="usage-minimal"></a> Ultra-Minimal Access To LWRPs
+
+Simply include `recipe[rvm]` in your run_list and the LWRPs will be available
+to use in other cookbooks. See the **Resources and Providers** section for
+more details.
+
+### <a name="usage-other"></a> Other Use Cases
+
+* If node is running in a Vagrant VM, then including `recipe[rvm::vagrant]`
+in your run_list can help with resolving the *chef-solo* binary on subsequent
+provision executions.
+* If you want other Chef cookbooks to install RubyGems in RVM-managed Rubies,
+you can try including `recipe[rvm::gem_package]` in your run_list. Please
+read the recipe details before attempting.
+
 ## <a name="requirements"></a> Requirements
 
 ### <a name="requirements-chef"></a> Chef
@@ -93,63 +150,6 @@ Server or Opscode Hosted Chef, then a tarball installation might fit the bill:
 
 This cookbook is not currently available on the site due to the flat
 namespace for cookbooks. There is some community work to be done here.
-
-## <a name="usage"></a> Usage
-
-### <a name="usage-system-rubies"></a> RVM Installed System-Wide with Rubies
-
-Most likely, this is the typical case. Include `recipe[rvm::system]` in your
-run_list and override the defaults you want changed. See below for more
-details.
-
-### <a name="usage-user-rubies"></a> RVM Installed For A Specific User with Rubies
-
-If you want a per-user install (like on a Mac/Linux workstation for
-development), include `recipe[rvm::user]` in your run_list and add a user
-hash to the `user_installs` attribute list. For example:
-
-    node['rvm']['user_installs'] = [
-      { 'user'          => 'wigglebottom'
-        'default_ruby'  => 'rbx',
-        'rubies'        => ['1.9.2', '1.8.7']
-      }
-    ]
-
-See below for more details.
-
-### <a name="usage-system"></a> RVM Installed System-Wide and LWRPs Defined
-
-If you want to manage your own RVM environment with the provided [LWRP][lwrp]s,
-then include `recipe[rvm::system_install]` in your run_list to prevent
-a default RVM Ruby being installed. See the **Resources and Providers**
-section for more details.
-
-### <a name="usage-user"></a> RVM Installed For A Specific User and LWRPs Defined
-
-If you want to manage your own RVM environment for users with the provided
-LWRPs, then include `recipe[rvm::user_install]` in your run_list and add a
-user hash to the `user_installs` attribute list. For example:
-
-    node['rvm']['user_installs'] = [
-      { 'user' => 'wigglebottom' }
-    ]
-
-See the **Resources and Providers** section for more details.
-
-### <a name="usage-minimal"></a> Ultra-Minimal Access To LWRPs
-
-Simply include `recipe[rvm]` in your run_list and the LWRPs will be available
-to use in other cookbooks. See the **Resources and Providers** section for
-more details.
-
-### <a name="usage-other"></a> Other Use Cases
-
-* If node is running in a Vagrant VM, then including `recipe[rvm::vagrant]`
-in your run_list can help with resolving the *chef-solo* binary on subsequent
-provision executions.
-* If you want other Chef cookbooks to install RubyGems in RVM-managed Rubies,
-you can try including `recipe[rvm::gem_package]` in your run_list. Please
-read the recipe details before attempting.
 
 ## <a name="recipes"></a> Recipes
 
