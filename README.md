@@ -1413,7 +1413,8 @@ Ideally create a topic branch for every seperate change you make.
 
 ## <a name="license"></a> License and Author
 
-Author:: [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>)
+Author:: [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>) [![endorse](http://api.coderwall.com/fnichol/endorsecount.png)](http://coderwall.com/fnichol)
+
 
 Contributors:: https://github.com/fnichol/chef-rvm/contributors
 
