@@ -69,7 +69,7 @@ class Chef
         i = execute exec_name do
           user    opts[:user] || "root"
           command <<-CODE
-            bash -c "bash \
+            bash -c "bash -s stable \
               <( curl -Ls #{opts[:installer_url]} )#{opts[:script_flags]}"
           CODE
           environment(exec_env)
