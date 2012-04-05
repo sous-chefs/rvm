@@ -66,9 +66,8 @@ class Chef
           exec_env    = nil
         end
 
-        i = script exec_name do
+        i = bash exec_name do
           user    opts[:user] || "root"
-          interpreter "bash"
           code <<-EOH
             RVM_INSTALL=`mktemp`
             curl -s #{opts[:installer_url]} > $RVM_INSTALL
