@@ -66,12 +66,14 @@ class Chef
           exec_env    = nil
         end
 
-        i = execute exec_name do
+        i = script exec_name do
           user    opts[:user] || "root"
-          command <<-CODE
-            bash -c "bash \
-              <( curl -Ls #{opts[:installer_url]} )#{opts[:script_flags]}"
-          CODE
+          code <<-EOH
+            RVM_INSTALL=`mktemp`
+            curl -s #{opts[:installer_url]} > $RVM_INSTALL
+            bash $RVM_INSTALL #{opts[:script_flags]}
+            rm $RVM_INSTALL
+          EOH
           environment(exec_env)
 
           # excute in compile phase if gem_package recipe is requested
