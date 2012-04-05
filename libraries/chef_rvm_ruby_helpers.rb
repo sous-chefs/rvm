@@ -48,7 +48,7 @@ class Chef
       # @param [String, #to_s] the RVM Ruby string
       # @return [Boolean] is this Ruby installed?
       def ruby_installed?(rubie)
-        ! installed_rubies.select { |r| r.start_with?(rubie) }.empty?
+        ! installed_rubies.select { |r| r.end_with?(rubie) }.empty?
       end
 
       ##
@@ -85,10 +85,8 @@ class Chef
       # @param [String, #to_s] the RVM Ruby string
       # @return [Boolean] is this Ruby string the a system Ruby?
       def system_ruby?(rubie)
-        return true if rubie.nil?         # nil should be system
-        return true if rubie.empty?       # an empty string should be system
-        return true if rubie == "system"  # keyword system should be system
-        return false                      # anything else does not represent system
+        return true if (rubie.nil? || rubie.empty? || rubie == "system")
+        return false # anything else does not represent system
       end
     end
   end
