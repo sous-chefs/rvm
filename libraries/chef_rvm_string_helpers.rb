@@ -50,9 +50,11 @@ class Chef
       # @param [String, #to_s] an RVM Ruby string
       # @param [String] a specific user RVM or nil for system-wide
       # @return [String] a fully qualified RVM Ruby string
-      def normalize_ruby_string(ruby_string, user = new_resource.user)
+      def normalize_ruby_string(ruby_string, user = new_resource.user, patch = new_resource.patch)
         return "system" if ruby_string == "system"
-        StringCache.fetch(ruby_string, user)
+        fetched_ruby_string = StringCache.fetch(ruby_string, user)
+        return "#{fetched_ruby_string} --patch #{patch}" if patch
+        fetched_ruby_string
       end
     end
   end
