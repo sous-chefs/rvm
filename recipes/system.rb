@@ -19,42 +19,14 @@
 
 include_recipe "rvm::system_install"
 
-install_rubies  = node['rvm']['install_rubies'] == true ||
+perform_install_rubies  = node['rvm']['install_rubies'] == true ||
                   node['rvm']['install_rubies'] == "true"
 
-if install_rubies
-  # install additional rubies
-  node['rvm']['rubies'].each do |rubie|
-    rvm_ruby rubie
-  end
-
-  # set a default ruby
-  rvm_default_ruby node['rvm']['default_ruby']
-
-  # install global gems
-  node['rvm']['global_gems'].each do |gem|
-    rvm_global_gem gem[:name] do
-      version   gem[:version] if gem[:version]
-      action    gem[:action]  if gem[:action]
-      options   gem[:options] if gem[:options]
-      source    gem[:source]  if gem[:source]
-    end
-  end
-
-  # install additional gems
-  node['rvm']['gems'].each_pair do |rstring, gems|
-    rvm_environment rstring
-
-    gems.each do |gem|
-      rvm_gem gem[:name] do
-        ruby_string   rstring
-        version       gem[:version] if gem[:version]
-        action        gem[:action]  if gem[:action]
-        options       gem[:options] if gem[:options]
-        source        gem[:source]  if gem[:source]
-      end
-    end
-  end
+if perform_install_rubies
+  install_rubies  :rubies => node['rvm']['rubies'],
+                  :default_ruby => node['rvm']['default_ruby'],
+                  :global_gems => node['rvm']['global_gems'],
+                  :gems => node['rvm']['gems']
 end
 
 # add users to rvm group
