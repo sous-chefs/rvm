@@ -25,7 +25,18 @@ install_rubies  = node['rvm']['install_rubies'] == true ||
 if install_rubies
   # install additional rubies
   node['rvm']['rubies'].each do |rubie|
-    rvm_ruby rubie
+
+    if rubie.is_a?(Hash)
+      ruby = rubie.fetch("version")
+      ruby_patch = rubie.fetch("patch")
+    else
+      ruby = rubie
+      ruby_patch = nil
+    end
+
+    rvm_ruby ruby do
+      patch ruby_patch
+    end
   end
 
   # set a default ruby
