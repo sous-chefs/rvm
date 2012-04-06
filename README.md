@@ -242,9 +242,17 @@ set, use an empty string (`""`) or a value of `"system"`.
 
 A list of additional RVM system-wide Rubies to be built and installed. This
 list does not need to necessarily contain your default Ruby as the
-`rvm_default_ruby` resource will take care of installing itself. For example:
+`rvm_default_ruby` resource will take care of installing itself. You may also
+include patch info. For example:
 
-    node['rvm']['rubies'] = [ "ree-1.8.7", "jruby" ]
+    node['rvm']['rubies'] = [
+      "ree-1.8.7",
+      "jruby",
+      {
+        :version => '1.9.3-p125-perf',
+        :patch => "falcon"
+      }
+    ]
 
 The default is an empty array: `[]`.
 
@@ -361,7 +369,14 @@ The hash keys correspond to the default/system equivalents. For example:
       { 'user'          => 'jenkins',
         'version'       => '1.7.0',
         'default_ruby'  => 'jruby-1.6.3',
-        'rubies'        => ['1.8.7', '1.9.2', 'ree', 'rbx'],
+        'rubies' => [
+          "ree-1.8.7",
+          "jruby",
+          {
+            :version => '1.9.3-p125-perf',
+            :patch => "falcon"
+          }
+        ],
         'rvmrc'         => {
           'rvm_project_rvmrc'             => 1,
           'rvm_gemset_create_on_use_flag' => 1,
