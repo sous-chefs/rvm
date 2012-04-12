@@ -45,7 +45,7 @@ default['rvm']['rvmrc']         = Hash.new
 default['rvm']['user_installs'] = []
 
 # system-wide installer options
-default['rvm']['installer_url'] = "https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer"
+default['rvm']['installer_url'] = "https://get.rvm.io"
 default['rvm']['branch']  = "stable"
 default['rvm']['version'] = "head"
 default['rvm']['upgrade'] = "none"
