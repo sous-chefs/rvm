@@ -24,6 +24,7 @@ class Chef
     module RecipeHelpers
       def build_script_flags(version, branch)
         script_flags = ""
+        script_flags += " -s --" if version or branch
         script_flags += " --version #{version}" if version
         script_flags += " --branch #{branch}"   if branch
         script_flags
@@ -59,21 +60,16 @@ class Chef
         if opts[:user]
           user_dir    = opts[:rvm_prefix]
           exec_name   = "install user RVM for #{opts[:user]}"
-          exec_env    = { 'USER' => opts[:user], 'HOME' => user_dir }
+          exec_env    = { 'USER' => opts[:user], 'HOME' => user_dir, 'TERM' => 'dumb' }
         else
           user_dir    = nil
           exec_name   = "install system-wide RVM"
-          exec_env    = nil
+          exec_env    = { 'TERM' => 'dumb' }
         end
 
-        i = bash exec_name do
+        i = execute exec_name do
           user    opts[:user] || "root"
-          code <<-EOH
-            RVM_INSTALL=`mktemp`
-            curl -s #{opts[:installer_url]} > $RVM_INSTALL
-            bash $RVM_INSTALL #{opts[:script_flags]}
-            rm $RVM_INSTALL
-          EOH
+          command "curl -L #{opts[:installer_url]} | bash #{opts[:script_flags]}"
           environment(exec_env)
 
           # excute in compile phase if gem_package recipe is requested
