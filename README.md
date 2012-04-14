@@ -80,6 +80,7 @@ the recipes and LWRPs run on these platforms without error:
 * ubuntu (10.04/10.10/11.04)
 * debian (6.0)
 * mac_os_x (10.6/10.7)
+* mac_os_x_server
 * suse (openSUSE, SLES)
 * centos
 * amazon (2011.09)
