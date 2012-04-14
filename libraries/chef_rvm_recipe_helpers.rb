@@ -193,7 +193,7 @@ class Chef
       private
 
       def mac_with_no_homebrew
-        node['platform'] == 'mac_os_x' &&
+        %w{ mac_os_x mac_os_x_server }.include?(node['platform']) &&
           Chef::Platform.find_provider_for_node(node, :package) !=
           Chef::Provider::Package::Homebrew
       end
