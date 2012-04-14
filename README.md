@@ -84,6 +84,7 @@ the recipes and LWRPs run on these platforms without error:
 * suse (openSUSE, SLES)
 * centos
 * amazon (2011.09)
+* scientific
 * redhat
 * fedora
 
