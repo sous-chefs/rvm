@@ -24,14 +24,14 @@ include Chef::RVM::RubyHelpers
 
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
-  @ruby_string  = @rubie
+  @ruby_string  = new_resource.ruby_string
   @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
 end
 
 action :install do
   next if skip_ruby?
 
-  if ruby_installed?(@rubie)
+  if ruby_installed?(@ruby_string)
     Chef::Log.debug("rvm_ruby[#{@rubie}] is already installed, so skipping")
   else
     install_start = Time.now

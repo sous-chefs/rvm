@@ -152,7 +152,16 @@ class Chef
       def install_rubies(opts = {})
         # install additional rubies
         opts[:rubies].each do |rubie|
-          rvm_ruby rubie do
+          if rubie.is_a?(Hash)
+            ruby = rubie.fetch("version")
+            ruby_patch = rubie.fetch("patch")
+          else
+            ruby = rubie
+            ruby_patch = nil
+          end
+
+          rvm_ruby ruby do
+            patch ruby_patch
             user  opts[:user]
           end
         end
