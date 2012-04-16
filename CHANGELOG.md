@@ -15,6 +15,7 @@
 
 ### Improvements
 
+* Large formatting updates to README. ([@fnichol][])
 * Now rvm\_global\_gem respects version attr in global.gems file. ([@fnichol][])
 
 
