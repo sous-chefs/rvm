@@ -16,6 +16,7 @@
 ### Improvements
 
 * Large formatting updates to README. ([@fnichol][])
+* Add gh-pages branch for sectioned README at https://fnichol.github.com/chef-rvm. ([@fnichol][])
 * Now rvm\_global\_gem respects version attr in global.gems file. ([@fnichol][])
 
 
