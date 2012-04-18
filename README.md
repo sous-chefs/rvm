@@ -105,9 +105,9 @@ Chef repository structure like the [Opscode repo][chef_repo] is also assumed.
 
 ### <a name="installation-librarian"></a> Using Librarian
 
-The [Librarian][librarian] gem aims to be Bundler for your Chef cookbooks.
-Include a reference to the cookbook in a **Cheffile** and run
-`librarian-chef install`. To install with Librarian:
+[Librarian][librarian] is a Bundler for your Chef cookbooks.
+Include a reference to the cookbook in a [Cheffile][cheffile] and run
+`librarian-chef install`. To install Librarian:
 
     gem install librarian
     cd chef-repo
