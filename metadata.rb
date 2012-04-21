@@ -13,9 +13,15 @@ recipe "rvm::user",            "Installs the RVM codebase for a list of users (s
 recipe "rvm::vagrant",      "An optional recipe to help if running in a Vagrant virtual machine"
 recipe "rvm::gem_package",  "An experimental recipe that patches the gem_package resource"
 
-%w{ debian ubuntu suse centos amazon redhat fedora mac_os_x mac_os_x_server }.each do |os|
-  supports os
-end
+supports "debian"
+supports "ubuntu"
+supports "suse"
+supports "centos"
+supports "amazon"
+supports "redhat"
+supports "fedora"
+supports "mac_os_x"
+supports "mac_os_x_server"
 
 # if using jruby, java is required on system
 recommends  "java"
