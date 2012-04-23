@@ -1450,6 +1450,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 [chef_repo]:            https://github.com/opscode/chef-repo
+[cheffile]:             https://github.com/applicationsonline/librarian/blob/master/lib/librarian/chef/templates/Cheffile
 [compilation]:          http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
 [dragons]:              http://en.wikipedia.org/wiki/Here_be_dragons
 [gem_package]:          http://wiki.opscode.com/display/chef/Resources#Resources-Package
