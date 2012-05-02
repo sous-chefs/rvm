@@ -431,9 +431,10 @@ There are currently 3 valid values:
 
 * `"none"`, `false`, or `nil`: will not update RVM and leave it in its
   current state.
+* `"stable"`: runs `rvm get stable` which downloads and installs RVM from
+  branch *"stable"*.
 * `"latest"`: runs `rvm get latest` which downloads and installs the latest
-  *"stable"* RVM release listed by
-  [https://rvm.beginrescueend.com/releases/stable-version.txt][stable].
+  tagged version of RVM.
 * `"head"`: runs the infamous `rvm get head` which clones (via git) and
   installs the latest RVM repository HEAD.
 
@@ -1463,15 +1464,14 @@ limitations under the License.
 [librarian]:            https://github.com/applicationsonline/librarian#readme
 [lwrp]:                 http://wiki.opscode.com/display/chef/Lightweight+Resources+and+Providers+%28LWRP%29
 [package_resource]:     http://wiki.opscode.com/display/chef/Resources#Resources-Package
-[rvm]:                  http://rvm.beginrescueend.com
-[rvm_create_gemset]:    http://rvm.beginrescueend.com/gemsets/creating/
-[rvm_delete_gemset]:    http://rvm.beginrescueend.com/gemsets/deleting/
-[rvm_empty_gemset]:     http://rvm.beginrescueend.com/gemsets/emptying/
-[rvm_default]:          http://rvm.beginrescueend.com/rubies/default/
-[rvm_gemsets]:          http://rvm.beginrescueend.com/gemsets/
-[rvm_install]:          http://rvm.beginrescueend.com/rubies/installing/
-[rvm_remove]:           http://rvm.beginrescueend.com/rubies/removing/
-[rvm_stable]:           https://rvm.beginrescueend.com/releases/stable-version.txt
+[rvm]:                  https://rvm.io
+[rvm_create_gemset]:    https://rvm.io/gemsets/creating/
+[rvm_delete_gemset]:    https://rvm.io/gemsets/deleting/
+[rvm_empty_gemset]:     https://rvm.io/gemsets/emptying/
+[rvm_default]:          https://rvm.io/rubies/default/
+[rvm_gemsets]:          https://rvm.io/gemsets/
+[rvm_install]:          https://rvm.io/rubies/installing/
+[rvm_remove]:           https://rvm.io/rubies/removing/
 [script_resource]:      http://wiki.opscode.com/display/chef/Resources#Resources-Script
 [vagrant]:              http://vagrantup.com
 

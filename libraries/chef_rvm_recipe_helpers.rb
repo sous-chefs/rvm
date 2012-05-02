@@ -113,7 +113,7 @@ class Chef
             action :run
           end
 
-          only_if   { %w{ latest head }.include?(opts[:upgrade_strategy]) }
+          only_if   { %w{ stable latest head }.include?(opts[:upgrade_strategy]) }
         end
         u.run_action(:run) if install_now
       end
