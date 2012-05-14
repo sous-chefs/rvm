@@ -11,7 +11,7 @@
 
 ### New features
 
-* Update default Ruby to ruby-1.9.3-p0 (it's time). ([@fnichol][])
+* Update default Ruby to ruby-1.9.3-p194 (it's time). ([@fnichol][])
 
 ### Improvements
 
