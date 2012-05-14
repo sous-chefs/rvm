@@ -56,6 +56,8 @@ action :create do
     else
       Chef::Log.warn("Failed to create rvm_gemset[#{@ruby_string}].")
     end
+
+    new_resource.updated_by_last_action(true)
   end
 end
 
@@ -67,6 +69,7 @@ action :delete do
     if @rvm_env.gemset_delete @gemset
       update_installed_gemsets(@rubie)
       Chef::Log.debug("Deletion of rvm_gemset[#{@ruby_string}] was successful.")
+      new_resource.updated_by_last_action(true)
     else
       Chef::Log.warn("Failed to delete rvm_gemset[#{@ruby_string}].")
     end
@@ -83,6 +86,7 @@ action :empty do
     if @rvm_env.gemset_empty
       update_installed_gemsets(@rubie)
       Chef::Log.debug("Emptying of rvm_gemset[#{@ruby_string}] was successful.")
+      new_resource.updated_by_last_action(true)
     else
       Chef::Log.warn("Failed to empty rvm_gemset[#{@ruby_string}].")
     end
@@ -107,6 +111,7 @@ action :update do
   if @rvm_env.gemset_update
     update_installed_gemsets(@rubie)
     Chef::Log.debug("Updating of rvm_gemset[#{@ruby_string}] was successful.")
+    new_resource.updated_by_last_action(true)
   else
     Chef::Log.warn("Failed to update rvm_gemset[#{@ruby_string}].")
   end

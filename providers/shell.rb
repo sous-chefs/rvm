@@ -96,6 +96,7 @@ def script_wrapper(exec_action)
     action        :nothing
   end
   s.run_action(exec_action)
+  new_resource.updated_by_last_action(true) if s.updated_by_last_action?
 end
 
 ##

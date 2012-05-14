@@ -65,6 +65,7 @@ def create_wrapper(bin)
 
   if @rvm_env.wrapper @ruby_string, new_resource.prefix, bin
     Chef::Log.debug("Creation/Update of #{resource_name} was successful.")
+    new_resource.updated_by_last_action(true)
   else
     Chef::Log.warn("Failed to create/update #{resource_name}.")
   end

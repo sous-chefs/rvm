@@ -43,6 +43,7 @@ action :create do
 
   Chef::Log.info("Setting default ruby to rvm_ruby[#{@ruby_string}]")
   @rvm_env.rvm :use, @ruby_string, :default => true
+  new_resource.updated_by_last_action(true)
 end
 
 private

@@ -55,19 +55,23 @@ end
 def gemset_resource(exec_action)
   # ensure gemset is created, if specified
   unless gemset_exists?(:ruby => @rubie, :gemset => @gemset)
-    rvm_gemset @ruby_string do
+    r = rvm_gemset @ruby_string do
       user    new_resource.user
       action  :nothing
-    end.run_action(exec_action)
+    end
+    r.run_action(exec_action)
+    new_resource.updated_by_last_action(true) if r.updated_by_last_action?
   end
 end
 
 def ruby_resource(exec_action)
   # ensure ruby is installed
   unless ruby_installed?(@rubie)
-    rvm_ruby @rubie do
+    r = rvm_ruby @rubie do
       user    new_resource.user
       action :nothing
-    end.run_action(exec_action)
+    end
+    r.run_action(exec_action)
+    new_resource.updated_by_last_action(true) if r.updated_by_last_action?
   end
 end
