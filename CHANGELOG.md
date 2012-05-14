@@ -3,21 +3,33 @@
 ### RVM API tracking updates
 
 * Drop rake 0.9.2 from default global gems to match upstream default. ([@fnichol][])
+* Use RVM stable (stable/head) by default. ([@fnichol][])
+* Pull request [#84](https://github.com/fnichol/chef-rvm/pull/84): Add stable support to installer. ([@xdissent][])
+* Pull request [#102](https://github.com/fnichol/chef-rvm/pull/102): Switch URLs to rvm.io and add "rvm get stable". ([@mpapis][])
 
 ### Bug fixes
 
 * Pull request [#64](https://github.com/fnichol/chef-rvm/pull/64): Fix check for rvm in user install. ([@dokipen][])
 * Issue [#61](https://github.com/fnichol/chef-rvm/issues/61): Include Chef::RVM::StringHelpers to provide select_ruby function. ([@jheth][])
+* Pull request [#94](https://github.com/fnichol/chef-rvm/pull/94): Prevent rvm from reinstalling each chef run. ([@xdissent][])
+* Pull request [#66](https://github.com/fnichol/chef-rvm/pull/66): Fixing NoMethodError when using system wide rvm and the gem_package resource. ([@kristopher][])
+* Pull request [#95](https://github.com/fnichol/chef-rvm/pull/95): Fix missing `patch` resource attributes. ([@xdissent][])
+* Pull request [#96](https://github.com/fnichol/chef-rvm/pull/96): Fix wrapper paths, now works for both system and user installs. ([@xdissent][])
 
 ### New features
 
 * Update default Ruby to ruby-1.9.3-p194 (it's time). ([@fnichol][])
+* Pull request [#86](https://github.com/fnichol/chef-rvm/pull/76): Add patch attribute to rvm_ruby. ([@smdern][])
+* Pull request [#76](https://github.com/fnichol/chef-rvm/pull/76): Add wrapper for chef-client. ([@bryanstearns][])
 
 ### Improvements
 
 * Large formatting updates to README. ([@fnichol][])
 * Add gh-pages branch for sectioned README at https://fnichol.github.com/chef-rvm. ([@fnichol][])
+* Issue [#98](https://github.com/fnichol/chef-rvm/issues/98): Support installs of x.y.z versions & more permissive upgrade options. ([@fnichol][])
 * Now rvm\_global\_gem respects version attr in global.gems file. ([@fnichol][])
+* Pull request [#88](https://github.com/fnichol/chef-rvm/pull/88): Mac OS X Server support. ([@rhenning][])
+* Pull request [#90](https://github.com/fnichol/chef-rvm/pull/90): Scientific Linux support. ([@TrevorBramble][])
 
 
 ## 0.8.6 (November 28, 2011)
@@ -151,12 +163,19 @@ seen by checking the tagged releases and reading git commit messages.
 
 [@adrianpike]: https://github.com/adrianpike
 [@bradphelan]: https://github.com/bradphelan
+[@bryanstearns]: https://github.com/bryanstearns
 [@dokipen]: https://github.com/dokipen
 [@exempla]: https://github.com/exempla
 [@fnichol]: https://github.com/fnichol
 [@jheth]: https://github.com/jheth
 [@juzzin]: https://github.com/juzzin
+[@kristopher]: https://github.com/kristopher
+[@mpapis]: https://github.com/mpapis
 [@phlipper]: https://github.com/phlipper
 [@relistan]: https://github.com/relistan
+[@rhenning]: https://github.com/rhenning
 [@ryansch]: https://github.com/ryansch
+[@smdern]: https://github.com/smdern
 [@temujin9]: https://github.com/temujin9
+[@TrevorBramble]: https://github.com/TrevorBramble
+[@xdissent]: https://github.com/xdissent
