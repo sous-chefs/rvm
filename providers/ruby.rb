@@ -128,7 +128,7 @@ def install_ruby_dependencies(rubie)
       when "suse"
         pkgs = %w{ gcc-c++ patch zlib zlib-devel libffi-devel
                    sqlite3-devel libxml2-devel libxslt-devel }
-        if node.platform_version.to_f >= 11.0
+        if node['platform_version'].to_f >= 11.0
           pkgs += %w{ libreadline5 readline-devel libopenssl-devel }
         else
           pkgs += %w{ readline readline-devel openssl-devel }
