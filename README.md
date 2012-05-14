@@ -1476,6 +1476,7 @@ limitations under the License.
 [rvm_gemsets]:          https://rvm.io/gemsets/
 [rvm_install]:          https://rvm.io/rubies/installing/
 [rvm_remove]:           https://rvm.io/rubies/removing/
+[rvm_upgrading]:        https://rvm.io/rubies/upgrading/
 [script_resource]:      http://wiki.opscode.com/display/chef/Resources#Resources-Script
 [vagrant]:              http://vagrantup.com
 
