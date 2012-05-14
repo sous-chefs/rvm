@@ -24,9 +24,15 @@ class Chef
     module RecipeHelpers
       def build_script_flags(version, branch)
         script_flags = ""
-        script_flags += " -s --" if version or branch
-        script_flags += " --version #{version}" if version
-        script_flags += " --branch #{branch}"   if branch
+        if version || (branch && branch != "none")
+          script_flags += " -s --"
+        end
+        if version
+          script_flags += " --version #{version}"
+        end
+        if branch && branch != "none"
+          script_flags += " --branch #{branch}"
+        end
         script_flags
       end
 
@@ -113,7 +119,7 @@ class Chef
             action :run
           end
 
-          only_if   { %w{ stable latest head }.include?(opts[:upgrade_strategy]) }
+          not_if   { opts[:upgrade_strategy] == "none" }
         end
         u.run_action(:run) if install_now
       end

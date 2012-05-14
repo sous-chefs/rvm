@@ -409,34 +409,38 @@ A specific git branch to use when installing system-wide. For example:
 
     node['rvm']['branch'] = "crazy"
 
-The default is `nil` which corresponds to the master branch.
+The default is `"stable"` which corresponds to the stable release branch.
 
 ### <a name="attributes-version"></a> version
 
-A specific tagged version to use when installing system-wide. This value is
-passed directly to the `rvm-installer` script and current valid values are:
-`"head"` (the default, last git commit), `"latest"` (last tagged release
-version) and a specific tagged version of the form `"1.2.3"`. You may want
-to use a specific version of RVM to prevent differences in deployment from
-one day to the next (RVM head moves pretty darn quickly):
+A specific tagged version or head of a branch to use when installing
+system-wide. This value is passed directly to the `rvm-installer` script and
+current valid values are:
 
-    node['rvm']['version'] = "1.7.0"
+* `"head"` - the default, last git commit on a branch
+* a specific tagged version of the form `"1.2.3"`.
 
-The default is `nil`, which corresponds to RVM `"head"`.
+You may want to use a specific version of RVM to prevent differences in
+deployment from one day to the next (RVM head moves pretty darn quickly).
+
+**Note** that if a version number is used, then `"none"` should be the value
+of the `branch` attribute. For example:
+
+    node['rvm']['version'] = "1.13.4"
+    node['rvm']['branch']  = "none"
+
+The default is `"head"`.
 
 ### <a name="attributes-upgrade"></a> upgrade
 
 Determines how to handle installing updates to the RVM framework system-wide.
-There are currently 3 valid values:
+The value of this string is passed to `rvm get`. The possible values include:
 
 * `"none"`, `false`, or `nil`: will not update RVM and leave it in its
   current state.
-* `"stable"`: runs `rvm get stable` which downloads and installs RVM from
-  branch *"stable"*.
-* `"latest"`: runs `rvm get latest` which downloads and installs the latest
-  tagged version of RVM.
-* `"head"`: runs the infamous `rvm get head` which clones (via git) and
-  installs the latest RVM repository HEAD.
+* Any other value is passed to `rvm get` as described on the
+  [upgrading][rvm_upgrading] page. For example: `"latest"`, `"stable"`,
+  and `"branch mpapis/shoes"`.
 
 The default is `"none"`.
 
