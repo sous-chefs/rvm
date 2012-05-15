@@ -15,6 +15,9 @@
 * Pull request [#66](https://github.com/fnichol/chef-rvm/pull/66): Fixing NoMethodError when using system wide rvm and the gem_package resource. ([@kristopher][])
 * Pull request [#95](https://github.com/fnichol/chef-rvm/pull/95): Fix missing `patch` resource attributes. ([@xdissent][])
 * Pull request [#96](https://github.com/fnichol/chef-rvm/pull/96): Fix wrapper paths, now works for both system and user installs. ([@xdissent][])
+* LWRPs now notify when updated (FC017). ([@fnichol][])
+* Node attribute access style (FC019). ([@fnichol][])
+* FC023: Prefer conditional attributes. ([@fnichol][])
 
 ### New features
 
@@ -24,6 +27,7 @@
 
 ### Improvements
 
+* Add TravisCI support for Foodcritic. ([@fnichol][])
 * Large formatting updates to README. ([@fnichol][])
 * Add gh-pages branch for sectioned README at https://fnichol.github.com/chef-rvm. ([@fnichol][])
 * Issue [#98](https://github.com/fnichol/chef-rvm/issues/98): Support installs of x.y.z versions & more permissive upgrade options. ([@fnichol][])
