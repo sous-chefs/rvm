@@ -90,7 +90,9 @@ class Chef
         end
 
         def initialize(new_resource, run_context=nil)
+          original_gem_binary = new_resource.gem_binary
           super
+          new_resource.gem_binary("gem") unless original_gem_binary
           user = new_resource.respond_to?("user") ? new_resource.user : nil
           @gem_env = RVMGemEnvironment.new(gem_binary_path, ruby_strings, user)
         end
