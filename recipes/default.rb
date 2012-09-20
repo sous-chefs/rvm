@@ -18,13 +18,9 @@
 #
 
 # install rvm api gem during chef compile phase
-gem_package 'rvm' do
-  action :nothing
-end.run_action(:install)
-
-require 'rubygems'
-Gem.clear_paths
+chef_gem 'rvm'
 require 'rvm'
+
 create_rvm_shell_chef_wrapper
 create_rvm_chef_user_environment
 
