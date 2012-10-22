@@ -17,18 +17,8 @@
 # limitations under the License.
 #
 
-template "/usr/local/bin/chef-client" do
-  source    "vagrant-chef-client-wrapper.erb"
-  owner     "root"
-  group     "root"
-  mode      "0755"
-end
-
-template "/usr/local/bin/chef-solo" do
-  source    "vagrant-chef-solo-wrapper.erb"
-  owner     "root"
-  group     "root"
-  mode      "0755"
+rvm_global_gem "chef" do
+  action :upgrade
 end
 
 group "rvm" do
