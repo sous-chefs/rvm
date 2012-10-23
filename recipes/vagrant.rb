@@ -21,7 +21,8 @@ rvm_global_gem "chef" do
   action :upgrade
 end
 
-group "rvm" do
-  members ["vagrant"]
+group 'rvm' do
+  members 'vagrant'
   append  true
+  action :modify
 end
