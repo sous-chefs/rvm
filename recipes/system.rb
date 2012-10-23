@@ -30,8 +30,10 @@ if perform_install_rubies
 end
 
 # add users to rvm group
-group 'rvm' do
-  members node['rvm']['group_users']
-
-  only_if { node['rvm']['group_users'].any? }
+if node['rvm']['group_users'].any? 
+  group 'rvm' do
+    members node['rvm']['group_users']
+    append true
+    # only_if { node['rvm']['group_users'].any? }
+  end
 end
