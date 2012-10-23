@@ -30,10 +30,12 @@ if perform_install_rubies
 end
 
 # add users to rvm group
+# do not execute if you don't have data in group users the only_if didn't work properly
+# that's why there is a complementary test
 if node['rvm']['group_users'].any? 
   group 'rvm' do
     members node['rvm']['group_users']
     append true
-    # only_if { node['rvm']['group_users'].any? }
+    only_if { node['rvm']['group_users'].any? }
   end
 end
