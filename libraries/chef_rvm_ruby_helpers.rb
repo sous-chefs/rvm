@@ -38,7 +38,7 @@ class Chef
       #
       # @return [Array] the list of currently installed RVM Rubies
       def update_installed_rubies
-        @installed_rubies = @rvm_env.list_strings
+        @installed_rubies = @rvm_env.list_strings.reject {|e| e == 'nil'}
         @installed_rubies
       end
 
