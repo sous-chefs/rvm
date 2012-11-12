@@ -1,5 +1,13 @@
 ## 0.9.1 (unreleased)
 
+### New features
+
+* Set name attribute in metadata.rb, which may help certain LWRP auto-naming issues when directory name does not match 'rvm' (FC045). ([@fnichol][])
+
+### Improvements
+
+* Refactor foodcritic setup. ([@fnichol][])
+
 
 ## 0.9.0 (May 15, 2012)
 
