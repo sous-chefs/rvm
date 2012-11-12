@@ -19,5 +19,5 @@
 # limitations under the License.
 #
 
-default['rvm']['vagrant']['system_chef_client'] = "/opt/ruby/bin/chef-client"
-default['rvm']['vagrant']['system_chef_solo'] = "/opt/ruby/bin/chef-solo"
+default['rvm']['vagrant']['system_chef_client'] = "/opt/vagrant_ruby/bin/chef-client"
+default['rvm']['vagrant']['system_chef_solo'] = "/opt/vagrant_ruby/bin/chef-solo"
