@@ -1,5 +1,9 @@
 ## 0.9.1 (unreleased)
 
+### Bug fixes
+
+* Pull request [#129](https://github.com/fnichol/chef-rvm/pull/129): Fix broken example in README. ([@zacharydanger][])
+
 ### New features
 
 * Set name attribute in metadata.rb, which may help certain LWRP auto-naming issues when directory name does not match 'rvm' (FC045). ([@fnichol][])
@@ -194,3 +198,4 @@ seen by checking the tagged releases and reading git commit messages.
 [@temujin9]: https://github.com/temujin9
 [@TrevorBramble]: https://github.com/TrevorBramble
 [@xdissent]: https://github.com/xdissent
+[@zacharydanger]: https://github.com/zacharydanger
