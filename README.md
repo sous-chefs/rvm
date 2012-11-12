@@ -20,7 +20,7 @@ development), include `recipe[rvm::user]` in your run_list and add a user
 hash to the `user_installs` attribute list. For example:
 
     node['rvm']['user_installs'] = [
-      { 'user'          => 'wigglebottom'
+      { 'user'          => 'wigglebottom',
         'default_ruby'  => 'rbx',
         'rubies'        => ['1.9.2', '1.8.7']
       }
