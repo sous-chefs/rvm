@@ -35,6 +35,7 @@ end
 
 class Chef::Recipe
   # mix in recipe helpers
+  include Chef::RVM::ShellHelpers
   include Chef::RVM::RecipeHelpers
   include Chef::RVM::StringHelpers
 end

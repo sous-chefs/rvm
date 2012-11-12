@@ -75,7 +75,7 @@ class Chef
 
         rvm_installed_check = rvm_wrap_cmd(
             %{type rvm | cat | head -1 | grep -q '^rvm is a function$'}, user_dir
-        ), :environment => exec_env
+        )
 
         i = execute exec_name do
           user    opts[:user] || "root"
@@ -89,7 +89,7 @@ class Chef
             action :run
           end
 
-          not_if  rvm_installed_check
+          not_if  rvm_installed_check, :environment => exec_env
         end
         i.run_action(:run) if install_now
       end
