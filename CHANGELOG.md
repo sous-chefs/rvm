@@ -2,6 +2,7 @@
 
 ### Bug fixes
 
+* Fix vagrant\_ruby default location on modern vagrant baseboxes. ([@mveytsman][])
 * Pull request [#129](https://github.com/fnichol/chef-rvm/pull/129): Fix broken example in README. ([@zacharydanger][])
 
 ### New features
@@ -190,6 +191,7 @@ seen by checking the tagged releases and reading git commit messages.
 [@juzzin]: https://github.com/juzzin
 [@kristopher]: https://github.com/kristopher
 [@mpapis]: https://github.com/mpapis
+[@mveytsman]: https://github.com/mveytsman
 [@phlipper]: https://github.com/phlipper
 [@relistan]: https://github.com/relistan
 [@rhenning]: https://github.com/rhenning
