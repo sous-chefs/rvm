@@ -24,9 +24,6 @@ class Chef
     module RecipeHelpers
       def build_script_flags(version, branch)
         script_flags = ""
-        if version || (branch && branch != "none")
-          script_flags += " -s --"
-        end
         if version
           script_flags += " --version #{version}"
         end
@@ -79,7 +76,7 @@ class Chef
 
         i = execute exec_name do
           user    opts[:user] || "root"
-          command "curl -L #{opts[:installer_url]} | bash #{opts[:script_flags]}"
+          command "curl -L #{opts[:installer_url]} -o /tmp/rvm_installer && bash /tmp/rvm_installer #{opts[:script_flags]}"
           environment(exec_env)
 
           # excute in compile phase if gem_package recipe is requested
