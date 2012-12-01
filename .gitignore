@@ -1,2 +1,5 @@
 Gemfile.lock
+Berksfile.lock
+.vagrant
+.bundle/
 tmp/
