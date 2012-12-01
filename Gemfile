@@ -8,7 +8,6 @@ gem 'foodcritic', :platforms => :ruby_19
 gem 'chef', (ENV['CHEF_VERSION'] || '>= 0.10.10')
 
 group :integration do
-  gem 'berkshelf', '>= 1.0.0.rc3'
-  gem 'hashie'
-  gem 'mixlib-shellout'
+  gem 'berkshelf', '>= 1.0.0'
+  gem 'jamie', :git => 'git://github.com/jamie-ci/jamie.git'
 end
