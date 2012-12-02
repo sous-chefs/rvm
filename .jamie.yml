@@ -1,4 +1,4 @@
-backend: vagrant
+backend_plugin: vagrant
 
 platforms:
   - name: ubuntu-10.04
