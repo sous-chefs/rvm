@@ -15,12 +15,12 @@ platforms:
     vagrant_box: opscode-centos-5.8
     vagrant_box_url: https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-centos-5.8.box
     base_run_list:
-      - recipe[yum]
+      - recipe[yum::epel]
   - name: centos-6.3
     vagrant_box: opscode-centos-6.3
     vagrant_box_url: https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-centos-6.3.box
     base_run_list:
-      - recipe[yum]
+      - recipe[yum::epel]
 
 suites:
   - name: stock_system_and_user
