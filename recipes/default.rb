@@ -22,6 +22,13 @@ gem_package 'rvm' do
   action :nothing
 end.run_action(:install)
 
+# install rvm gem for embedded chef.   centos 6.2 picks up the embedded
+# ruby instead of system ruby so we need to install the rvm gem there to
+# make this work on centos
+chef_gem 'rvm' do
+  action :nothing
+end.run_action(:install)
+
 require 'rubygems'
 Gem.clear_paths
 require 'rvm'
