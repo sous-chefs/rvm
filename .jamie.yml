@@ -13,12 +13,6 @@ platforms:
       box_url: https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-ubuntu-12.04.box
     run_list:
       - recipe[apt]
-  - name: centos-5.8
-    driver_config:
-      box: opscode-centos-5.8
-      box_url: https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-centos-5.8.box
-    run_list:
-      - recipe[yum::epel]
   - name: centos-6.3
     driver_config:
       box: opscode-centos-6.3
