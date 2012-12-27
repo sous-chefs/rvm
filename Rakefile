@@ -2,8 +2,10 @@
 
 require 'foodcritic'
 
+# FC041 is excluded because we want to preserve the official RVM installation
+# process as much as possible, i.e. using curl to download the installer.
 FoodCritic::Rake::LintTask.new do |t|
-  t.options = { :fail_tags => ['any'] }
+  t.options = { :fail_tags => ['any'], :tags => ['~FC041'] }
 end
 
 begin
