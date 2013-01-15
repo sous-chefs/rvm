@@ -25,7 +25,7 @@ include Chef::RVM::RubyHelpers
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @ruby_string  = new_resource.ruby_string
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user, "default", :rvm_rubygems_version => new_resource.rubygems_version)
 end
 
 action :install do
