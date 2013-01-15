@@ -58,7 +58,7 @@ action :install do
         "Check logs in #{::RVM.path}/log/#{@rubie}")
     end
 
-    Chef::Log.debug("rvm_ruby[#{@rubie}] build time was " +
+    Chef::Log.info("rvm_ruby[#{@rubie}] build time was " +
       "#{(Time.now - install_start)/60.0} minutes.")
   end
 end
