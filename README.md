@@ -92,9 +92,13 @@ Please [report][issues] any additional platforms so they can be added.
 
 ### <a name="requirements-cookbooks"></a> Cookbooks
 
-There are **no** external cookbook dependencies. However, if you are
-installing [JRuby][jruby] then a Java runtime will need to be installed.
-The Opscode [java cookbook][java_cb] can be used on supported platforms.
+This cookbook depends on the following external cookbooks:
+
+* [chef\_gem][chef_gem_cb]
+
+If you are installing [JRuby][jruby] then a Java runtime will need to be
+installed. The Opscode [java cookbook][java_cb] can be used on supported
+platforms.
 
 ## <a name="installation"></a> Installation
 
@@ -1466,6 +1470,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+[chef_gem_cb]:          http://community.opscode.com/cookbooks/chef_gem
 [chef_repo]:            https://github.com/opscode/chef-repo
 [cheffile]:             https://github.com/applicationsonline/librarian/blob/master/lib/librarian/chef/templates/Cheffile
 [compilation]:          http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time

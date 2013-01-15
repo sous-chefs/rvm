@@ -14,6 +14,9 @@ recipe "rvm::user",            "Installs the RVM codebase for a list of users (s
 recipe "rvm::vagrant",      "An optional recipe to help if running in a Vagrant virtual machine"
 recipe "rvm::gem_package",  "An experimental recipe that patches the gem_package resource"
 
+# provides chef_gem resource to chef <= 0.10.8 and fixes for chef < 10.12.0
+depends "chef_gem"
+
 supports "debian"
 supports "ubuntu"
 supports "suse"
