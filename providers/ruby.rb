@@ -34,13 +34,15 @@ action :install do
   if ruby_installed?(@ruby_string)
     Chef::Log.debug("rvm_ruby[#{@rubie}] is already installed, so skipping")
   else
-    install_start = Time.now
+    install_start   = Time.now
+    install_options = {}
+    install_options[:patch] = new_resource.patch if new_resource.patch
 
     install_ruby_dependencies @rubie
 
     Chef::Log.info("Building rvm_ruby[#{@rubie}], this could take awhile...")
 
-    if @rvm_env.install(@rubie)
+    if @rvm_env.install(@rubie, install_options)
       Chef::Log.info("Installation of rvm_ruby[#{@rubie}] was successful.")
       @rvm_env.use @rubie
       update_installed_rubies
