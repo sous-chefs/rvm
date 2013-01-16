@@ -31,12 +31,17 @@ install_pkg_prereqs
 # Build the rvm group ahead of time, if it is set. This allows avoiding
 # collision with later processes which may set a guid explicitly
 if node['rvm']['group_id'] != 'default'
-  g = group 'rvm' do
+  g = group 'create rvm group' do
     group_name 'rvm'
     gid        node['rvm']['group_id']
     action     :nothing
   end
   g.run_action(:create)
+else 
+  g = group 'create rvm group' do
+    group_name 'rvm'
+    action     :nothing
+  end.run_action(:create)
 end
 
 rvmrc_template  :rvm_prefix => rvm_prefix,

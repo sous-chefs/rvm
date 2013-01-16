@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+=begin not use full with vagrant install and Chef as a gem
 template "/usr/local/bin/chef-client" do
   source    "vagrant-chef-client-wrapper.erb"
   owner     "root"
@@ -29,9 +29,15 @@ template "/usr/local/bin/chef-solo" do
   owner     "root"
   group     "root"
   mode      "0755"
+=end 
+
+rvm_global_gem "chef" do
+  action :upgrade
 end
 
-group "rvm" do
+group "modify rvm vagrant" do
+  group_name "rvm"
   members ["vagrant"]
   append  true
+  action :modify
 end
