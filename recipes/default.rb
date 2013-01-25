@@ -18,7 +18,9 @@
 #
 
 # install rvm api gem during chef compile phase
-chef_gem 'rvm'
+chef_gem 'rvm' do
+  version '>= 1.11.3.6'
+end
 require 'rvm'
 
 create_rvm_shell_chef_wrapper
