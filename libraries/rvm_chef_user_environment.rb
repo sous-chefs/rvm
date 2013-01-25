@@ -25,7 +25,7 @@ def create_rvm_chef_user_environment
 
     def initialize(user = nil, environment_name = "default", options = {})
       @source_environment = options.delete(:source_environment)
-      @source_environment = true if @source_environemt.nil?
+      @source_environment = true if @source_environment.nil?
       @user = user
       # explicitly set rvm_path if user is set
       if @user.nil?
