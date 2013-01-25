@@ -22,18 +22,12 @@
 class Chef
   module RVM
     module RecipeHelpers
-      def build_script_flags(version, branch)
-        script_flags = ""
-        if version || (branch && branch != "none")
-          script_flags += " -s --"
+      def build_script_flags(branch, version = "head")
+        if version =~ /\A\d+\.\d+\.\d+/ && %w{stable master none}.include?(branch)
+          " -s -- --version #{version}"
+        else
+          " -s -- --branch #{branch} --version #{version}"
         end
-        if version
-          script_flags += " --version #{version}"
-        end
-        if branch && branch != "none"
-          script_flags += " --branch #{branch}"
-        end
-        script_flags
       end
 
       def build_upgrade_strategy(strategy)
