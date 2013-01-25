@@ -55,3 +55,17 @@ suites:
   attributes:
     rvm:
       default_ruby: rbx
+- name: rvm_versions
+  run_list:
+  - recipe[user::data_bag]
+  - recipe[rvm::user_install]
+  attributes:
+    users:
+    - virgil1
+    - virgil2
+    rvm:
+      user_installs:
+      - user: virgil1
+        version: 1.17.10
+      - user: virgil2
+        version: 1.16.20
