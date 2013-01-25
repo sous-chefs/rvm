@@ -25,7 +25,7 @@ Array(node['rvm']['user_installs']).each do |rvm_user|
   version = rvm_user['version'] || node['rvm']['version']
   branch  = rvm_user['branch'] || node['rvm']['branch']
 
-  script_flags      = build_script_flags(version, branch)
+  script_flags      = build_script_flags(branch, version)
   upgrade_strategy  = build_upgrade_strategy(rvm_user['upgrade'])
   installer_url     = rvm_user['installer_url'] || node['rvm']['installer_url']
   rvm_prefix        = rvm_user['home'] ||
