@@ -70,10 +70,14 @@ class Chef
         rvm_installed_check = rvm_wrap_cmd(
             %{type rvm | cat | head -1 | grep -q '^rvm is a function$'}, user_dir
         )
+        install_command = "curl -L #{opts[:installer_url]} | bash #{opts[:script_flags]}"
+        install_user = opts[:user] || "root"
+
+        log "Performing RVM install with [#{install_command}] (as #{install_user})"
 
         i = execute exec_name do
-          user    opts[:user] || "root"
-          command "curl -L #{opts[:installer_url]} | bash #{opts[:script_flags]}"
+          user    install_user
+          command install_command
           environment(exec_env)
 
           # excute in compile phase if gem_package recipe is requested
