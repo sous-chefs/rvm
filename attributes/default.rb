@@ -69,6 +69,9 @@ when "redhat","centos","fedora","scientific","amazon"
 when "debian","ubuntu","suse"
   node.set['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git-core}
   default['rvm']['user_home_root']  = '/home'
+when "gentoo"
+  node.set['rvm']['install_pkgs']   = %w{git}
+  default['rvm']['user_home_root']  = '/home'
 when "mac_os_x", "mac_os_x_server"
   node.set['rvm']['install_pkgs']   = %w{git}
   default['rvm']['user_home_root']  = '/Users'

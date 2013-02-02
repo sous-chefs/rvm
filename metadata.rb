@@ -24,6 +24,7 @@ supports "centos"
 supports "amazon"
 supports "redhat"
 supports "fedora"
+supports "gentoo"
 supports "mac_os_x"
 supports "mac_os_x_server"
 
