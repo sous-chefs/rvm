@@ -327,7 +327,8 @@ each gem hash and target Ruby environment. For example:
         { 'name'    => 'rake',
           'version' => '0.9.2'
         }
-      ]
+      ],
+      'ruby-1.9.2-p280@empty-gemset' => [],
       'jruby' => [
         { 'name'    => 'nokogiri',
           'version' => '1.5.0.beta.2'
