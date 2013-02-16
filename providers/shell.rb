@@ -75,14 +75,17 @@ def script_wrapper(exec_action)
   s = script new_resource.name do
     interpreter   "bash"
 
+    base_environment = {}
     if new_resource.user
       user        new_resource.user
-      if user_rvm && new_resource.environment
-        environment({ 'USER' => new_resource.user, 'HOME' => user_home }.merge(
-          new_resource.environment))
-      elsif user_rvm
-        environment({ 'USER' => new_resource.user, 'HOME' => user_home })
+      if user_rvm
+        base_environment['USER'] = new_resource.user
+        base_environment['HOME'] = user_home
       end
+    end
+
+    if new_resource.environment
+      environment(base_environment.merge(new_resource.environment))
     end
 
     code          script_code
