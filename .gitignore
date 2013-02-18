@@ -1,7 +1,7 @@
 Gemfile.lock
 Berksfile.lock
 .vagrant
-.jamie/
-.jamie.local.yml
+.kitchen/
+.kitchen.local.yml
 .bundle/
 tmp/
