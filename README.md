@@ -77,7 +77,7 @@ File an [issue][issues] if this isn't the case.
 The following platforms have been tested with this cookbook, meaning that
 the recipes and LWRPs run on these platforms without error:
 
-* ubuntu (10.04/10.10/11.04)
+* ubuntu (10.04/10.10/11.04/12.04)
 * debian (6.0)
 * mac_os_x (10.6/10.7)
 * mac_os_x_server
@@ -327,7 +327,8 @@ each gem hash and target Ruby environment. For example:
         { 'name'    => 'rake',
           'version' => '0.9.2'
         }
-      ]
+      ],
+      'ruby-1.9.2-p280@empty-gemset' => [],
       'jruby' => [
         { 'name'    => 'nokogiri',
           'version' => '1.5.0.beta.2'

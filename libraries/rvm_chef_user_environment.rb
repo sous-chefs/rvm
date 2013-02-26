@@ -21,9 +21,11 @@
 
 def create_rvm_chef_user_environment
   klass = Class.new(::RVM::Environment) do
-    attr_reader :user
+    attr_reader :user, :source_environment
 
     def initialize(user = nil, environment_name = "default", options = {})
+      @source_environment = options.delete(:source_environment)
+      @source_environment = true if @source_environment.nil?
       @user = user
       # explicitly set rvm_path if user is set
       if @user.nil?
@@ -36,8 +38,10 @@ def create_rvm_chef_user_environment
       @environment_name = environment_name
       @shell_wrapper = ::RVM::Shell::ChefWrapper.new(@user)
       @shell_wrapper.setup do |s|
-        source_rvm_environment
-        use_rvm_environment
+        if source_environment
+          source_rvm_environment
+          use_rvm_environment
+        end
       end
     end
 

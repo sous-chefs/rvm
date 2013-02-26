@@ -19,7 +19,7 @@
 
 include_recipe 'rvm'
 
-script_flags      = build_script_flags(node['rvm']['version'], node['rvm']['branch'])
+script_flags      = build_script_flags(node['rvm']['branch'], node['rvm']['version'])
 upgrade_strategy  = build_upgrade_strategy(node['rvm']['upgrade'])
 installer_url     = node['rvm']['installer_url']
 rvm_prefix        = ::File.dirname(node['rvm']['root_path'])

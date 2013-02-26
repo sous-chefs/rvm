@@ -25,7 +25,11 @@ include Chef::RVM::RubyHelpers
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @ruby_string  = new_resource.ruby_string
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user, "default", :rvm_rubygems_version => new_resource.rubygems_version)
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(
+    new_resource.user, "default",
+    :rvm_rubygems_version => new_resource.rubygems_version,
+    :source_environment => false
+  )
 end
 
 action :install do
@@ -35,7 +39,7 @@ action :install do
     Chef::Log.debug("rvm_ruby[#{@rubie}] is already installed, so skipping")
   else
     install_start   = Time.now
-    install_options = {}
+    install_options = {:rvm_by_path => true}
     install_options[:patch] = new_resource.patch if new_resource.patch
 
     install_ruby_dependencies @rubie
@@ -71,7 +75,7 @@ action :uninstall do
   if ruby_installed?(@rubie)
     Chef::Log.info("Uninstalling rvm_ruby[#{@rubie}]")
 
-    if @rvm_env.uninstall(@rubie)
+    if @rvm_env.uninstall(@rubie, :rvm_by_path => true)
       update_installed_rubies
       Chef::Log.debug("Uninstallation of rvm_ruby[#{@rubie}] was successful.")
       new_resource.updated_by_last_action(true)
@@ -90,7 +94,7 @@ action :remove do
   if ruby_installed?(@rubie)
     Chef::Log.info("Removing rvm_ruby[#{@rubie}]")
 
-    if @rvm_env.remove(@rubie)
+    if @rvm_env.remove(@rubie, :rvm_by_path => true)
       update_installed_rubies
       Chef::Log.debug("Removal of rvm_ruby[#{@rubie}] was successful.")
       new_resource.updated_by_last_action(true)
