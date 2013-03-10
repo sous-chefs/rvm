@@ -128,7 +128,7 @@ def install_ruby_dependencies(rubie)
   case rubie
   when /^ruby-/, /^ree-/, /^rbx-/, /^kiji/
     case node['platform']
-      when "debian","ubuntu"
+      when "debian","ubuntu","raspbian"
         pkgs  = %w{ build-essential openssl libreadline6 libreadline6-dev
                     zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev
                     sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev
@@ -156,14 +156,14 @@ def install_ruby_dependencies(rubie)
         run_action(:create)
     rescue Chef::Exceptions::ResourceNotFound
       Chef::Log.debug(
-        "java cookbook not loaded or not on ubuntu/debian, so skipping")
+        "java cookbook not loaded or not on ubuntu/debian/raspbian, so skipping")
     end
 
     # TODO: need to figure out how to pull in java recipe only when needed. For
     # now, users of jruby will have to add the "java" recipe to their run_list.
     #include_recipe "java"
     case node['platform']
-    when "debian","ubuntu"
+    when "debian","ubuntu","raspbian"
       pkgs += %w{ g++ ant }
     end
   end
