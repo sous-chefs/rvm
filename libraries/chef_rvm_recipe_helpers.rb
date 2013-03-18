@@ -73,8 +73,6 @@ class Chef
         install_command = "curl -L #{opts[:installer_url]} | bash #{opts[:script_flags]}"
         install_user = opts[:user] || "root"
 
-        log "Performing RVM install with [#{install_command}] (as #{install_user})"
-
         i = execute exec_name do
           user    install_user
           command install_command
@@ -89,7 +87,10 @@ class Chef
 
           not_if  rvm_installed_check, :environment => exec_env
         end
-        i.run_action(:run) if install_now
+        if install_now
+          log "Performing RVM install with [#{install_command}] (as #{install_user})"
+          i.run_action(:run)
+        end
       end
 
       def upgrade_rvm(opts = {})
