@@ -2,11 +2,15 @@
 
 ### Bug fixes
 
-* Fix vagrant\_ruby default location on modern vagrant baseboxes. ([@mveytsman][])
+* Pull request [#137](https://github.com/fnichol/chef-rvm/pull/137): Fix patch attribute support in rvm\_ruby. ([@mariussturm][])
+* Pull request [#140](https://github.com/fnichol/chef-rvm/pull/140): Update MRI package requirements for scientific-6 platforms. ([@aaronjensen][])
+* Pull request [#134](https://github.com/fnichol/chef-rvm/pull/134): Fix vagrant\_ruby default location on modern vagrant baseboxes. ([@mveytsman][])
 * Pull request [#129](https://github.com/fnichol/chef-rvm/pull/129): Fix broken example in README. ([@zacharydanger][])
 
 ### New features
 
+* Pull request [#100](https://github.com/fnichol/chef-rvm/pull/100): Add rubygems\_version attribute to rvm\_ruby resource. ([@cgriego][])
+* Pull request [#125](https://github.com/fnichol/chef-rvm/pull/125): Omnibus support (via chef\_gem). ([@gondoi][], [@cgriego][], [@jblatt-verticloud][], [@jschneiderhan][])
 * Set name attribute in metadata.rb, which may help certain LWRP auto-naming issues when directory name does not match 'rvm' (FC045). ([@fnichol][])
 
 ### Improvements
@@ -181,15 +185,21 @@
 The changelog began with version 0.6.0 so any changes prior to that can be
 seen by checking the tagged releases and reading git commit messages.
 
+[@aaronjensen]: https://github.com/aaronjensen
 [@adrianpike]: https://github.com/adrianpike
 [@bradphelan]: https://github.com/bradphelan
 [@bryanstearns]: https://github.com/bryanstearns
+[@cgriego]: https://github.com/cgriego
 [@dokipen]: https://github.com/dokipen
 [@exempla]: https://github.com/exempla
 [@fnichol]: https://github.com/fnichol
+[@gondoi]: https://github.com/gondoi
+[@jblatt-verticloud]: https://github.com/jblatt-verticloud
 [@jheth]: https://github.com/jheth
+[@jschneiderhan]: https://github.com/jschneiderhan
 [@juzzin]: https://github.com/juzzin
 [@kristopher]: https://github.com/kristopher
+[@mariussturm]: https://github.com/mariussturm
 [@mpapis]: https://github.com/mpapis
 [@mveytsman]: https://github.com/mveytsman
 [@phlipper]: https://github.com/phlipper
