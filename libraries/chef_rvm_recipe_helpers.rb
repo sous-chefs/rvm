@@ -22,11 +22,11 @@
 class Chef
   module RVM
     module RecipeHelpers
-      def build_script_flags(branch, version = "head")
+      def build_script_flags(branch, version = "head", autolibs = "enabled")
         if version =~ /\A\d+\.\d+\.\d+/ && %w{stable master none}.include?(branch)
-          " -s -- --version #{version}"
+          " -s -- --version #{version} --autolibs=#{autolibs}"
         else
-          " -s -- --branch #{branch} --version #{version}"
+          " -s -- --branch #{branch} --version #{version} --autolibs=#{autolibs}"
         end
       end
 
