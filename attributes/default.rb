@@ -49,6 +49,7 @@ default['rvm']['installer_url'] = "https://get.rvm.io"
 default['rvm']['branch']  = "stable"
 default['rvm']['version'] = "head"
 default['rvm']['upgrade'] = "none"
+default['rvm']['autolibs'] = "enabled"
 
 # extra system-wide tunables
 default['rvm']['root_path']     = "/usr/local/rvm"

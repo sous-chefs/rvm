@@ -24,8 +24,9 @@ install_pkg_prereqs
 Array(node['rvm']['user_installs']).each do |rvm_user|
   version = rvm_user['version'] || node['rvm']['version']
   branch  = rvm_user['branch'] || node['rvm']['branch']
+  autolibs = rvm_user['autolibs'] || node['rvm']['autolibs']
 
-  script_flags      = build_script_flags(branch, version)
+  script_flags      = build_script_flags(branch, version, autolibs)
   upgrade_strategy  = build_upgrade_strategy(rvm_user['upgrade'])
   installer_url     = rvm_user['installer_url'] || node['rvm']['installer_url']
   rvm_prefix        = rvm_user['home'] ||
