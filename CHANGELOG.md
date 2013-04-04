@@ -6,6 +6,7 @@
 * Pull request [#140](https://github.com/fnichol/chef-rvm/pull/140): Update MRI package requirements for scientific-6 platforms. ([@aaronjensen][])
 * Pull request [#134](https://github.com/fnichol/chef-rvm/pull/134): Fix vagrant\_ruby default location on modern vagrant baseboxes. ([@mveytsman][])
 * Pull request [#129](https://github.com/fnichol/chef-rvm/pull/129): Fix broken example in README. ([@zacharydanger][])
+* Pull request [#188](https://github.com/fnichol/chef-rvm/pull/188): Added missing dependencies. ([@fmfdias][])
 
 ### New features
 
@@ -211,3 +212,4 @@ seen by checking the tagged releases and reading git commit messages.
 [@TrevorBramble]: https://github.com/TrevorBramble
 [@xdissent]: https://github.com/xdissent
 [@zacharydanger]: https://github.com/zacharydanger
+[@fmfdias]: https://github.com/fmfdias
