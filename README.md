@@ -1444,13 +1444,22 @@ under `node['rvm']['root_path']`.
       action        :create
     end
 
-## <a name="development"></a> Development
+## <a name="contributing"></a> Contributing
 
 * Source hosted at [GitHub][repo]
 * Report issues/Questions/Feature requests on [GitHub Issues][issues]
 
 Pull requests are very welcome! Make sure your patches are well tested.
 Ideally create a topic branch for every seperate change you make.
+
+### Testing
+
+Make sure you have the following requirements setup:
+
+* [Vagrant](http://www.vagrantup.com/)
+* [berkshelf-vagrant](https://github.com/riotgames/berkshelf-vagrant)
+
+After you `bundle install` just run `kitchen test`
 
 ## <a name="license"></a> License and Author
 
