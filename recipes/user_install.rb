@@ -31,7 +31,7 @@ Array(node['rvm']['user_installs']).each do |rvm_user|
   rvm_prefix        = rvm_user['home'] ||
                       "#{node['rvm']['user_home_root']}/#{rvm_user['user']}"
   rvm_gem_options   = rvm_user['rvm_gem_options'] || node['rvm']['rvm_gem_options']
-  rvmrc             = rvm_user['rvmrc'] || Hash.new
+  rvmrc             = rvm_user['rvmrc'] || node['rvm']['rvmrc'] 
 
   rvmrc_template  :rvm_prefix => rvm_prefix,
                   :rvm_gem_options => rvm_gem_options,
