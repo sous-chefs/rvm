@@ -7,6 +7,8 @@
 * Pull request [#134](https://github.com/fnichol/chef-rvm/pull/134): Fix vagrant\_ruby default location on modern vagrant baseboxes. ([@mveytsman][])
 * Pull request [#129](https://github.com/fnichol/chef-rvm/pull/129): Fix broken example in README. ([@zacharydanger][])
 * Pull request [#188](https://github.com/fnichol/chef-rvm/pull/188): Added missing dependencies. ([@fmfdias][])
+* Pull request [#151](https://github.com/fnichol/chef-rvm/pull/151): Add Berkshelf installation instructions. ([@justincampbell][])
+* Pull request [#128](https://github.com/fnichol/chef-rvm/pull/128): Allow for universal rvmrc settings to be used in the user\_install. ([@firebelly][])
 
 ### New features
 
@@ -213,3 +215,5 @@ seen by checking the tagged releases and reading git commit messages.
 [@xdissent]: https://github.com/xdissent
 [@zacharydanger]: https://github.com/zacharydanger
 [@fmfdias]: https://github.com/fmfdias
+[@justincampbell]: https://github.com/justincampbell
+[@firebelly]: https://github.com/firebelly
