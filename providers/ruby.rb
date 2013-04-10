@@ -132,7 +132,7 @@ def install_ruby_dependencies(rubie)
         pkgs  = %w{ build-essential openssl libreadline6 libreadline6-dev
                     zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev
                     sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev
-                    ncurses-dev automake libtool bison ssl-cert }
+                    ncurses-dev automake libtool bison ssl-cert pkg-config libgdbm-dev libffi-dev}
         pkgs += %w{ subversion }  if rubie =~ /^ruby-head$/
       when "suse"
         pkgs = %w{ gcc-c++ patch zlib zlib-devel libffi-devel
