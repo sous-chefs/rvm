@@ -22,6 +22,7 @@ template "/usr/local/bin/chef-client" do
   owner     "root"
   group     "root"
   mode      "0755"
+  only_if { File.exists?(node['rvm']['vagrant']['system_chef_client']) }
 end
 
 template "/usr/local/bin/chef-solo" do
@@ -29,9 +30,19 @@ template "/usr/local/bin/chef-solo" do
   owner     "root"
   group     "root"
   mode      "0755"
+  only_if { File.exists?(node['rvm']['vagrant']['system_chef_solo']) }
+end
+
+template "/usr/local/bin/shef" do
+  source    "vagrant-shef-wrapper.erb"
+  owner     "root"
+  group     "root"
+  mode      "0755"
+  only_if { File.exists?(node['rvm']['vagrant']['system_shef']) }
 end
 
 group "rvm" do
   members ["vagrant"]
   append  true
+  only_if "getent passwd vagrant"
 end
