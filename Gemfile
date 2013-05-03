@@ -9,6 +9,6 @@ gem 'chef', (ENV['CHEF_VERSION'] || '>= 0.10.10')
 
 group :integration do
   gem 'berkshelf', '~> 1.3.1'
-  gem 'test-kitchen', '~> 1.0.0.alpha.3'
-  gem 'kitchen-vagrant', '~> 0.7.4'
+  gem 'test-kitchen', '~> 1.0.0.alpha.5'
+  gem 'kitchen-vagrant', '~> 0.9.0'
 end
