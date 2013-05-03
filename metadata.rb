@@ -29,3 +29,6 @@ supports "mac_os_x_server"
 
 # if using jruby, java is required on system
 recommends  "java"
+
+# for installing on OSX, this is required for installation and compilation
+suggests "homebrew"
