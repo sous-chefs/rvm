@@ -1477,9 +1477,10 @@ Ideally create a topic branch for every seperate change you make.
 Make sure you have the following requirements setup:
 
 * [Vagrant](http://www.vagrantup.com/)
-* [berkshelf-vagrant](https://github.com/riotgames/berkshelf-vagrant)
+* [vagrant-verkshelf](https://github.com/riotgames/vagrant-berkshelf)
 
-After you `bundle install` just run `kitchen test`
+After you `bundle install` run `rake` for unit tests and `kitchen test` for
+integration level tests.
 
 ## <a name="license"></a> License and Author
 
