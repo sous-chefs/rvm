@@ -42,32 +42,38 @@ describe 'Chef::RVM::RecipeHelpers' do
 
     it 'sets branch and version flags' do
       subject.build_script_flags("stable", "head").
-        must_equal " -s -- --branch stable --version head"
+        must_equal " -s -- --branch stable --version head --autolibs=enabled"
     end
 
     it 'sets a missing branch to "head"' do
       subject.build_script_flags("cool").
-        must_equal " -s -- --branch cool --version head"
+        must_equal " -s -- --branch cool --version head --autolibs=enabled"
     end
 
     it 'only emits version with branch=stable and version=x.y.z' do
       subject.build_script_flags("stable", "1.2.3").
-        must_equal " -s -- --version 1.2.3"
+        must_equal " -s -- --version 1.2.3 --autolibs=enabled"
     end
 
     it 'only emits version with branch=master and version=x.y.z' do
       subject.build_script_flags("master", "4.5.6").
-        must_equal " -s -- --version 4.5.6"
+        must_equal " -s -- --version 4.5.6 --autolibs=enabled"
     end
 
     it 'only emits version with branch=none and version=x.y.z' do
       subject.build_script_flags("none", "7.3.5").
-        must_equal " -s -- --version 7.3.5"
+        must_equal " -s -- --version 7.3.5 --autolibs=enabled"
     end
 
     it 'emits version and branch with branch not stable|master and version=x.y.z' do
       subject.build_script_flags("foo/bar", "0.9.8").
-        must_equal " -s -- --branch foo/bar --version 0.9.8"
+        must_equal " -s -- --branch foo/bar --version 0.9.8 --autolibs=enabled"
     end
+
+    it 'disables autolibs' do
+      subject.build_script_flags("master", "head", "disabled").
+        must_equal " -s -- --branch master --version head --autolibs=disabled"
+    end
+
   end
 end
