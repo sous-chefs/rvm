@@ -19,7 +19,7 @@
 ### Improvements
 
 * Refactor foodcritic setup. ([@fnichol][])
-
+* Now suggests the [homebrew](http://community.opscode.com/cookbooks/homebrew) cookbook ([@martinisoft][])
 
 ## 0.9.0 (May 15, 2012)
 
@@ -217,3 +217,4 @@ seen by checking the tagged releases and reading git commit messages.
 [@fmfdias]: https://github.com/fmfdias
 [@justincampbell]: https://github.com/justincampbell
 [@firebelly]: https://github.com/firebelly
+[@martinisoft]: https://github.com/martinisoft
