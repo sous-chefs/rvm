@@ -44,7 +44,7 @@ action :install do
 
     install_ruby_dependencies @rubie
 
-    Chef::Log.info("Building rvm_ruby[#{@rubie}], this could take awhile...")
+    Chef::Log.info("Building rvm_ruby[#{@rubie}], this could take a while...")
 
     if @rvm_env.install(@rubie, install_options)
       Chef::Log.info("Installation of rvm_ruby[#{@rubie}] was successful.")
