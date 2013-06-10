@@ -29,7 +29,7 @@ def create_rvm_chef_user_environment
       @user = user
       # explicitly set rvm_path if user is set
       if @user.nil?
-        config['rvm_path'] = @@root_rvm_path
+        config['rvm_path'] = self.class.send(:class_variable_get, :@@root_rvm_path)
       else
         config['rvm_path'] = File.join(Etc.getpwnam(@user).dir, '.rvm')
       end
@@ -46,7 +46,7 @@ def create_rvm_chef_user_environment
     end
 
     def self.root_rvm_path=(path)
-      @@root_rvm_path = path
+      class_variable_set(:@@root_rvm_path, path)
     end
   end
   ::RVM.const_set('ChefUserEnvironment', klass)
