@@ -556,6 +556,29 @@ If using the `vagrant` recipe, this sets the path to the package-installed
 
 The default is `"/opt/ruby/bin/chef-solo"`.
 
+An example of a Vagrantfile using this recipe and `rvm::user:`
+
+        Vagrant.configure("2") do |config|
+            ...
+            config.vm.provision "chef_solo" do |chef|
+                chef.run_list = ["recipe[apt]", "recipe[rvm::vagrant]", "recipe[rvm::user]"]
+                chef.json = {
+                    :rvm => {
+                        :user_installs => [
+                            {   :user => 'vagrant',
+                                :default_ruby => '2.0.0'
+                            }
+                        ],
+                        :vagrant => {
+                            :system_chef_solo => '/opt/vagrant_ruby/bin/chef-solo'
+                        }
+                    }
+                }
+
+            end
+        end
+
+
 ## <a name="lwrps"></a> Resources and Providers
 
 ### <a name="lwrps-rvmruby"></a> rvm_ruby
@@ -1477,7 +1500,7 @@ Ideally create a topic branch for every seperate change you make.
 Make sure you have the following requirements setup:
 
 * [Vagrant](http://www.vagrantup.com/)
-* [vagrant-verkshelf](https://github.com/riotgames/vagrant-berkshelf)
+* [vagrant-berkshelf](https://github.com/riotgames/vagrant-berkshelf)
 
 After you `bundle install` run `rake` for unit tests and `kitchen test` for
 integration level tests.
