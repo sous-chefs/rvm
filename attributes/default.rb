@@ -20,8 +20,8 @@
 #
 
 # ruby that will get installed and set to `rvm use default`.
-default['rvm']['default_ruby']      = "ruby-1.9.3-p327"
-default['rvm']['user_default_ruby'] = "ruby-1.9.3-p327"
+default['rvm']['default_ruby']      = "ruby-2.0.0-p247"
+default['rvm']['user_default_ruby'] = "ruby-2.0.0-p247"
 
 # list of additional rubies that will be installed
 default['rvm']['rubies']      = []
