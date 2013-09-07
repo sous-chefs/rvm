@@ -149,6 +149,8 @@ def install_ruby_dependencies(rubie)
                    make bzip2 autoconf automake libtool bison
                    libxml2 libxml2-devel libxslt libxslt-devel }
         pkgs += %w{ git subversion autoconf } if rubie =~ /^ruby-head$/
+      when "gentoo"
+        pkgs = %w{ libiconv readline zlib openssl libyaml sqlite libxslt libtool gcc autoconf automake bison m4 }
     end
   when /^jruby/
     begin
