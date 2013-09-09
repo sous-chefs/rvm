@@ -19,15 +19,6 @@
 
 include_recipe 'rvm'
 
-script_flags      = build_script_flags(node['rvm']['branch'], node['rvm']['version'])
-upgrade_strategy  = build_upgrade_strategy(node['rvm']['upgrade'])
-installer_url     = node['rvm']['installer_url']
-rvm_prefix        = ::File.dirname(node['rvm']['root_path'])
-rvm_gem_options   = node['rvm']['rvm_gem_options']
-rvmrc             = node['rvm']['rvmrc']
-
-install_pkg_prereqs
-
 # Build the rvm group ahead of time, if it is set. This allows avoiding
 # collision with later processes which may set a guid explicitly
 if node['rvm']['group_id'] != 'default'
@@ -39,14 +30,4 @@ if node['rvm']['group_id'] != 'default'
   g.run_action(:create)
 end
 
-rvmrc_template  :rvm_prefix => rvm_prefix,
-                :rvm_gem_options => rvm_gem_options,
-                :rvmrc => rvmrc,
-                :rvmrc_file => "/etc/rvmrc"
-
-install_rvm     :rvm_prefix => rvm_prefix,
-                :installer_url => installer_url,
-                :script_flags => script_flags
-
-upgrade_rvm     :rvm_prefix => rvm_prefix,
-                :upgrade_strategy => upgrade_strategy
+rvm_installation("root")

@@ -1,18 +1,14 @@
 #!/usr/bin/env rake
 
 require 'foodcritic'
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-# FC041 is excluded because we want to preserve the official RVM installation
-# process as much as possible, i.e. using curl to download the installer.
 FoodCritic::Rake::LintTask.new do |t|
-  t.options = { :fail_tags => ['any'], :tags => ['~FC041'] }
+  t.options = { :fail_tags => ['any'] }
 end
 
-Rake::TestTask.new do |t|
-  t.name = "unit"
-  t.test_files = FileList['test/unit/**/*_spec.rb']
-  t.verbose = true
+RSpec::Core::RakeTask.new(:unit) do |t|
+  t.pattern = "test/unit/**/*_spec.rb"
 end
 
 begin
