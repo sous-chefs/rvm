@@ -194,7 +194,7 @@ describe Chef::Provider::RvmInstallation do
       end
 
       it "creates a remote_file to download the installer script" do
-        remote_script = provider.send(:download_script)
+        remote_script = provider.send(:download_installer)
 
         expect(remote_script.class).to be(Chef::Resource::RemoteFile)
         expect(remote_script.name).to eq("#{cache_path}/rvm-installer-franky")
@@ -202,7 +202,7 @@ describe Chef::Provider::RvmInstallation do
       end
 
       it "calls the remote_file" do
-        expect(provider).to receive(:download_script)
+        expect(provider).to receive(:download_installer)
 
         provider.install_rvm
       end

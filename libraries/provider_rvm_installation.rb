@@ -42,36 +42,34 @@ class Chef
       end
 
       def action_install
-        manage_rvmrc
+        converge_rvmrc
         if current_resource.installed
           Chef::Log.info("#{new_resource} #{current_resource.version} " +
             "already installed - nothing to do")
         else
-          action_force
+          converge_install
         end
       end
 
       def action_force
-        manage_rvmrc
-        converge_by("install RVM for #{new_resource}") do
-          install_rvm
-        end
+        converge_rvmrc
+      end
+
+      def converge_rvmrc
+        converge_by("manage rvmrc for #{new_resource}") { write_rvmrc }
+      end
+
+      def converge_install
+        converge_by("install RVM for #{new_resource}") { install_rvm }
         Chef::Log.info("#{new_resource} #{new_resource.version} installed")
       end
 
       def install_rvm
         install_packages
-        manage_rvmrc
-        download_script
+        download_installer
         run_install_cmd
 
         new_resource.version(version)
-      end
-
-      def manage_rvmrc
-        converge_by("manage rvmrc for #{new_resource}") do
-          write_rvmrc
-        end
       end
 
       def install_packages
@@ -98,7 +96,7 @@ class Chef
         r
       end
 
-      def download_script
+      def download_installer
         r = Chef::Resource::RemoteFile.new(rvm_installer_path, run_context)
         r.source(new_resource.installer_url)
         r.run_action(:create)
