@@ -171,7 +171,8 @@ def install_ruby_dependencies(rubie)
   end
 
   pkgs.each do |pkg|
-    package pkg do
+    package "install-ruby-dependency-#{pkg}" do
+      package_name pkg
       action :nothing
     end.run_action(:install)
   end
