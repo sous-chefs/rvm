@@ -42,7 +42,8 @@ class Chef
         return if mac_with_no_homebrew
 
         node['rvm']['install_pkgs'].each do |pkg|
-          p = package pkg do
+          p = package "rvm-install-pkgs-#{pkg}" do
+            package_name pkg
             # excute in compile phase if gem_package recipe is requested
             if install_now
               action :nothing
