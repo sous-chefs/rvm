@@ -124,7 +124,13 @@ class Chef
             action :run
           end
 
-          not_if   { opts[:upgrade_strategy] == "none" }
+          only_if {
+            if opts[:upgrade_strategy] =~ /\A\d+\.\d+\.\d+\z/
+              rvm_version(opts[:user]) != opts[:upgrade_strategy]
+            else
+              opts[:upgrade_strategy] != "none"
+            end
+          }
         end
         u.run_action(:run) if install_now
       end

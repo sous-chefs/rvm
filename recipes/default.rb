@@ -30,6 +30,7 @@ create_rvm_chef_user_environment
 class Chef::Resource
   # mix in #rvm_cmd_wrap helper into resources
   include Chef::RVM::ShellHelpers
+  include Chef::RVM::VersionHelpers
 end
 
 class Chef::Recipe
@@ -37,4 +38,5 @@ class Chef::Recipe
   include Chef::RVM::ShellHelpers
   include Chef::RVM::RecipeHelpers
   include Chef::RVM::StringHelpers
+  include Chef::RVM::VersionHelpers
 end
