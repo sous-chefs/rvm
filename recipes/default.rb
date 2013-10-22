@@ -18,20 +18,12 @@
 #
 
 # install rvm api gem during chef compile phase
-gem_package 'rvm' do
-  action :nothing
-end.run_action(:install)
-
-# install rvm gem for embedded chef.   centos 6.2 picks up the embedded
-# ruby instead of system ruby so we need to install the rvm gem there to
-# make this work on centos
 chef_gem 'rvm' do
-  action :nothing
-end.run_action(:install)
-
-require 'rubygems'
-Gem.clear_paths
+  action :install
+  version '>= 1.11.3.6'
+end
 require 'rvm'
+
 create_rvm_shell_chef_wrapper
 create_rvm_chef_user_environment
 
@@ -42,6 +34,7 @@ end
 
 class Chef::Recipe
   # mix in recipe helpers
+  include Chef::RVM::ShellHelpers
   include Chef::RVM::RecipeHelpers
   include Chef::RVM::StringHelpers
 end

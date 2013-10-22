@@ -1,29 +1,25 @@
 #!/usr/bin/env rake
 
-@cookbook = "rvm"
+require 'foodcritic'
+require 'rake/testtask'
 
-desc "Runs foodcritc linter"
-task :foodcritic do
-  if Gem::Version.new("1.9.2") <= Gem::Version.new(RUBY_VERSION.dup)
-    sandbox = File.join(File.dirname(__FILE__), %w{tmp foodcritic}, @cookbook)
-    prepare_foodcritic_sandbox(sandbox)
-
-    sh "foodcritic --epic-fail any #{File.dirname(sandbox)}"
-  else
-    puts "WARN: foodcritic run is skipped as Ruby #{RUBY_VERSION} is < 1.9.2."
-  end
+# FC041 is excluded because we want to preserve the official RVM installation
+# process as much as possible, i.e. using curl to download the installer.
+FoodCritic::Rake::LintTask.new do |t|
+  t.options = { :fail_tags => ['any'], :tags => ['~FC041'] }
 end
 
-task :default => 'foodcritic'
-
-private
-
-def prepare_foodcritic_sandbox(sandbox)
-  files = %w{*.md *.rb attributes definitions files providers
-    recipes resources templates}
-
-  rm_rf sandbox
-  mkdir_p sandbox
-  cp_r Dir.glob("{#{files.join(',')}}"), sandbox
-  puts "\n\n"
+Rake::TestTask.new do |t|
+  t.name = "unit"
+  t.test_files = FileList['test/unit/**/*_spec.rb']
+  t.verbose = true
 end
+
+begin
+  require 'kitchen/rake_tasks'
+  Kitchen::RakeTasks.new
+rescue LoadError
+  puts ">>>>> Kitchen gem not loaded, omitting tasks" unless ENV['CI']
+end
+
+task :default => [:foodcritic, :unit]

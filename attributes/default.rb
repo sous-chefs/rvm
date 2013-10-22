@@ -20,8 +20,8 @@
 #
 
 # ruby that will get installed and set to `rvm use default`.
-default['rvm']['default_ruby']      = "ruby-1.9.3-p194"
-default['rvm']['user_default_ruby'] = "ruby-1.9.3-p194"
+default['rvm']['default_ruby']      = "ruby-1.9.3-p327"
+default['rvm']['user_default_ruby'] = "ruby-1.9.3-p327"
 
 # list of additional rubies that will be installed
 default['rvm']['rubies']      = []
@@ -68,6 +68,9 @@ when "redhat","centos","fedora","scientific","amazon"
   default['rvm']['user_home_root']  = '/home'
 when "debian","ubuntu","suse"
   node.set['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git-core}
+  default['rvm']['user_home_root']  = '/home'
+when "gentoo"
+  node.set['rvm']['install_pkgs']   = %w{git}
   default['rvm']['user_home_root']  = '/home'
 when "mac_os_x", "mac_os_x_server"
   node.set['rvm']['install_pkgs']   = %w{git}

@@ -1,5 +1,25 @@
 ## 0.9.1 (unreleased)
 
+### Bug fixes
+
+* Pull request [#137](https://github.com/fnichol/chef-rvm/pull/137): Fix patch attribute support in rvm\_ruby. ([@mariussturm][])
+* Pull request [#140](https://github.com/fnichol/chef-rvm/pull/140): Update MRI package requirements for scientific-6 platforms. ([@aaronjensen][])
+* Pull request [#134](https://github.com/fnichol/chef-rvm/pull/134): Fix vagrant\_ruby default location on modern vagrant baseboxes. ([@mveytsman][])
+* Pull request [#129](https://github.com/fnichol/chef-rvm/pull/129): Fix broken example in README. ([@zacharydanger][])
+* Pull request [#188](https://github.com/fnichol/chef-rvm/pull/188): Added missing dependencies. ([@fmfdias][])
+* Pull request [#151](https://github.com/fnichol/chef-rvm/pull/151): Add Berkshelf installation instructions. ([@justincampbell][])
+* Pull request [#128](https://github.com/fnichol/chef-rvm/pull/128): Allow for universal rvmrc settings to be used in the user\_install. ([@firebelly][])
+
+### New features
+
+* Pull request [#100](https://github.com/fnichol/chef-rvm/pull/100): Add rubygems\_version attribute to rvm\_ruby resource. ([@cgriego][])
+* Pull request [#125](https://github.com/fnichol/chef-rvm/pull/125): Omnibus support (via chef\_gem). ([@gondoi][], [@cgriego][], [@jblatt-verticloud][], [@jschneiderhan][])
+* Set name attribute in metadata.rb, which may help certain LWRP auto-naming issues when directory name does not match 'rvm' (FC045). ([@fnichol][])
+
+### Improvements
+
+* Refactor foodcritic setup. ([@fnichol][])
+* Now suggests the [homebrew](http://community.opscode.com/cookbooks/homebrew) cookbook ([@martinisoft][])
 
 ## 0.9.0 (May 15, 2012)
 
@@ -168,16 +188,23 @@
 The changelog began with version 0.6.0 so any changes prior to that can be
 seen by checking the tagged releases and reading git commit messages.
 
+[@aaronjensen]: https://github.com/aaronjensen
 [@adrianpike]: https://github.com/adrianpike
 [@bradphelan]: https://github.com/bradphelan
 [@bryanstearns]: https://github.com/bryanstearns
+[@cgriego]: https://github.com/cgriego
 [@dokipen]: https://github.com/dokipen
 [@exempla]: https://github.com/exempla
 [@fnichol]: https://github.com/fnichol
+[@gondoi]: https://github.com/gondoi
+[@jblatt-verticloud]: https://github.com/jblatt-verticloud
 [@jheth]: https://github.com/jheth
+[@jschneiderhan]: https://github.com/jschneiderhan
 [@juzzin]: https://github.com/juzzin
 [@kristopher]: https://github.com/kristopher
+[@mariussturm]: https://github.com/mariussturm
 [@mpapis]: https://github.com/mpapis
+[@mveytsman]: https://github.com/mveytsman
 [@phlipper]: https://github.com/phlipper
 [@relistan]: https://github.com/relistan
 [@rhenning]: https://github.com/rhenning
@@ -186,3 +213,8 @@ seen by checking the tagged releases and reading git commit messages.
 [@temujin9]: https://github.com/temujin9
 [@TrevorBramble]: https://github.com/TrevorBramble
 [@xdissent]: https://github.com/xdissent
+[@zacharydanger]: https://github.com/zacharydanger
+[@fmfdias]: https://github.com/fmfdias
+[@justincampbell]: https://github.com/justincampbell
+[@firebelly]: https://github.com/firebelly
+[@martinisoft]: https://github.com/martinisoft

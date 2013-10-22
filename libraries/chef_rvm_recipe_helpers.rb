@@ -22,18 +22,12 @@
 class Chef
   module RVM
     module RecipeHelpers
-      def build_script_flags(version, branch)
-        script_flags = ""
-        if version || (branch && branch != "none")
-          script_flags += " -s --"
+      def build_script_flags(branch, version = "head")
+        if version =~ /\A\d+\.\d+\.\d+/ && %w{stable master none}.include?(branch)
+          " -s -- --version #{version}"
+        else
+          " -s -- --branch #{branch} --version #{version}"
         end
-        if version
-          script_flags += " --version #{version}"
-        end
-        if branch && branch != "none"
-          script_flags += " --branch #{branch}"
-        end
-        script_flags
       end
 
       def build_upgrade_strategy(strategy)
@@ -73,9 +67,17 @@ class Chef
           exec_env    = { 'TERM' => 'dumb' }
         end
 
+        rvm_installed_check = rvm_wrap_cmd(
+            %{type rvm | cat | head -1 | grep -q '^rvm is a function$'}, user_dir
+        )
+        install_command = "curl -L #{opts[:installer_url]} | bash #{opts[:script_flags]}"
+        install_user = opts[:user] || "root"
+
+        log "Performing RVM install with [#{install_command}] (as #{install_user})"
+
         i = execute exec_name do
-          user    opts[:user] || "root"
-          command "curl -L #{opts[:installer_url]} | bash #{opts[:script_flags]}"
+          user    install_user
+          command install_command
           environment(exec_env)
 
           # excute in compile phase if gem_package recipe is requested
@@ -85,9 +87,7 @@ class Chef
             action :run
           end
 
-          not_if  rvm_wrap_cmd(
-            %{type rvm | cat | head -1 | grep -q '^rvm is a function$'}, user_dir),
-            :environment => exec_env
+          not_if  rvm_installed_check, :environment => exec_env
         end
         i.run_action(:run) if install_now
       end
@@ -107,9 +107,13 @@ class Chef
           exec_env    = nil
         end
 
+        upgrade_cmd = rvm_wrap_cmd(
+          %{rvm get #{opts[:upgrade_strategy]}}, user_dir
+        )
+
         u = execute exec_name do
           user      opts[:user] || "root"
-          command   rvm_wrap_cmd(%{rvm get #{opts[:upgrade_strategy]}}, user_dir)
+          command   upgrade_cmd
           environment(exec_env)
 
           # excute in compile phase if gem_package recipe is requested
@@ -161,15 +165,18 @@ class Chef
         opts[:rubies].each do |rubie|
           if rubie.is_a?(Hash)
             ruby = rubie.fetch("version")
-            ruby_patch = rubie.fetch("patch")
+            ruby_patch = rubie.fetch("patch", nil)
+            ruby_rubygems_version = rubie.fetch("rubygems_version", nil)
           else
             ruby = rubie
             ruby_patch = nil
+            ruby_rubygems_version = nil
           end
 
           rvm_ruby ruby do
-            patch ruby_patch
-            user  opts[:user]
+            patch            ruby_patch
+            user             opts[:user]
+            rubygems_version ruby_rubygems_version
           end
         end
 

@@ -25,13 +25,13 @@ Array(node['rvm']['user_installs']).each do |rvm_user|
   version = rvm_user['version'] || node['rvm']['version']
   branch  = rvm_user['branch'] || node['rvm']['branch']
 
-  script_flags      = build_script_flags(version, branch)
+  script_flags      = build_script_flags(branch, version)
   upgrade_strategy  = build_upgrade_strategy(rvm_user['upgrade'])
   installer_url     = rvm_user['installer_url'] || node['rvm']['installer_url']
   rvm_prefix        = rvm_user['home'] ||
                       "#{node['rvm']['user_home_root']}/#{rvm_user['user']}"
   rvm_gem_options   = rvm_user['rvm_gem_options'] || node['rvm']['rvm_gem_options']
-  rvmrc             = rvm_user['rvmrc'] || Hash.new
+  rvmrc             = rvm_user['rvmrc'] || node['rvm']['rvmrc'] 
 
   rvmrc_template  :rvm_prefix => rvm_prefix,
                   :rvm_gem_options => rvm_gem_options,
