@@ -9,6 +9,7 @@
 * Pull request [#188](https://github.com/fnichol/chef-rvm/pull/188): Added missing dependencies. ([@fmfdias][])
 * Pull request [#151](https://github.com/fnichol/chef-rvm/pull/151): Add Berkshelf installation instructions. ([@justincampbell][])
 * Pull request [#128](https://github.com/fnichol/chef-rvm/pull/128): Allow for universal rvmrc settings to be used in the user\_install. ([@firebelly][])
+* Pull request [#204](https://github.com/fnichol/chef-rvm/pull/204): Minor spelling mistake ([@dosire][])
 
 ### New features
 
@@ -218,3 +219,4 @@ seen by checking the tagged releases and reading git commit messages.
 [@justincampbell]: https://github.com/justincampbell
 [@firebelly]: https://github.com/firebelly
 [@martinisoft]: https://github.com/martinisoft
+[@dosire]: https://github.com/dosire
