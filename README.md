@@ -125,7 +125,7 @@ cookbook dependencies. Include the cookbook in your Berksfile, and then run
     gem install berkshelf
     cd chef-repo
     berks init
-    echo "cookbook 'rvm', github: 'fnichol/chef-rvm'" >> Berksfile
+    echo "cookbook 'rvm'" >> Berksfile
     berks install
 
 ### <a name="installation-librarian"></a> Using Librarian-Chef
@@ -137,10 +137,7 @@ Include a reference to the cookbook in a [Cheffile][cheffile] and run
     gem install librarian
     cd chef-repo
     librarian-chef init
-    cat >> Cheffile <<END_OF_CHEFFILE
-    cookbook 'rvm',
-      :git => 'git://github.com/fnichol/chef-rvm.git', :ref => 'v0.9.0'
-    END_OF_CHEFFILE
+    echo "cookbook 'rvm'" >> Cheffile
     librarian-chef install
 
 ### <a name="installation-kgc"></a> Using knife-github-cookbooks
@@ -175,8 +172,7 @@ Server or Opscode Hosted Chef, then a tarball installation might fit the bill:
 
 ### <a name="installation-platform"></a> From the Opscode Community Platform
 
-This cookbook is not currently available on the site due to the flat
-namespace for cookbooks. There is some community work to be done here.
+This cookbook is [available on the community site](http://community.opscode.com/cookbooks/rvm).
 
 ## <a name="recipes"></a> Recipes
 
@@ -1534,3 +1530,4 @@ limitations under the License.
 
 [repo]:         https://github.com/fnichol/chef-rvm
 [issues]:       https://github.com/fnichol/chef-rvm/issues
+[community cookbook repo]: http://community.opscode.com/cookbooks/rvm
