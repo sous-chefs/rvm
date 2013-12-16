@@ -35,3 +35,20 @@ group "rvm" do
   members ["vagrant"]
   append  true
 end
+
+# Resolves a conflict between rvm::system and the sudo cookbook.
+# https://github.com/fnichol/chef-rvm/issues/121
+directory "/opt/vagrant_ruby/bin" do
+  owner "root"
+  group "root"
+  recursive true
+  mode 755
+  not_if { ::File.exists?("/opt/vagrant_ruby/bin") }
+end
+
+["chef-client", "chef-solo"].each do |name|
+  link "/opt/vagrant_ruby/bin/#{name}" do
+    to "/opt/chef/bin/#{name}"
+    not_if { ::File.exists?("/opt/vagrant_ruby/bin/#{name}") }
+  end
+end
