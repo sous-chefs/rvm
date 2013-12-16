@@ -32,6 +32,7 @@ end
 # add users to rvm group
 group 'rvm' do
   members node['rvm']['group_users']
+  action [:create, :modify]
 
   only_if { node['rvm']['group_users'].any? }
 end
