@@ -5,6 +5,8 @@ driver_config:
 
 platforms:
 - name: ubuntu-13.04
+  run_list:
+  - recipe[apt]
 - name: ubuntu-12.04
   run_list:
   - recipe[apt]
