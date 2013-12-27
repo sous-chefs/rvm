@@ -10,7 +10,7 @@ gem 'guard-rspec'
 gem 'chef', (ENV['CHEF_VERSION'] || '>= 0.10.10')
 
 group :integration do
-  gem 'berkshelf', '~> 2.0'
-  gem 'test-kitchen', '~> 1.0.0.beta.3'
-  gem 'kitchen-vagrant'
+  gem 'berkshelf', '~> 2.0.10'
+  gem 'test-kitchen', '~> 1.1.1'
+  gem 'kitchen-vagrant', '~> 0.14.0'
 end
