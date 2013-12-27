@@ -15,3 +15,4 @@ rescue LoadError
 end
 
 task :default => [:foodcritic, :unit]
+FoodCritic::Rake::LintTask.new
