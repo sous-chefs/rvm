@@ -3,10 +3,6 @@
 require 'foodcritic'
 require 'rspec/core/rake_task'
 
-FoodCritic::Rake::LintTask.new do |t|
-  t.options = { :fail_tags => ['any'] }
-end
-
 RSpec::Core::RakeTask.new(:unit) do |t|
   t.pattern = "test/unit/**/*_spec.rb"
 end
