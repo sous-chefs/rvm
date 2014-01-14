@@ -124,7 +124,19 @@ class Chef
             action :run
           end
 
-          not_if   { opts[:upgrade_strategy] == "none" }
+          not_if {
+            # Don't run if upgrade_strategy is none
+            next true if opts[:upgrade_strategy] == 'none'
+
+            # Don't run if the version is already installed
+            # NOTE: 'head', 'stable', etc. will always run
+            rvm_version_cmd = rvm_wrap_cmd(
+              %{rvm --version}, user_dir
+            )
+            cmd = Mixlib::ShellOut.new(rvm_version_cmd, :env => exec_env)
+            cmd.run_command
+            cmd.stdout.strip =~ /^rvm #{Regexp.escape(opts[:upgrade_strategy])} /
+          }
         end
         u.run_action(:run) if install_now
       end
