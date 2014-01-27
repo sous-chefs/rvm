@@ -41,6 +41,7 @@ action :install do
     install_start   = Time.now
     install_options = {:rvm_by_path => true}
     install_options[:patch] = new_resource.patch if new_resource.patch
+    install_options[:rubygems_version] = new_resource.rubygems_version if new_resource.rubygems_version
 
     install_ruby_dependencies @rubie
 
