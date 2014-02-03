@@ -20,7 +20,7 @@
 # install rvm api gem during chef compile phase
 chef_gem 'rvm' do
   action :install
-  version '>= 1.11.3.6'
+  version '>= 1.25.16'
 end
 require 'rvm'
 
