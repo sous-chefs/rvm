@@ -1531,6 +1531,7 @@ limitations under the License.
 [rvm_upgrading]:        https://rvm.io/rvm/upgrading/
 [script_resource]:      http://wiki.opscode.com/display/chef/Resources#Resources-Script
 [vagrant]:              http://vagrantup.com
+[vagrant-berkshelf]:    https://github.com/berkshelf/vagrant-berkshelf
 
 [repo]:         https://github.com/fnichol/chef-rvm
 [issues]:       https://github.com/fnichol/chef-rvm/issues
