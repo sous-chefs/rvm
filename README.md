@@ -1404,8 +1404,8 @@ Ideally create a topic branch for every seperate change you make.
 
 Make sure you have the following requirements setup:
 
-* [Vagrant](vagrant)
-* [vagrant-berkshelf](vagrant-berkshelf)
+* [Vagrant][vagrant]
+* [vagrant-berkshelf][vagrant-berkshelf]
 
 After you `bundle install` run `rake` for unit tests and `kitchen test` for
 integration level tests.
@@ -1417,7 +1417,11 @@ Author:: [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>) [![endorse](http://api
 
 Contributors:: https://github.com/fnichol/chef-rvm/contributors
 
+<<<<<<< HEAD
 Copyright:: 2010, 2011, 2012, 2013 Fletcher Nichol
+=======
+Copyright:: 2010 - 2014, Fletcher Nichol
+>>>>>>> master
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
