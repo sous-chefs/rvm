@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'foodcritic'
+gem 'foodcritic', '~> 2.2.0'
 gem 'minitest'
 
 # allow CI to override the version of Chef for matrix testing
