@@ -217,9 +217,11 @@ class Chef
       private
 
       def mac_with_no_homebrew
+        # There are multiple possible homebrew providers (generally Homebrew or Homebrewalt). The cookbook
+        # with the provider may not be installed so check the provider as a string instead of as a class.
+        provider = Chef::Platform.find_provider_for_node(node, :package)
         %w{ mac_os_x mac_os_x_server }.include?(node['platform']) &&
-          Chef::Platform.find_provider_for_node(node, :package) !=
-          Chef::Provider::Package::Homebrew
+          provider.to_s !~ /Homebrew/
       end
     end
   end
