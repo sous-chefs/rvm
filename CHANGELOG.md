@@ -1,4 +1,4 @@
-## 0.9.1 (unreleased)
+## 0.9.2 (March 31, 2014)
 
 ### Bug fixes
 
