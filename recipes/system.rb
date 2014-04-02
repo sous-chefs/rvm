@@ -35,3 +35,5 @@ group 'rvm' do
 
   only_if { node['rvm']['group_users'].any? }
 end
+
+execute 'rvm fix-permissions system'
