@@ -1,3 +1,13 @@
+## 0.9.3 (Unreleased)
+
+### Improvements
+
+* Updated default ruby to 1.9.3-p547 ([@martinisoft][])
+
+### Documentation
+
+* Pull request [#246](https://github.com/fnichol/chef-rvm/pull/246): Updated README.md documenting use with librarian-chef ([@ncreuschling][])
+
 ## 0.9.2 (March 31, 2014)
 
 ### Bug fixes
@@ -222,3 +232,4 @@ seen by checking the tagged releases and reading git commit messages.
 [@martinisoft]: https://github.com/martinisoft
 [@dosire]: https://github.com/dosire
 [@zsol]: https://github.com/zsol
+[@ncreuschling]: https://github.com/ncreuschling
