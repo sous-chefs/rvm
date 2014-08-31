@@ -134,7 +134,7 @@ cookbook dependencies. Include the cookbook in your Berksfile, and then run
 Include a reference to the cookbook in a [Cheffile][cheffile] and run
 `librarian-chef install`. To install Librarian-Chef:
 
-    gem install librarian
+    gem install librarian-chef
     cd chef-repo
     librarian-chef init
     cat >> Cheffile <<END_OF_CHEFFILE
