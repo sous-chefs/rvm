@@ -123,7 +123,7 @@ describe Chef::Resource::RvmInstallation do
 
     it "installed can be set" do
       resource.installed(true)
-      expect(resource.installed).to be_true
+      expect(resource.installed).to be_truthy
     end
 
     it "version can be set" do

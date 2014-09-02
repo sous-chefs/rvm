@@ -99,7 +99,7 @@ describe Chef::Provider::RvmInstallation do
       it "sets installed state to true" do
         provider.load_current_resource
 
-        expect(provider.current_resource.installed).to be_true
+        expect(provider.current_resource.installed).to be_truthy
       end
 
       it "sets version state" do
