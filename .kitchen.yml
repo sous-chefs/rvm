@@ -4,7 +4,7 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-- name: ubuntu-13.04
+- name: ubuntu-14.04
   run_list:
   - recipe[apt]
 - name: ubuntu-12.04
@@ -13,7 +13,7 @@ platforms:
 - name: ubuntu-10.04
   run_list:
   - recipe[apt]
-- name: debian-7.1.0
+- name: debian-7.6
 - name: centos-6.4
 
 suites:
