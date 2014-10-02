@@ -1,8 +1,13 @@
-## 0.9.3 (Unreleased)
+## 0.10.1 (Unreleased)
+
+### Breaking Changes
+
+* Re-factored the libraries and shell wrappers to more of an [LWRP][] ([@fnichol][])
 
 ### Improvements
 
 * Updated default ruby to 1.9.3-p547 ([@martinisoft][])
+* Added a repository Code of Conduct (See CODE\_OF\_CONDUCT.md) ([@martinisoft][])
 
 ### Documentation
 
@@ -200,6 +205,7 @@
 The changelog began with version 0.6.0 so any changes prior to that can be
 seen by checking the tagged releases and reading git commit messages.
 
+[LWRP]: https://docs.getchef.com/lwrp.html
 [@aaronjensen]: https://github.com/aaronjensen
 [@adrianpike]: https://github.com/adrianpike
 [@bradphelan]: https://github.com/bradphelan
