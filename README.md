@@ -1392,11 +1392,7 @@ under `node['rvm']['root_path']`.
 
 ## <a name="contributing"></a> Contributing
 
-* Source hosted at [GitHub][repo]
-* Report issues/Questions/Feature requests on [GitHub Issues][issues]
-
-Pull requests are very welcome! Make sure your patches are well tested.
-Ideally create a topic branch for every seperate change you make.
+See the CONTRIBUTING.md file
 
 ### Testing
 
