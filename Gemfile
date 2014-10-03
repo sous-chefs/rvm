@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'foodcritic', '~> 3.0.3'
 gem 'minitest'
 gem 'rake'
-gem 'rspec'
+gem 'rspec', '= 3.0.0'
 gem 'guard-rspec'
 
 # allow CI to override the version of Chef for matrix testing
