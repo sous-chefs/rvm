@@ -46,7 +46,7 @@ def create_rvm_chef_user_environment
     end
 
     def self.root_rvm_path=(path)
-      @@root_rvm_path = path
+      class_variable_set(:@@root_rvm_path, path)
     end
   end
   ::RVM.const_set('ChefUserEnvironment', klass)
