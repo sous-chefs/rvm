@@ -30,4 +30,10 @@ if node['rvm']['group_id'] != 'default'
   g.run_action(:create)
 end
 
+execute 'Adding gpg key' do
+  command "gpg --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
+  only_if 'which gpg'
+  not_if { node['rvm']['gpg_key'].empty? }
+end
+
 rvm_installation("root")
