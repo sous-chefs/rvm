@@ -32,7 +32,7 @@ end
 
 execute 'Adding gpg key' do
   command "gpg --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
-  only_if 'which gpg'
+  only_if 'which gpg || which gpg2'
   not_if { node['rvm']['gpg_key'].empty? }
 end
 
