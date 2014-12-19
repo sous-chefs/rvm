@@ -31,8 +31,8 @@ if node['rvm']['group_id'] != 'default'
 end
 
 execute 'Adding gpg key' do
-  command "gpg --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
-  only_if 'which gpg || which gpg2'
+  command "`which gpg2 || which gpg` --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
+  only_if 'which gpg2 || which gpg'
   not_if { node['rvm']['gpg_key'].empty? }
 end
 
