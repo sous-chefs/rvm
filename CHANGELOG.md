@@ -13,6 +13,10 @@
 
 * Pull request [#246](https://github.com/fnichol/chef-rvm/pull/246): Updated README.md documenting use with librarian-chef ([@ncreuschling][])
 
+### Bug Fixes
+
+* Pull request [#285](https://github.com/fnichol/chef-rvm/pull/285): Use GPG for rvm verification. ([@lukeasrodgers][])
+
 ## 0.9.2 (March 31, 2014)
 
 ### Bug fixes
@@ -239,3 +243,4 @@ seen by checking the tagged releases and reading git commit messages.
 [@dosire]: https://github.com/dosire
 [@zsol]: https://github.com/zsol
 [@ncreuschling]: https://github.com/ncreuschling
+[@lukeasrodgers]: https://github.com/lukeasrodgers
