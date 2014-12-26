@@ -150,15 +150,17 @@ class Chef
           cmd << %{ install #{name} -q --no-rdoc --no-ri -v "#{version}"}
           cmd << %{#{src}#{opts}}
 
+          run_user = 'root'
           if gem_env.user
             user_dir    = Etc.getpwnam(gem_env.user).dir
             environment = { 'USER' => gem_env.user, 'HOME' => user_dir }
+            run_user = gem_env.user
           else
             user_dir    = nil
             environment = nil
           end
 
-          shell_out!(rvm_wrap_cmd(cmd, user_dir), :env => environment)
+          shell_out!(rvm_wrap_cmd(cmd, user_dir), :user => run_user, :env => environment)
         end
 
         def remove_package(name, version)
