@@ -23,6 +23,16 @@ node["rvm"]["installs"].each do |user, opts|
   # if user hash is falsy (nil, false) then we're not installing
   next unless opts
 
+  # add gpg key if needed
+
+  execute 'Adding gpg key' do
+    environment ({"HOME" => "/home/#{user}"})
+    command "`which gpg2 || which gpg` --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
+    user user
+    only_if 'which gpg2 || which gpg'
+    not_if { node['rvm']['gpg_key'].empty? }
+  end
+
   # if user hash is not a hash (i.e. set to true), init an empty Hash
   opts = Hash.new if opts == true
 
