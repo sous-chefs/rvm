@@ -29,6 +29,7 @@ node["rvm"]["installs"].each do |user, opts|
     environment ({"HOME" => "/home/#{user}"})
     command "`which gpg2 || which gpg` --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
     user user
+    group user
     only_if 'which gpg2 || which gpg'
     not_if { node['rvm']['gpg_key'].empty? }
   end
