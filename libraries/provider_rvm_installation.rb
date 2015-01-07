@@ -53,6 +53,7 @@ class Chef
 
       def action_force
         converge_rvmrc
+        converge_install
       end
 
       def converge_rvmrc
