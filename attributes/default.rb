@@ -53,6 +53,9 @@ default['rvm']['root_path']     = "/usr/local/rvm"
 default['rvm']['group_id']      = 'default'
 default['rvm']['group_users']   = []
 
+# GPG key for rvm verification
+default['rvm']['gpg_key']       = 'D39DC0E3'
+
 case platform
 when "redhat","centos","fedora","scientific","amazon"
   node.set['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git}
