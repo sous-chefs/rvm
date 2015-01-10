@@ -33,7 +33,7 @@ end
 
 execute 'Adding gpg key' do
   environment ({"HOME" => "/root", "USER" => "root"})
-  command "`which gpg2 || which gpg` --keyserver hkp://pgp.mit.edu --recv-keys #{node['rvm']['gpg_key']}"
+  command "`which gpg2 || which gpg` --keyserver #{node['rvm']['gpg_keyserver']} --recv-keys #{node['rvm']['gpg_key']}"
   only_if 'which gpg2 || which gpg'
   not_if { node['rvm']['gpg_key'].empty? }
   not_if "`which gpg2 || which gpg` --list-keys | fgrep #{node['rvm']['gpg_key']}"
