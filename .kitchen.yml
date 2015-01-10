@@ -28,7 +28,7 @@ suites:
     rvm:
       user_installs:
       - user: wigglebottom
-        default_ruby: 2.1.3
+        default_ruby: 2.1.5
 - name: rubies
   run_list:
   - recipe[java]
@@ -37,7 +37,7 @@ suites:
     rvm:
       default_ruby: system
       rubies:
-      - 2.1.3
+      - 2.1.5
       - jruby
       - ree
 - name: rbx
