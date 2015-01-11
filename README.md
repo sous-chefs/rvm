@@ -482,6 +482,18 @@ If using the `vagrant` recipe, this sets the path to the package-installed
 
 The default is `"/opt/ruby/bin/chef-solo"`.
 
+### <a name="attributes-gpg_keyserver"></a> gpg_keyserver
+
+The keyserver from which to download the public GPG key for RVM installer verification.
+
+The default is `"keys.gnupg.net"`. 
+
+Other valid servers that can be used:
+
+- `pgp.mit.edu`
+- `keyserver.ubuntu.com`
+- `subkeys.pgp.net`
+
 ## <a name="lwrps"></a> Resources and Providers
 
 ### <a name="lwrps-rvmruby"></a> rvm_ruby
