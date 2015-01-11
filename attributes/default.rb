@@ -19,6 +19,9 @@
 # limitations under the License.
 #
 
+# install ruby by default in rvm::system recipe
+default['rvm']['install_rubies'] = true
+
 # ruby that will get installed and set to `rvm use default`.
 default['rvm']['default_ruby']      = "ruby-1.9.3-p547"
 default['rvm']['user_default_ruby'] = "ruby-1.9.3-p547"
