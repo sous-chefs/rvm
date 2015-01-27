@@ -24,10 +24,11 @@ node["rvm"]["installs"].each do |user, opts|
   next unless opts
 
   # add gpg key if needed
+  key_server = node['rvm']['gpg']['keyserver'] || "hkp://keys.gnupg.net"
 
   execute 'Adding gpg key' do
     environment ({"HOME" => "/home/#{user}"})
-    command "`which gpg2 || which gpg` --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
+    command "`which gpg2 || which gpg` --keyserver #{key_server} --recv-keys #{node['rvm']['gpg_key']}"
     user user
     group user
     only_if 'which gpg2 || which gpg'
