@@ -55,6 +55,7 @@ default['rvm']['group_users']   = []
 
 # GPG key for rvm verification
 default['rvm']['gpg_key']       = 'D39DC0E3'
+node.default['rvm']['gpg']['keyserver'] = "hkp://keys.gnupg.net"
 
 case platform
 when "redhat","centos","fedora","scientific","amazon"
