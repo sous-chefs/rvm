@@ -35,7 +35,7 @@ home_dir = "#{node['rvm']['gpg']['homedir'] || '~'}/.gnupg"
 
 execute 'Adding gpg key' do
   command "`which gpg2 || which gpg` --keyserver #{key_server} --homedir #{home_dir} --recv-keys #{node['rvm']['gpg_key']}"
-  only_if 'which gpg2 || which gpg'
+  only_if "`which gpg2 || which gpg` --list-keys #{node['rvm']['gpg_key']} 2> /dev/null |grep -qv RVM"
   not_if { node['rvm']['gpg_key'].empty? }
 end
 
