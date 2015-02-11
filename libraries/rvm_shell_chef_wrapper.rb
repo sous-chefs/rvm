@@ -93,6 +93,7 @@ def create_rvm_shell_chef_wrapper
       end
     end
   end
+  ::RVM::Shell.send(:remove_const, 'ChefWrapper') if ::RVM::Shell.const_defined?('ChefWrapper') # Remove constant if it's already defined to avoid Ruby interpreter warning
   ::RVM::Shell.const_set('ChefWrapper', klass)
 
   ::RVM::Shell.default_wrapper = ::RVM::Shell::ChefWrapper

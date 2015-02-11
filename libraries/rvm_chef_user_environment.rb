@@ -49,6 +49,7 @@ def create_rvm_chef_user_environment
       @@root_rvm_path = path
     end
   end
+  ::RVM.send(:remove_const, 'ChefUserEnvironment') if ::RVM.const_defined?('ChefUserEnvironment') # Remove constant if it's already defined to avoid Ruby interpreter warning
   ::RVM.const_set('ChefUserEnvironment', klass)
 
   ::RVM::ChefUserEnvironment.root_rvm_path = node['rvm']['root_path']
