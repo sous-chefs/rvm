@@ -54,7 +54,7 @@ default['rvm']['group_id']      = 'default'
 default['rvm']['group_users']   = []
 
 # GPG key for rvm verification
-default['rvm']['gpg_key']       = 'D39DC0E3'
+default['rvm']['gpg_key']       = '409B6B1796C275462A1703113804BB82D39DC0E3'
 
 case platform
 when "redhat","centos","fedora","scientific","amazon"
