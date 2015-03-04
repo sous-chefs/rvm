@@ -26,7 +26,7 @@ node["rvm"]["installs"].each do |user, opts|
   # if user hash is not a hash (i.e. set to true), init an empty Hash
   opts = Hash.new if opts == true
 
-  ruby_block 'Conditionally add RVM gpg key' do
+  ruby_block "Conditionally add RVM gpg key #{user}" do
     block do
       cmd = Mixlib::ShellOut.new('which gpg2 || which gpg')
       cmd.run_command
