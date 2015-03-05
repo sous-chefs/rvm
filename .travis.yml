@@ -4,3 +4,8 @@ rvm:
   - 2.1.2
   - 2.2.0
 bundler_args: --without integration development
+before_script:
+  -bundle exec berks install
+script:
+  - bundle exec rake unit
+  - bundle exec rake foodcritic
