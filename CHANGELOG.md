@@ -18,6 +18,7 @@
 * Pull request [#285](https://github.com/fnichol/chef-rvm/pull/285): Use GPG for rvm verification. ([@lukeasrodgers][])
 * Pull request [#284](https://github.com/fnichol/chef-rvm/pull/284): Use full class name for rvm_environment resource usage inside Chef::Provider::Package:RVMRubygems class. ([@nomadium][])
 * Pull request [#300](https://github.com/fnichol/chef-rvm/pull/300): Ability to configure key server and home did for rvm gpg_key ([@lesniakania][])
+* Pull request [#298](https://github.com/martinisoft/chef-rvm/pull/298): Add GPG check for user installs ([@cmluciano][])
 
 ## 0.9.2 (March 31, 2014)
 
