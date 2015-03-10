@@ -31,7 +31,7 @@ if node['rvm']['group_id'] != 'default'
 end
 
 key_server = node['rvm']['gpg']['keyserver'] || "hkp://keys.gnupg.net"
-home_dir = "#{node['rvm']['gpg']['homedir'] || '~'}/.gnupg"
+home_dir = "#{node['rvm']['gpg']['homedir'] || '/root'}/.gnupg"
 
 execute 'Adding gpg key' do
   command "`which gpg2 || which gpg` --keyserver #{key_server} --homedir #{home_dir} --recv-keys #{node['rvm']['gpg_key']}"
