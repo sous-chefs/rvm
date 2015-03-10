@@ -37,6 +37,7 @@ execute 'Adding gpg key' do
   command "`which gpg2 || which gpg` --keyserver #{key_server} --homedir #{home_dir} --recv-keys #{node['rvm']['gpg_key']}"
   only_if 'which gpg2 || which gpg'
   not_if { node['rvm']['gpg_key'].empty? }
+  user "root"
 end
 
 rvm_installation("root")
