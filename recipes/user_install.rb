@@ -26,7 +26,7 @@ node["rvm"]["installs"].each do |user, opts|
   # if user hash is not a hash (i.e. set to true), init an empty Hash
   opts = Hash.new if opts == true
 
-  ruby_block "Conditionally add RVM gpg key #{user}" do
+  ruby_block "Conditionally add RVM gpg key" do # ~FC022 this will be fixed in the LWRP rewrite
     block do
       cmd = Mixlib::ShellOut.new('which gpg2 || which gpg')
       cmd.run_command
@@ -36,10 +36,10 @@ node["rvm"]["installs"].each do |user, opts|
 
         exec = Chef::Resource::Execute.new 'Add RVM gpg key', run_context
         exec.command "#{gpg_command} --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
-        exec.user rvm_user['user']
-        exec.environment 'HOME' => rvm_prefix
+        exec.user user['user']
+        exec.environment 'HOME' => user['home']
         exec.guard_interpreter :bash
-        exec.not_if "#{gpg_command} -k #{node['rvm']['gpg_key']} > /dev/null", user: rvm_user['user'], environment: { 'HOME' => rvm_prefix }
+        exec.not_if "#{gpg_command} -k #{node['rvm']['gpg_key']} > /dev/null", user: user['user'], environment: { 'HOME' => user['home'] }
         exec.run_action :run
       else
         Chef::Log.info 'Skipping adding RVM key because gpg/gpg2 not installed'
