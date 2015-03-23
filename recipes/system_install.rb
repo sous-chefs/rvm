@@ -31,12 +31,13 @@ if node['rvm']['group_id'] != 'default'
 end
 
 key_server = node['rvm']['gpg_keyserver']
-home_dir = "#{node['rvm']['gpg_homedir']}/.gnupg"
+home_dir = "#{Etc.getpwnam('root').dir}/.gnupg"
 
 execute 'Adding gpg key' do
   command "`which gpg2 || which gpg` --keyserver #{key_server} --homedir #{home_dir} --recv-keys #{node['rvm']['gpg_key']}"
+  user 'root'
   only_if 'which gpg2 || which gpg'
   not_if { node['rvm']['gpg_key'].empty? }
 end
 
-rvm_installation("root")
+rvm_installation('root')
