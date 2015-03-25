@@ -36,10 +36,10 @@ node["rvm"]["installs"].each do |user, opts|
 
         exec = Chef::Resource::Execute.new 'Add RVM gpg key', run_context
         exec.command "#{gpg_command} --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
-        exec.user user['user']
-        exec.environment 'HOME' => user['home']
+        exec.user user
+        exec.environment 'HOME' => opts['home']
         exec.guard_interpreter :bash
-        exec.not_if "#{gpg_command} -k #{node['rvm']['gpg_key']} > /dev/null", user: user['user'], environment: { 'HOME' => user['home'] }
+        exec.not_if "#{gpg_command} -k #{node['rvm']['gpg_key']} > /dev/null", user: user, environment: { 'HOME' => opts['home'] }
         exec.run_action :run
       else
         Chef::Log.info 'Skipping adding RVM key because gpg/gpg2 not installed'
