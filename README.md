@@ -1,5 +1,4 @@
-# <a name="title"></a> chef-rvm [![Build
-Status](https://secure.travis-ci.org/martinisoft/chef-rvm.png?branch=master)](http://travis-ci.org/martinisoft/chef-rvm)
+# <a name="title"></a> chef-rvm [![Build Status](https://secure.travis-ci.org/martinisoft/chef-rvm.png?branch=master)](http://travis-ci.org/martinisoft/chef-rvm)
 
 ## <a name="description"></a> Description
 
