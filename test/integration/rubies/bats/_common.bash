@@ -1,5 +1,5 @@
 setup() {
-  source /etc/profile.d/rvm.sh
+  source /usr/local/rvm/scripts/rvm
 }
 
 run_nokogiri_openssl_test() {

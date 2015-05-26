@@ -4,7 +4,7 @@ default_ruby="ruby-1.9.3-p484"
 https_url="https://google.com"
 
 setup() {
-  source /etc/profile.d/rvm.sh
+  source /usr/local/rvm/scripts/rvm
 }
 
 @test "creates system install RVM directory" {

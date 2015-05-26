@@ -33,8 +33,8 @@ class Chef
         if user_dir
           "#{user_dir}/.rvm/scripts/rvm"
         else
-          if ::File.directory?("/etc/profile.d")
-            "/etc/profile.d/rvm.sh"
+          if ::File.directory?("/usr/local/rvm/scripts")
+            "/usr/local/rvm/scripts/rvm"
           else
             "/etc/profile"
           end
