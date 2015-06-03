@@ -1,4 +1,4 @@
-## 0.9.3 (Unreleased)
+## 0.9.4 (June 3, 2015)
 
 ### Improvements
 
