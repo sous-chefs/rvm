@@ -6,6 +6,7 @@
 
 ### Documentation
 
+* Pull request [#284](https://github.com/fnichol/chef-rvm/pull/284): Use full class name for rvm_environment resource usage inside Chef::Provider::Package:RVMRubygems class. ([@nomadium][])
 * Pull request [#246](https://github.com/fnichol/chef-rvm/pull/246): Updated README.md documenting use with librarian-chef ([@ncreuschling][])
 
 ## 0.9.2 (March 31, 2014)
@@ -233,3 +234,4 @@ seen by checking the tagged releases and reading git commit messages.
 [@dosire]: https://github.com/dosire
 [@zsol]: https://github.com/zsol
 [@ncreuschling]: https://github.com/ncreuschling
+[@nomadium]: https://github.com/nomadium
