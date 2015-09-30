@@ -1018,7 +1018,7 @@ is given.
 ### <a name="lwrps-rvmglobalgem"></a> rvm_global_gem
 
 This resource will use the `rvm_gem` resource to manage a gem in the *global*
-gemset accross all RVM Rubies. An entry will also be made/removed in RVM's
+gemset across all RVM Rubies. An entry will also be made/removed in RVM's
 *global.gems* file. See the Opscode [package resource][package_resource] and
 [gem package options][gem_package_options] pages for more details.
 
