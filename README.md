@@ -1,5 +1,13 @@
 # <a name="title"></a> chef-rvm [![Build Status](https://secure.travis-ci.org/martinisoft/chef-rvm.png?branch=master)](http://travis-ci.org/martinisoft/chef-rvm)
 
+## WARNING - Please read!
+
+There is currently a _major_ rewrite going on with this cookbook to simply
+the interface to RVM with Chef. Expect the master branch to be very broken
+until there is a 1.0 release. All previous pull requests will need to rebase
+to the newer master to contribute to the new [Resource][resource-blog] based
+cookbook.
+
 ## <a name="description"></a> Description
 
 Manages system-wide and per-user [RVM][rvm]s and manages installed Rubies.
@@ -1454,6 +1462,7 @@ limitations under the License.
 [script_resource]:      http://wiki.opscode.com/display/chef/Resources#Resources-Script
 [vagrant]:              http://vagrantup.com
 [vagrant-berkshelf]:    https://github.com/RiotGames/vagrant-berkshelf
+[resource-blog]:        https://www.chef.io/blog/2015/10/08/chef-client-12-5-released/
 
 [repo]:         https://github.com/fnichol/chef-rvm
 [issues]:       https://github.com/fnichol/chef-rvm/issues
