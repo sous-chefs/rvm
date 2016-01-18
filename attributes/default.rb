@@ -58,7 +58,6 @@ default['rvm']['group_users']   = []
 default['rvm']['gpg_key']       = 'D39DC0E3'
 default['rvm']['gpg']['keyserver'] = 'hkp://keys.gnupg.net'
 default['rvm']['gpg']['homedir'] = '~/.gnup'
-'~'}/.gnup
 
 case platform
 when "redhat","centos","fedora","scientific","amazon"
