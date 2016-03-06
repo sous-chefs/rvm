@@ -1,6 +1,6 @@
 name              "rvm"
-maintainer        "Fletcher Nichol"
-maintainer_email  "fnichol@nichol.ca"
+maintainer        "Aaron Kalin"
+maintainer_email  "akalin@martinisoftware.com"
 license           "Apache 2.0"
 description       "Manages system-wide and per-user RVMs and manages installed Rubies. Several lightweight resources and providers (LWRP) are also defined.Installs and manages RVM. Includes several LWRPs."
 long_description  "Please refer to README.md (it's long)."
