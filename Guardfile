@@ -5,7 +5,7 @@ guard :rspec do
   watch('spec/spec_helper.rb')       { 'spec' }
 end
 
-guard :foodcritic, cookbook_paths: '.' do
+guard :foodcritic, cli: "-X 'test/**/*' -X 'spec/**/*'", cookbook_paths: '.' do
   watch(%r{attributes/.+\.rb$})
   watch(%r{libraries/.+\.rb$})
   watch(%r{recipes/.+\.rb$})
