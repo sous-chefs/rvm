@@ -5,6 +5,8 @@ license           "Apache 2.0"
 description       "Manages system-wide and per-user RVMs and manages installed Rubies. Several lightweight resources and providers (LWRP) are also defined.Installs and manages RVM. Includes several LWRPs."
 long_description  "Please refer to README.md (it's long)."
 version           "0.10.1"
+source_url        "https://github.com/martinisoft/chef-rvm"
+issues_url        "https://github.com/martinisoft/chef-rvm/issues"
 
 recipe "rvm",                 "Installs the RVM gem and initializes Chef to use the Lightweight Resources and Providers (LWRPs). Use this recipe explicitly if you only want access to the LWRPs provided."
 recipe "rvm::system_install", "Installs the RVM codebase system-wide (that is, into /usr/local/rvm). This recipe includes *default*. Use this recipe by itself if you want RVM installed system-wide but want to handle installing Rubies, invoking LWRPs, etc.."
