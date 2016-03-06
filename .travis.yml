@@ -1,7 +1,6 @@
 language: ruby
 rvm:
   - 2.2.0
-bundler_args: --without integration development
+bundler_args: --without kitchen_vagrant development
 script:
-  - bundle exec rake unit
-  - bundle exec rake foodcritic
+  - bundle exec rake
