@@ -8,4 +8,5 @@ guard :foodcritic, cookbook_paths: '.' do
   watch(%r{attributes/.+\.rb$})
   watch(%r{libraries/.+\.rb$})
   watch(%r{recipes/.+\.rb$})
+  watch('metadata.rb')
 end
