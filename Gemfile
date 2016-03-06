@@ -5,8 +5,7 @@ gem 'chef', (ENV['CHEF_VERSION'] || '>= 11.14.0')
 
 gem 'rake'
 gem 'guard-rspec'
-gem 'guard-foodcritic',
-  git: 'git@github.com:Nordstrom/guard-foodcritic.git', ref: 'd157f6b'
+gem 'guard-foodcritic', github: 'Nordstrom/guard-foodcritic', ref: 'd157f6b'
 
 group :development do
   gem 'emeril'
