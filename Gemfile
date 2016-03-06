@@ -1,19 +1,29 @@
 source 'https://rubygems.org'
 
-gem 'foodcritic', '~> 6.0.1'
-gem 'rake'
-gem 'rspec'
-gem 'guard-rspec'
-
 # allow CI to override the version of Chef for matrix testing
-gem 'chef', (ENV['CHEF_VERSION'] || '>= 11.10.0')
+gem 'chef', (ENV['CHEF_VERSION'] || '>= 11.14.0')
+
+gem 'rake'
+gem 'guard-rspec'
 
 group :development do
   gem 'emeril'
 end
 
-group :integration do
-  gem 'berkshelf', '~> 3.1.5'
-  gem 'test-kitchen', '~> 1.2.1'
-  gem 'kitchen-vagrant', '~> 0.15.0'
+group :lint do
+  gem 'foodcritic', '~> 6.0'
+  gem 'rubocop', '~> 0.37'
+end
+
+group :unit do
+  gem 'berkshelf', '~> 4.1'
+  gem 'chefspec', '~> 4.5'
+end
+
+group :kitchen_common do
+  gem 'test-kitchen', '~> 1.5'
+end
+
+group :kitchen_vagrant do
+  gem 'kitchen-vagrant', '~> 0.19'
 end
