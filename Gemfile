@@ -4,11 +4,11 @@ source 'https://rubygems.org'
 gem 'chef', (ENV['CHEF_VERSION'] || '>= 11.14.0')
 
 gem 'rake'
-gem 'guard-rspec'
-gem 'guard-foodcritic', github: 'Nordstrom/guard-foodcritic', ref: 'd157f6b'
 
 group :development do
   gem 'emeril'
+  gem 'guard-rspec'
+  gem 'guard-foodcritic', github: 'Nordstrom/guard-foodcritic', ref: 'd157f6b'
 end
 
 group :lint do
