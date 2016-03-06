@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'foodcritic', '~> 3.0.3'
+gem 'foodcritic', '~> 6.0.1'
 gem 'minitest'
 gem 'rake'
 gem 'rspec', '= 3.0.0'
