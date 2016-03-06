@@ -116,9 +116,9 @@ integration level tests.
 Authors:: [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>)
           [Aaron Kalin][martinisoft] (<akalin@martinisoftware.com>)
 
-Contributors:: https://github.com/fnichol/chef-rvm/contributors
+Contributors:: https://github.com/martinisoft/chef-rvm/contributors
 
-Copyright:: 2010 - 2015, Fletcher Nichol and Aaron Kalin
+Copyright:: 2010 - 2016, Fletcher Nichol and Aaron Kalin
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
