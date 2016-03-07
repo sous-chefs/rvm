@@ -6,8 +6,8 @@ guard :rspec, cmd: 'bundle exec rspec' do
 end
 
 guard :foodcritic, cli: "-X 'test/**/*' -X 'spec/**/*'", cookbook_paths: '.' do
-  watch(%r{attributes/.+\.rb$})
-  watch(%r{libraries/.+\.rb$})
-  watch(%r{recipes/.+\.rb$})
+  watch(%r{^attributes/.+\.rb$})
+  watch(%r{^libraries/.+\.rb$})
+  watch(%r{^recipes/.+\.rb$})
   watch('metadata.rb')
 end
