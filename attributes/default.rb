@@ -45,16 +45,20 @@ default['rvm']['rvmrc_env'] = { "rvm_gem_options" => "--no-ri --no-rdoc" }
 default['rvm']['installs'] = Hash.new
 
 # system-wide installer options
-default['rvm']['installer_url']   = "https://get.rvm.io"
-default['rvm']['installer_flags'] = "stable"
+default['rvm']['installer_url']   = "https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer"
+default['rvm']['version'] = "stable"
+
+# GPG key for rvm verification
+default['rvm']['gpg_key']        = 'D39DC0E3'
+default['rvm']['gpg_key_server'] = 'hkp://keys.gnupg.net'
+
+# Autolib mode, see https://rvm.io/rvm/autolibs
+default['rvm']['autolib_mode'] = 3
 
 # extra system-wide tunables
 default['rvm']['root_path']     = "/usr/local/rvm"
 default['rvm']['group_id']      = 'default'
 default['rvm']['group_users']   = []
-
-# GPG key for rvm verification
-default['rvm']['gpg_key']       = 'D39DC0E3'
 
 case platform
 when "redhat","centos","fedora","scientific","amazon"
