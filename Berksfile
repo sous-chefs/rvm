@@ -7,4 +7,5 @@ group :integration do
   cookbook 'yum'
   cookbook 'java'
   cookbook 'user'
+  cookbook 'rvm_wrapper', path: 'test/fixtures/cookbooks/rvm_wrapper'
 end
