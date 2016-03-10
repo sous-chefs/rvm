@@ -30,7 +30,7 @@ if node['rvm']['group_id'] != 'default'
   g.run_action(:create)
 end
 
-key_server = node['rvm']['gpg']['keyserver'] || "hkp://keys.gnupg.net"
+key_server = node['rvm']['gpg']['keyserver'] || 'hkp://keys.gnupg.net'
 home_dir = "#{node['rvm']['gpg']['homedir'] || '~'}/.gnupg"
 
 execute 'Adding gpg key' do
@@ -39,4 +39,4 @@ execute 'Adding gpg key' do
   not_if { node['rvm']['gpg_key'].empty? }
 end
 
-rvm_installation("root")
+rvm_installation('root')
