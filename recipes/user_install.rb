@@ -17,16 +17,16 @@
 # limitations under the License.
 #
 
-include_recipe "rvm"
+include_recipe 'rvm'
 
-node["rvm"]["installs"].each do |user, opts|
+node['rvm']['installs'].each do |user, opts|
   # if user hash is falsy (nil, false) then we're not installing
   next unless opts
 
   # if user hash is not a hash (i.e. set to true), init an empty Hash
   opts = Hash.new if opts == true
 
-  ruby_block "Conditionally add RVM gpg key" do # ~FC022 this will be fixed in the LWRP rewrite
+  ruby_block 'Conditionally add RVM gpg key' do # ~FC022 this will be fixed in the LWRP rewrite
     block do
       cmd = Mixlib::ShellOut.new('which gpg2 || which gpg')
       cmd.run_command

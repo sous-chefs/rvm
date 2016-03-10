@@ -5,3 +5,4 @@ Berksfile.lock
 .kitchen.local.yml
 .bundle/
 tmp/
+.idea
