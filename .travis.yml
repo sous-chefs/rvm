@@ -1,7 +1,49 @@
-language: ruby
-rvm:
-  - 2.2.0
-bundler_args: --without integration development
-script:
-  - bundle exec rake unit
-  - bundle exec rake foodcritic
+sudo: required
+dist: trusty
+
+# install the pre-release chef-dk.  Use chef-stable-trusty to install the stable release
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chefdk
+
+# Don't `bundle install` which takes about 1.5 mins
+install: echo "skip bundle install"
+
+branches:
+  only:
+    - master
+
+services: docker
+
+env:
+  matrix:
+  - INSTANCE=smoke-centos-6
+  - INSTANCE=smoke-centos-7
+  - INSTANCE=smoke-fedora-24
+  - INSTANCE=smoke-debian-7
+  - INSTANCE=smoke-debian-8
+  - INSTANCE=smoke-ubuntu-1204
+  - INSTANCE=smoke-ubuntu-1404
+  - INSTANCE=smoke-ubuntu-1604
+  - INSTANCE=smoke-opensuse-132
+  - INSTANCE=smoke-opensuse-leap
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+
+script: KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - before_script:
+      - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+      - /opt/chefdk/embedded/bin/chef --version
+      - /opt/chefdk/embedded/bin/cookstyle --version
+      - /opt/chefdk/embedded/bin/foodcritic --version
+    - script:
+      - /opt/chefdk/bin/chef exec rake
+      env: UNIT_AND_LINT=1
