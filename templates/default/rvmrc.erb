@@ -12,3 +12,4 @@ export rvm_path="<%= @rvm_path %>"
 <% next unless v -%>
 export <%= k %>="<%= v %>"
 <% end -%>
+export rvm_make_flags=-j<%= node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1 %>
