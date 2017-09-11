@@ -10,6 +10,6 @@ issues_url        "https://github.com/martinisoft/chef-rvm/issues"
 
 chef_version      ">= 12.9" if respond_to?(:chef_version)
 
-%w(debian ubuntu suse centos amazon redhat fedora gentoo mac_os_x mac_os_x_server).each do |os|
+%w(amazon centos redhat scientific oracle fedora debian ubuntu).each do |os|
   supports os
 end
