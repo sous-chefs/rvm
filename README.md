@@ -112,12 +112,11 @@ integration level tests.
 
 ## <a name="license"></a> License and Authors
 
-Authors:: [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>)
-          [Aaron Kalin][martinisoft] (<akalin@martinisoftware.com>)
+Authors:: [Aaron Kalin][martinisoft] (<akalin@martinisoftware.com>)
 
 Contributors:: https://github.com/martinisoft/chef-rvm/contributors
 
-Copyright:: 2010 - 2016, Fletcher Nichol and Aaron Kalin
+Copyright:: 2010 - 2017, Aaron Kalin
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -136,7 +135,6 @@ limitations under the License.
 [cheffile]:             https://github.com/applicationsonline/librarian/blob/master/lib/librarian/chef/templates/Cheffile
 [compilation]:          http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
 [dragons]:              http://en.wikipedia.org/wiki/Here_be_dragons
-[fnichol]:              https://github.com/fnichol
 [martinisoft]:          https://github.com/martinisoft
 [java_cb]:              http://supermarket.chef.io/cookbooks/java
 [jruby]:                http://jruby.org/
