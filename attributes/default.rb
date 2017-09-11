@@ -61,7 +61,7 @@ default['rvm']['group_id']      = 'default'
 default['rvm']['group_users']   = []
 
 case platform
-when "redhat","centos","fedora","scientific","amazon"
+when "redhat","centos","fedora","scientific","amazon","oracle"
   node.override['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git}
 when "debian","ubuntu","suse"
   node.override['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git-core}
