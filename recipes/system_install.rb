@@ -35,8 +35,13 @@ home_dir = "#{node['rvm']['gpg']['homedir'] || '~'}/.gnupg"
 
 execute 'Adding gpg key' do
   command "`which gpg2 || which gpg` --keyserver #{key_server} --homedir #{home_dir} --recv-keys #{node['rvm']['gpg_key']}"
-  only_if 'which gpg2 || which gpg'
-  not_if { node['rvm']['gpg_key'].empty? }
+  retries 3
+  retry_delay 5
+  not_if do
+    node['rvm']['gpg_key'].empty? or
+      (gpg = `which gpg2 || which gpg`.strip).empty? or
+        system("#{gpg} --list-keys #{node['rvm']['gpg_key']} > /dev/null")
+  end
 end
 
 rvm_installation("root")
