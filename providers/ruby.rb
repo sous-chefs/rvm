@@ -133,7 +133,7 @@ def install_ruby_dependencies(rubie)
                     libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev
                     ncurses-dev automake libtool bison ssl-cert pkg-config libgdbm-dev libffi-dev}
         if node['platform_version'].to_f >= 16.10
-          pkgs += %w{ libreadline libreadline-dev }
+          pkgs += %w{ libreadline-dev }
         else
           pkgs += %w{ libreadline6 libreadline6-dev }
         end
