@@ -3,16 +3,22 @@
 require 'foodcritic'
 require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:unit) do |t|
-  t.pattern = "test/unit/**/*_spec.rb"
+# Style tests. Foodcritic
+namespace :style do
+  desc 'Run Chef style checks'
+  FoodCritic::Rake::LintTask.new(:chef) do |t|
+    t.options = {
+      fail_tags: ['any']
+    }
+  end
 end
 
-begin
-  require 'kitchen/rake_tasks'
-  Kitchen::RakeTasks.new
-rescue LoadError
-  puts ">>>>> Kitchen gem not loaded, omitting tasks" unless ENV['CI']
-end
+desc 'Run all style checks'
+task style: ['style:chef']
 
-task :default => [:foodcritic, :unit]
-FoodCritic::Rake::LintTask.new
+# Rspec and ChefSpec
+desc 'Run ChefSpec examples'
+RSpec::Core::RakeTask.new(:spec)
+
+# Default. Style tests then specs
+task default: %w(style spec)

@@ -5,8 +5,7 @@
 There is currently a _major_ rewrite going on with this cookbook to simply
 the interface to RVM with Chef. Expect the master branch to be very broken
 until there is a 1.0 release. All previous pull requests will need to rebase
-to the newer master to contribute to the new [Resource][resource-blog] based
-cookbook.
+to the newer master to contribute to the newly re-factored resources.
 
 ## <a name="description"></a> Description
 
@@ -113,12 +112,11 @@ integration level tests.
 
 ## <a name="license"></a> License and Authors
 
-Authors:: [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>)
-          [Aaron Kalin][martinisoft] (<akalin@martinisoftware.com>)
+Authors:: [Aaron Kalin][martinisoft] (<akalin@martinisoftware.com>)
 
 Contributors:: https://github.com/martinisoft/chef-rvm/contributors
 
-Copyright:: 2010 - 2016, Fletcher Nichol and Aaron Kalin
+Copyright:: 2010 - 2017, Aaron Kalin
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -137,7 +135,6 @@ limitations under the License.
 [cheffile]:             https://github.com/applicationsonline/librarian/blob/master/lib/librarian/chef/templates/Cheffile
 [compilation]:          http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
 [dragons]:              http://en.wikipedia.org/wiki/Here_be_dragons
-[fnichol]:              https://github.com/fnichol
 [martinisoft]:          https://github.com/martinisoft
 [java_cb]:              http://supermarket.chef.io/cookbooks/java
 [jruby]:                http://jruby.org/
@@ -154,7 +151,6 @@ limitations under the License.
 [rvm_upgrading]:        https://rvm.io/rvm/upgrading/
 [vagrant]:              http://vagrantup.com
 [vagrant-berkshelf]:    https://github.com/berkshelf/vagrant-berkshelf
-[resource-blog]:        https://www.chef.io/blog/2015/10/08/chef-client-12-5-released/
 
 [repo]:         https://github.com/martinisoft/chef-rvm
 [issues]:       https://github.com/martinisoft/chef-rvm/issues
