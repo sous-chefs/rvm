@@ -84,12 +84,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Add TravisCI support for Foodcritic. ([@fnichol][])
 * Large formatting updates to README. ([@fnichol][])
-* Add gh-pages branch for sectioned README at https://fnichol.github.com/chef-rvm. ([@fnichol][])
+* Add gh-pages branch for sectioned README at <https://fnichol.github.com/chef-rvm>. ([@fnichol][])
 * Issue [#98](https://github.com/fnichol/chef-rvm/issues/98): Support installs of x.y.z versions & more permissive upgrade options. ([@fnichol][])
 * Now rvm\_global\_gem respects version attr in global.gems file. ([@fnichol][])
 * Pull request [#88](https://github.com/fnichol/chef-rvm/pull/88): Mac OS X Server support. ([@rhenning][])
 * Pull request [#90](https://github.com/fnichol/chef-rvm/pull/90): Scientific Linux support. ([@TrevorBramble][])
-
 
 ## 0.8.6 (November 28, 2011)
 
@@ -107,7 +106,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Add note to README warning that chef 0.8.x will not work. ([@fnichol][])
 * Issue [#48](https://github.com/fnichol/chef-rvm/issues/48): Add example of local gem source installation in README. ([@fnichol][])
-
 
 ## 0.8.4 (October 16, 2011)
 
@@ -128,7 +126,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Pull request [#44](https://github.com/fnichol/chef-rvm/pull/44): Add Amazon's Linux AMI support. ([@adrianpike][])
 
-
 ## 0.8.2 (August 24, 2011)
 
 ### Bug fixes
@@ -139,7 +136,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improvements
 
 * Array-ize node['rvm']['user_installs']. ([@fnichol][])
-
 
 ## 0.8.0 (August 22, 2011)
 
@@ -175,7 +171,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Modularize `libraries/helpers.rb` in modules. ([@fnichol][])
 * Issue [#25](https://github.com/fnichol/chef-rvm/issues/25): Add installation options/instructions to README. ([@fnichol][])
 
-
 ## 0.7.1 (May 15, 2011)
 
 ### Bug fixes
@@ -189,7 +184,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improvements
 
 * Update metadata.rb properties. ([@fnichol][])
-
 
 ## 0.7.0 (May 14, 2011)
 
@@ -213,7 +207,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Issue [#19](https://github.com/fnichol/chef-rvm/issues/19): Attr rvm/upgrade accepts "none", false and nil as same value. ([@fnichol][])
 * Update rvm/skip_docs_on_install attr to rvm/rvm_gem_options. ([@fnichol][])
 * Refactor of rvm_gem provider to leverage Chef::Provider::Package::Rubygems. ([@fnichol][])
-
 
 ## Previous releases
 

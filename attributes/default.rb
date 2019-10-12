@@ -60,7 +60,7 @@ default['rvm']['root_path']     = '/usr/local/rvm'
 default['rvm']['group_id']      = 'default'
 default['rvm']['group_users']   = []
 
-case platform
+case node['platform']
 when 'redhat', 'centos', 'fedora', 'scientific', 'amazon', 'oracle'
   node.override['rvm']['install_pkgs']   = %w(sed grep tar gzip bzip2 bash curl git)
 when 'debian', 'ubuntu', 'suse'

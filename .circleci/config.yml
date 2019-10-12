@@ -22,4 +22,3 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
-
