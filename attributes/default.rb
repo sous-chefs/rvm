@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: rvm
+# Cookbook:: rvm
 # Attributes:: default
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
-# Copyright 2010, 2011, Fletcher Nichol
+# Copyright:: 2010, 2011, Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,24 +28,24 @@ default['rvm']['rubies']      = []
 default['rvm']['user_rubies'] = []
 
 # list of gems to be installed in global gemset of all rubies
-_global_gems_ = [
-  { 'name'    => 'bundler' }
+global_gems = [
+  { 'name' => 'bundler' },
 ]
-default['rvm']['global_gems']       = _global_gems_.dup
-default['rvm']['user_global_gems']  = _global_gems_.dup
+default['rvm']['global_gems']       = global_gems.dup
+default['rvm']['user_global_gems']  = global_gems.dup
 
 # hash of gemsets and their list of additional gems to be installed.
-default['rvm']['gems']      = Hash.new
-default['rvm']['user_gems'] = Hash.new
+default['rvm']['gems']      = {}
+default['rvm']['user_gems'] = {}
 
 # hash of rvmrc options
 default['rvm']['rvmrc_env'] = { 'rvm_gem_options' => '--no-ri --no-rdoc' }
 
 # a hash of user hashes, each an isolated per-user RVM installation
-default['rvm']['installs'] = Hash.new
+default['rvm']['installs'] = {}
 
 # system-wide installer options
-default['rvm']['installer_url']   = 'https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer'
+default['rvm']['installer_url'] = 'https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer'
 default['rvm']['version'] = 'stable'
 
 # GPG key for rvm verification
@@ -61,12 +61,12 @@ default['rvm']['group_id']      = 'default'
 default['rvm']['group_users']   = []
 
 case platform
-when 'redhat','centos','fedora','scientific','amazon','oracle'
-  node.override['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git}
-when 'debian','ubuntu','suse'
-  node.override['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git-core}
+when 'redhat', 'centos', 'fedora', 'scientific', 'amazon', 'oracle'
+  node.override['rvm']['install_pkgs']   = %w(sed grep tar gzip bzip2 bash curl git)
+when 'debian', 'ubuntu', 'suse'
+  node.override['rvm']['install_pkgs']   = %w(sed grep tar gzip bzip2 bash curl git-core)
 when 'gentoo'
-  node.override['rvm']['install_pkgs']   = %w{git}
+  node.override['rvm']['install_pkgs']   = %w(git)
 when 'mac_os_x', 'mac_os_x_server'
-  node.override['rvm']['install_pkgs']   = %w{git}
+  node.override['rvm']['install_pkgs']   = %w(git)
 end

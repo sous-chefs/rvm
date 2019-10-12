@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: rvm
+# Cookbook:: rvm
 # Recipe:: system
 #
-# Copyright 2010, 2011 Fletcher Nichol
+# Copyright:: 2010, 2011 Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@
 
 include_recipe 'rvm::system_install'
 
-perform_install_rubies  = node['rvm']['install_rubies'] == true ||
-                  node['rvm']['install_rubies'] == 'true'
+perform_install_rubies = node['rvm']['install_rubies'] == true ||
+                         node['rvm']['install_rubies'] == 'true'
 
 if perform_install_rubies
   install_rubies  rubies: node['rvm']['rubies'],
