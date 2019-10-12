@@ -32,7 +32,7 @@ suites:
   - name: rubies
     run_list:
       - recipe[java]
-    - recipe[rvm::system]
+      - recipe[rvm::system]
     attributes:
       rvm:
         default_ruby: system
