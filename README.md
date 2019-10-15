@@ -4,7 +4,7 @@
 
 **WARNING** - Please read!
 
-There is currently a _major_ rewrite going on with this cookbook to simply
+There is currently a _major_ rewrite going on with this cookbook to simplify
 the interface to RVM with Chef. Expect the master branch to be very broken
 until there is a 1.0 release. All previous pull requests will need to rebase
 to the newer master to contribute to the newly re-factored resources.
