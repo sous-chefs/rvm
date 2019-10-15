@@ -1,8 +1,10 @@
-# <a name="title"></a> chef-rvm [![Build Status](https://secure.travis-ci.org/martinisoft/chef-rvm.png?branch=master)](http://travis-ci.org/martinisoft/chef-rvm)
+# RVM
 
-## WARNING - Please read!
+<a name="title"></a> chef-rvm [![Build Status](https://secure.travis-ci.org/martinisoft/chef-rvm.png?branch=master)](http://travis-ci.org/martinisoft/chef-rvm)
 
-There is currently a _major_ rewrite going on with this cookbook to simply
+**WARNING** - Please read!
+
+There is currently a _major_ rewrite going on with this cookbook to simplify
 the interface to RVM with Chef. Expect the master branch to be very broken
 until there is a 1.0 release. All previous pull requests will need to rebase
 to the newer master to contribute to the newly re-factored resources.
@@ -68,11 +70,13 @@ Chef repository structure like the [Opscode repo][chef_repo] is also assumed.
 cookbook dependencies. Include the cookbook in your Berksfile, and then run
 `berks install`. To install using Berkshelf:
 
+```shell
     gem install berkshelf
     cd chef-repo
     berks init
     echo "cookbook 'rvm', github: 'fnichol/chef-rvm'" >> Berksfile
     berks install
+```
 
 ### <a name="installation-librarian"></a> Using Librarian-Chef
 
@@ -80,6 +84,7 @@ cookbook dependencies. Include the cookbook in your Berksfile, and then run
 Include a reference to the cookbook in a [Cheffile][cheffile] and run
 `librarian-chef install`. To install Librarian-Chef:
 
+```shell
     gem install librarian-chef
     cd chef-repo
     librarian-chef init
@@ -88,6 +93,7 @@ Include a reference to the cookbook in a [Cheffile][cheffile] and run
       :git => 'git://github.com/fnichol/chef-rvm.git', :ref => 'v0.10.1'
     END_OF_CHEFFILE
     librarian-chef install
+```
 
 ## <a name="recipes"></a> Recipes
 
@@ -114,7 +120,7 @@ integration level tests.
 
 Authors:: [Aaron Kalin][martinisoft] (<akalin@martinisoftware.com>)
 
-Contributors:: https://github.com/martinisoft/chef-rvm/contributors
+Contributors:: <https://github.com/martinisoft/chef-rvm/contributors>
 
 Copyright:: 2010 - 2017, Aaron Kalin
 
@@ -122,7 +128,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+<http://www.apache.org/licenses/LICENSE-2.0>
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: rvm
+# Cookbook:: rvm
 # Recipe:: gem_package
 #
-# Copyright 2011, Fletcher Nichol
+# Copyright:: 2011, Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,6 +28,6 @@ end
 
 patch_gem_package
 
-::Chef::Log.info 'gem_package resource has been patched to use provider ' <<
-  'Chef::Provider::Package::RVMRubygems and will install gems to ' <<
-  "the #{rvm_descriptor}."
+::Chef::Log.info 'gem_package resource has been patched to use provider ' \
+                 'Chef::Provider::Package::RVMRubygems and will install gems to ' \
+                 "the #{rvm_descriptor}."

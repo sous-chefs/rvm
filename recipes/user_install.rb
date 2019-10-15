@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: rvm
+# Cookbook:: rvm
 # Recipe:: user_install
 #
-# Copyright 2011, 2012, 2013 Fletcher Nichol
+# Copyright:: 2011, 2012, 2013 Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ node['rvm']['installs'].each do |user, opts|
   next unless opts
 
   # if user hash is not a hash (i.e. set to true), init an empty Hash
-  opts = Hash.new if opts == true
+  opts = {} if opts == true
 
   ruby_block 'Conditionally add RVM gpg key' do # ~FC022 this will be fixed in the LWRP rewrite
     block do
@@ -49,7 +49,7 @@ node['rvm']['installs'].each do |user, opts|
 
   rvm_installation(user.to_s) do
     %w(installer_url installer_flags install_pkgs rvmrc_template_source
-      rvmrc_template_cookbook rvmrc_env action
+       rvmrc_template_cookbook rvmrc_env action
     ).each do |attr|
       # if user hash attr is set, then set the resource attr
       send(attr, opts[attr]) if opts.fetch(attr, false)

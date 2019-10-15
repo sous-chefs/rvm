@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: rvm
+# Cookbook:: rvm
 # Recipe:: user
 #
-# Copyright 2011 Fletcher Nichol
+# Copyright:: 2011 Fletcher Nichol
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,11 +33,10 @@ Array(node['rvm']['user_installs']).each do |rvm_user|
   gems                    = rvm_user['gems'] ||
                             node['rvm']['user_gems']
 
-  if perform_install_rubies
-    install_rubies  rubies: rubies,
-                    default_ruby: default_ruby,
-                    global_gems: global_gems,
-                    gems: gems,
-                    user: rvm_user['user']
-  end
+  next unless perform_install_rubies
+  install_rubies  rubies: rubies,
+                  default_ruby: default_ruby,
+                  global_gems: global_gems,
+                  gems: gems,
+                  user: rvm_user['user']
 end
