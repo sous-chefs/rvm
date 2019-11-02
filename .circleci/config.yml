@@ -1,18 +1,23 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
   - lint-yaml
   - lint-markdown
-
 version: 2.1
 orbs:
   kitchen: sous-chefs/kitchen@2
-
 workflows:
   kitchen:
     jobs:
-      # Lint and Unit Test
       - kitchen/yamllint:
           name: lint-yaml
       - kitchen/mdlint:
@@ -22,3 +27,105 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
+      - kitchen/dokken-single:
+          name: stock-system-and-user-ubuntu-1404
+          suite: stock-system-and-user-ubuntu-1404
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: stock-system-and-user-ubuntu-1204
+          suite: stock-system-and-user-ubuntu-1204
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: stock-system-and-user-ubuntu-1004
+          suite: stock-system-and-user-ubuntu-1004
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: stock-system-and-user-debian-76
+          suite: stock-system-and-user-debian-76
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: stock-system-and-user-centos-64
+          suite: stock-system-and-user-centos-64
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rubies-ubuntu-1404
+          suite: rubies-ubuntu-1404
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rubies-ubuntu-1204
+          suite: rubies-ubuntu-1204
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rubies-ubuntu-1004
+          suite: rubies-ubuntu-1004
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rubies-debian-76
+          suite: rubies-debian-76
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rubies-centos-64
+          suite: rubies-centos-64
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rbx-ubuntu-1404
+          suite: rbx-ubuntu-1404
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rbx-ubuntu-1204
+          suite: rbx-ubuntu-1204
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rbx-ubuntu-1004
+          suite: rbx-ubuntu-1004
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rbx-debian-76
+          suite: rbx-debian-76
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: rbx-centos-64
+          suite: rbx-centos-64
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: installs-ubuntu-1404
+          suite: installs-ubuntu-1404
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: installs-ubuntu-1204
+          suite: installs-ubuntu-1204
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: installs-ubuntu-1004
+          suite: installs-ubuntu-1004
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: installs-debian-76
+          suite: installs-debian-76
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: installs-centos-64
+          suite: installs-centos-64
+          requires: *lint_and_unit
+      - final:
+          requires:
+            - stock-system-and-user-ubuntu-1404
+            - stock-system-and-user-ubuntu-1204
+            - stock-system-and-user-ubuntu-1004
+            - stock-system-and-user-debian-76
+            - stock-system-and-user-centos-64
+            - rubies-ubuntu-1404
+            - rubies-ubuntu-1204
+            - rubies-ubuntu-1004
+            - rubies-debian-76
+            - rubies-centos-64
+            - rbx-ubuntu-1404
+            - rbx-ubuntu-1204
+            - rbx-ubuntu-1004
+            - rbx-debian-76
+            - rbx-centos-64
+            - installs-ubuntu-1404
+            - installs-ubuntu-1204
+            - installs-ubuntu-1004
+            - installs-debian-76
+            - installs-centos-64
