@@ -47,9 +47,9 @@ suites:
       attributes:
           users: [virgil1, virgil2]
           rvm: {
-                  installs:
-                      {
-                          virgil1: { installer_flags: "--version 1.19.6" },
-                          virgil2: { installer_flags: "--version 1.21.20" },
-                      },
+              installs:
+                  {
+                      virgil1: { installer_flags: "--version 1.19.6" },
+                      virgil2: { installer_flags: "--version 1.21.20" },
+                  },
               } # yamllint disable-line
