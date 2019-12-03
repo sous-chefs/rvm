@@ -1,12 +1,11 @@
 name              'rvm'
-maintainer        'Aaron Kalin'
-maintainer_email  'akalin@martinisoftware.com'
+maintainer        'Sous Chefs'
+maintainer_email  'help@sous-chefs.org'
 license           'Apache-2.0'
 description       'Manages system-wide and per-user RVMs and manages installed Rubies via Chef Resources.'
-
 version           '0.10.1'
-source_url        'https://github.com/martinisoft/chef-rvm'
-issues_url        'https://github.com/martinisoft/chef-rvm/issues'
+source_url        'https://github.com/sous-chefs/chef-rvm'
+issues_url        'https://github.com/sous-chefs/chef-rvm/issues'
 
 chef_version      '>= 12.9'
 
