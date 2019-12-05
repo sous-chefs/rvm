@@ -120,7 +120,7 @@ integration level tests.
 
 Authors:: [Aaron Kalin][martinisoft] (<akalin@martinisoftware.com>)
 
-Contributors:: <https://github.com/martinisoft/chef-rvm/contributors>
+Contributors:: <https://github.com/sous-chefs/chef-rvm/contributors>
 
 Copyright:: 2010 - 2017, Aaron Kalin
 
@@ -158,5 +158,5 @@ limitations under the License.
 [vagrant]:              http://vagrantup.com
 [vagrant-berkshelf]:    https://github.com/berkshelf/vagrant-berkshelf
 
-[repo]:         https://github.com/martinisoft/chef-rvm
-[issues]:       https://github.com/martinisoft/chef-rvm/issues
+[repo]:         https://github.com/sous-chefs/chef-rvm
+[issues]:       https://github.com/sous-chefs/chef-rvm/issues

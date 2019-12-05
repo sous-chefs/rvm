@@ -6,7 +6,6 @@ class Chef
       provides :rvm_ruby
 
       self.resource_name = :rvm_ruby
-      actions :install
       default_action :install
     end
   end

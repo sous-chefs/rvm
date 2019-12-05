@@ -22,5 +22,5 @@ Report issues/Questions/Feature requests on [GitHub Issues][issues]
 4. Push to the branch (git push origin my-new-feature)
 5. Create new Pull Request
 
-[repo]:         https://github.com/fnichol/chef-rvm
-[issues]:       https://github.com/fnichol/chef-rvm/issues
+[repo]:         https://github.com/sous-chefs/chef-rvm
+[issues]:       https://github.com/sous-chefs/chef-rvm/issues
