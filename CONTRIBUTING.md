@@ -1,26 +1,4 @@
-# Contributing to chef-rvm
+# Contributing
 
-Source is hosted at [GitHub][repo]
-Report issues/Questions/Feature requests on [GitHub Issues][issues]
-
-## Please don't
-
-* Modify the version in the metadata.rb file (we'll handle that for releases)
-* Modify the CHANGELOG (we'll also handle that for releases)
-
-## Please do
-
-* Follow the guidelines in the `CODE_OF_CONDUCT.md` file
-* Document as much as possible, even for simple changes. This will help with understanding your patch and reasoning.
-* Add test coverage for changes where applicable
-
-## Steps to contributing
-
-1. Fork it
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Added some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create new Pull Request
-
-[repo]:         https://github.com/sous-chefs/chef-rvm
-[issues]:       https://github.com/sous-chefs/chef-rvm/issues
+Please refer to
+[https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/CONTRIBUTING.MD](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/CONTRIBUTING.MD)
