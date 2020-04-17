@@ -3,7 +3,7 @@ require 'chef/provider/lwrp_base'
 class Chef
   class Provider
     class RvmRuby < Chef::Provider::LWRPBase
-      provides :rvm_ruby if defined?(provides)
+      provides :rvm_ruby
 
       action :install do
         remote_file 'rvm_installer' do
