@@ -18,7 +18,7 @@ def code_changes?
 end
 
 def test_changes?
-  tests = %w(spec test .kitchen.yml .kitchen.dokken.yml)
+  tests = %w(spec test kitchen.yml kitchen.dokken.yml)
   tests.each do |location|
     return true unless git.modified_files.grep(/#{location}/).empty?
   end
@@ -34,6 +34,11 @@ warn 'This is a Table Flip.' if git.lines_of_code > 2000
 # Require a CHANGELOG entry for non-test changes.
 if !git.modified_files.include?('CHANGELOG.md') && code_changes?
   failure 'Please include a CHANGELOG entry.'
+end
+
+# Require Major Minor Patch version labels
+unless github.pr_labels.grep /minor|major|patch/i
+  warn 'Please add a release label to this pull request'
 end
 
 # A sanity check for tests.
