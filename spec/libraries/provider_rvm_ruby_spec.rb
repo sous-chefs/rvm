@@ -4,7 +4,6 @@ describe 'rvm_ruby' do
   let(:rvm_ruby_default) do
     ChefSpec::SoloRunner.new(
       platform: 'ubuntu',
-      version: '14.04',
       step_into: ['rvm_ruby']
     ).converge('rvm_wrapper::default')
   end
