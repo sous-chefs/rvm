@@ -67,6 +67,6 @@ when 'debian', 'ubuntu', 'suse'
   node.override['rvm']['install_pkgs']   = %w(sed grep tar gzip bzip2 bash curl git-core)
 when 'gentoo'
   node.override['rvm']['install_pkgs']   = %w(git)
-when 'mac_os_x', 'mac_os_x_server'
+when 'mac_os_x'
   node.override['rvm']['install_pkgs']   = %w(git)
 end

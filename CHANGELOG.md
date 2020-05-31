@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- resolved cookstyle error: attributes/default.rb:70:18 refactor: `ChefCorrectness/InvalidPlatformInCase`
 - resolved cookstyle error: recipes/user_install.rb:29:48 convention: `Layout/TrailingWhitespace`
 - resolved cookstyle error: recipes/user_install.rb:29:49 refactor: `ChefModernize/FoodcriticComments`
 - resolved cookstyle error: libraries/provider_rvm_ruby.rb:6:7 refactor: `ChefModernize/RespondToProvides`
