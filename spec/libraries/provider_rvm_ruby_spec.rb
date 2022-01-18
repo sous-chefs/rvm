@@ -10,7 +10,7 @@ describe 'rvm_ruby' do
 
   context 'without rvm installed' do
     it 'fetches the latest installer' do
-      expect(rvm_ruby_default).to create_remote_file("#{Chef::Config[:file_cache_path]}/rvm_installer.sh")
+      expect(rvm_ruby_default).to create_if_missing_remote_file("#{Chef::Config[:file_cache_path]}/rvm_installer.sh")
     end
   end
 end
