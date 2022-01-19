@@ -34,30 +34,29 @@ jobs:
       - name: Run Markdown Lint
         uses: actionshub/markdownlint@main
 
-  # integration:
-  #   needs: [mdl, yamllint, delivery]
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       os:
-  #         - "centos-7"
-  #         - "debian-9"
-  #         - "ubuntu-1604"
-  #         - "ubuntu-1804"
-  #       suite:
-  #         - "server-install"
-  #     fail-fast: false
-
-  #   steps:
-  #     - name: Check out code
-  #       uses: actions/checkout@v2
-  #     - name: Install Chef
-  #       uses: actionshub/chef-install@main
-  #     - name: Dokken
-  #       uses: actionshub/test-kitchen@main
-  #       env:
-  #         CHEF_LICENSE: accept-no-persist
-  #         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-  #       with:
-  #         suite: ${{ matrix.suite }}
-  #         os: ${{ matrix.os }}
+  integration:
+    needs: [mdl, yamllint, delivery]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - "centos-7"
+          - "debian-9"
+          - "ubuntu-1604"
+          - "ubuntu-1804"
+        suite:
+          - "server-install"
+      fail-fast: false
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Install Chef
+        uses: actionshub/chef-install@main
+      - name: Dokken
+        uses: actionshub/test-kitchen@main
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
