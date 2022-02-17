@@ -1,4 +1,3 @@
-name 'rvm_wrapper'
+name 'test'
 version '0.0.1'
-
 depends 'rvm'
