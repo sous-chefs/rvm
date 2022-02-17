@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- Standardise files with files in sous-chefs/repo-management
+- Update tested platforms
+
 ## 1.1.1 - *2022-02-08*
 
 - Remove delivery folder
