@@ -3,7 +3,7 @@ maintainer        'Sous Chefs'
 maintainer_email  'help@sous-chefs.org'
 license           'Apache-2.0'
 description       'Manages system-wide and per-user RVMs and manages installed Rubies via Chef Resources.'
-version           '1.1.10'
+version           '1.1.11'
 source_url        'https://github.com/sous-chefs/chef-rvm'
 issues_url        'https://github.com/sous-chefs/chef-rvm/issues'
 
