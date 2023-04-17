@@ -4,11 +4,16 @@ maintainer_email  'help@sous-chefs.org'
 license           'Apache-2.0'
 description       'Manages system-wide and per-user RVMs and manages installed Rubies via Chef Resources.'
 version           '1.1.13'
-source_url        'https://github.com/sous-chefs/chef-rvm'
-issues_url        'https://github.com/sous-chefs/chef-rvm/issues'
+source_url        'https://github.com/sous-chefs/rvm'
+issues_url        'https://github.com/sous-chefs/rvm/issues'
 
-chef_version      '>= 12.9'
+chef_version      '>= 15.3'
 
-%w(amazon centos redhat scientific oracle fedora debian ubuntu).each do |os|
-  supports os
-end
+supports 'amazon'
+supports 'centos'
+supports 'debian'
+supports 'fedora'
+supports 'oracle'
+supports 'redhat'
+supports 'scientific'
+supports 'ubuntu'
