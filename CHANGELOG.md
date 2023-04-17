@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- Standardise files with files in sous-chefs/repo-management
+- Require Chef 15.3
+
 ## 1.1.13 - *2023-04-04*
 
 Standardise files with files in sous-chefs/repo-management
