@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move the vagrant recipe to the test cookbook
   - This recipe this is only for testing
 - Move all recipes to resource
-  - This allows us to use unifed_mode for install gems in the correct order
+  - This allows us to use unifed_mode to install gems in the correct order
 
 ## 1.1.2 - *2022-02-17*
 

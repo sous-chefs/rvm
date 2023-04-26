@@ -1,4 +1,4 @@
-unifed_mode true
+unified_mode true
 
 property :installer_url, String, default: lazy { node['rvm']['installer_url'] }
 

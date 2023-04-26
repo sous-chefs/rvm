@@ -31,9 +31,7 @@ default['rvm']['version'] = 'stable'
 default['rvm']['autolib_mode'] = 3
 
 # extra system-wide tunables
-default['rvm']['root_path']     = '/usr/local/rvm'
-default['rvm']['group_id']      = 'default'
-default['rvm']['group_users']   = []
+default['rvm']['root_path'] = '/usr/local/rvm'
 
 case node['platform']
 when 'redhat', 'centos', 'fedora', 'scientific', 'amazon', 'oracle'
