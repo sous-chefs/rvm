@@ -5,6 +5,7 @@ action :install do
     action :install
     version '>= 1.11.3.6'
   end
+
   require 'rvm'
 
   create_rvm_shell_chef_wrapper
