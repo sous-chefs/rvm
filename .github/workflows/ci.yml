@@ -8,7 +8,7 @@ name: ci
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@2.0.2
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@2.0.6
     permissions:
       actions: write
       checks: write
@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Chef
         uses: actionshub/chef-install@2.0.4
       - name: Dokken

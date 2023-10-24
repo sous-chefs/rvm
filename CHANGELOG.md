@@ -18,6 +18,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move all recipes to resource
   - This allows us to use unifed_mode to install gems in the correct order
 
+## 2.0.4 - *2023-09-29*
+
+## 2.0.3 - *2023-09-04*
+
+## 2.0.2 - *2023-09-04*
+
+## 2.0.1 - *2023-05-16*
+
+## 2.0.0 - *2023-04-17*
+
+- Standardise files with files in sous-chefs/repo-management
+- Require Chef 15.3
+
+## 1.1.13 - *2023-04-04*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 1.1.12 - *2023-04-01*
+
+## 1.1.11 - *2023-04-01*
+
+## 1.1.10 - *2023-04-01*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 1.1.9 - *2023-03-15*
+
+Standardise files with files in sous-chefs/repo-management
+
+Standardise files with files in sous-chefs/repo-management
+
+Standardise files with files in sous-chefs/repo-management
+
+Standardise files with files in sous-chefs/repo-management
+
+## 1.1.8 - *2023-02-18*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 1.1.7 - *2023-02-16*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 1.1.6 - *2023-02-15*
+
+## 1.1.5 - *2023-02-15*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 1.1.4 - *2022-12-08*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 1.1.3 - *2022-04-20*
+
+Standardise files with files in sous-chefs/repo-management
+
 ## 1.1.2 - *2022-02-17*
 
 - Standardise files with files in sous-chefs/repo-management
