@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- Rename test cookbook to test
+- Testing Updates
+  - Remove test users databag
+- Remove Foodcritic config
+  - Foodcritic has been replace by Cookstyle
+- Require Chef 15.3 for unified_mode and Chef 18 support
+- Move the vagrant recipe to the test cookbook
+  - This recipe this is only for testing
+- Move all recipes to resource
+  - This allows us to use unifed_mode to install gems in the correct order
+
 ## 2.0.4 - *2023-09-29*
 
 ## 2.0.3 - *2023-09-04*
