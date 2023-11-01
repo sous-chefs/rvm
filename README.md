@@ -139,24 +139,12 @@ limitations under the License.
 [berkshelf]:            http://berkshelf.com
 [chef_repo]:            https://github.com/chef/chef
 [cheffile]:             https://github.com/applicationsonline/librarian/blob/master/lib/librarian/chef/templates/Cheffile
-[compilation]:          http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
-[dragons]:              http://en.wikipedia.org/wiki/Here_be_dragons
 [martinisoft]:          https://github.com/martinisoft
 [java_cb]:              http://supermarket.chef.io/cookbooks/java
 [jruby]:                http://jruby.org/
 [librarian]:            https://github.com/applicationsonline/librarian#readme
 [rvm]:                  https://rvm.io
-[rvm_create_gemset]:    https://rvm.io/gemsets/creating/
-[rvm_delete_gemset]:    https://rvm.io/gemsets/deleting/
-[rvm_empty_gemset]:     https://rvm.io/gemsets/emptying/
-[rvm_default]:          https://rvm.io/rubies/default/
-[rvm_gemsets]:          https://rvm.io/gemsets/
-[rvm_install]:          https://rvm.io/rvm/install/
-[rvm_remove]:           https://rvm.io/rubies/removing/
-[rvm_ruby_install]:     https://rvm.io/rubies/installing/
-[rvm_upgrading]:        https://rvm.io/rvm/upgrading/
 [vagrant]:              http://vagrantup.com
 [vagrant-berkshelf]:    https://github.com/berkshelf/vagrant-berkshelf
 
-[repo]:         https://github.com/sous-chefs/chef-rvm
 [issues]:       https://github.com/sous-chefs/chef-rvm/issues
