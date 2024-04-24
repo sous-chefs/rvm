@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-require 'chef/mixin/command'
+require_relative 'command'
 
 class Chef
   module RVM
@@ -29,7 +29,7 @@ class Chef
 
     class StringCache
       class << self
-        include Chef::Mixin::Command
+        include Chef::Mixin::Command::Unix
         include Chef::RVM::ShellHelpers
       end
 
