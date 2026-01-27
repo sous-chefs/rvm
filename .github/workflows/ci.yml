@@ -36,9 +36,9 @@ jobs:
           - rockylinux-8
           - rockylinux-9
           - rockylinux-10
-          - ubuntu-20.04
-          - ubuntu-22.04
-          - ubuntu-24.04
+          - ubuntu-2004
+          - ubuntu-2204
+          - ubuntu-2404
         suite:
           - "system-install"
           - "user-install"
