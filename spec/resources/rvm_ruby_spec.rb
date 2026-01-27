@@ -1,20 +1,40 @@
 require 'spec_helper'
 
 describe 'rvm_ruby' do
-  let(:chef_run) do
-    ChefSpec::SoloRunner.new(step_into: ['rvm_ruby']) do |node|
-      node.automatic['platform_family'] = 'debian'
-    end.converge('test::system_install')
+  step_into :rvm_ruby
+  platform 'ubuntu'
+
+  context 'install a ruby version' do
+    recipe do
+      rvm_ruby '3.2.0' do
+        action :install
+      end
+    end
+
+    before do
+      # Stub the RVM helper methods
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_installed?).and_return(true)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:ruby_installed?).and_return(false)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:default_ruby).and_return(nil)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_command).and_return(true)
+    end
+
+    it { is_expected.to install_rvm_ruby('3.2.0') }
   end
 
-  before do
-    # Stub the RVM helper methods
-    allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_installed?).and_return(true)
-    allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:ruby_installed?).and_return(false)
-    allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:default_ruby).and_return(nil)
-  end
+  context 'uninstall a ruby version' do
+    recipe do
+      rvm_ruby '3.1.0' do
+        action :uninstall
+      end
+    end
 
-  it 'converges successfully' do
-    expect { chef_run }.to_not raise_error
+    before do
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_installed?).and_return(true)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:ruby_installed?).and_return(true)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_command).and_return(true)
+    end
+
+    it { is_expected.to uninstall_rvm_ruby('3.1.0') }
   end
 end

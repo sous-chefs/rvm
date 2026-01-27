@@ -1,23 +1,42 @@
 require 'spec_helper'
 
 describe 'rvm_gem' do
-  let(:chef_run) do
-    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '22.04', step_into: ['rvm_gem']) do |node|
-      node.automatic['platform_family'] = 'debian'
-    end.converge('test::gem')
+  step_into :rvm_gem
+  platform 'ubuntu'
+
+  context 'install a gem' do
+    recipe do
+      rvm_gem 'bundler' do
+        ruby_string '3.2.0'
+        action :install
+      end
+    end
+
+    before do
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_installed?).and_return(true)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:ruby_installed?).and_return(true)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_command).and_return(true)
+      allow_any_instance_of(Chef::Resource).to receive(:gem_installed?).and_return(false)
+    end
+
+    it { is_expected.to install_rvm_gem('bundler') }
   end
 
-  before do
-    # Stub RVM helper methods
-    allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_installed?).and_return(true)
-    allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:ruby_installed?).and_return(true)
-    allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_command).and_return(true)
+  context 'remove a gem' do
+    recipe do
+      rvm_gem 'rake' do
+        ruby_string '3.2.0'
+        action :remove
+      end
+    end
 
-    # Stub the gem_installed? method directly to avoid shell_out complexity
-    allow_any_instance_of(Chef::Resource).to receive(:gem_installed?).and_return(false)
-  end
+    before do
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_installed?).and_return(true)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:ruby_installed?).and_return(true)
+      allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_command).and_return(true)
+      allow_any_instance_of(Chef::Resource).to receive(:gem_installed?).and_return(true)
+    end
 
-  it 'converges successfully' do
-    expect { chef_run }.to_not raise_error
+    it { is_expected.to remove_rvm_gem('rake') }
   end
 end
