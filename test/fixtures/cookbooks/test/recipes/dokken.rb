@@ -13,8 +13,9 @@ end
 
 # Grant vagrant user passwordless sudo for package management
 # RVM needs this to install system dependencies when installing Ruby
+# Disable requiretty for non-interactive sudo commands
 file '/etc/sudoers.d/vagrant' do
-  content "vagrant ALL=(ALL) NOPASSWD: ALL\n"
+  content "Defaults:vagrant !requiretty\nvagrant ALL=(ALL) NOPASSWD: ALL\n"
   mode '0440'
   owner 'root'
   group 'root'
