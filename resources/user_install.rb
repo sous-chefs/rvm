@@ -46,6 +46,7 @@ action :install do
     environment({
       'HOME' => user_home,
       'rvm_path' => rvm_path,
+      'DEBIAN_FRONTEND' => 'noninteractive',
     })
     creates ::File.join(rvm_path, 'bin', 'rvm')
   end

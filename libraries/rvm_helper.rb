@@ -25,7 +25,10 @@ module RvmCookbook
 
     # Returns the environment hash for running RVM commands
     def rvm_env(user = nil)
-      env = { 'rvm_path' => rvm_path(user) }
+      env = {
+        'rvm_path' => rvm_path(user),
+        'DEBIAN_FRONTEND' => 'noninteractive',
+      }
       env['HOME'] = user_home(user) if user
       env
     end
