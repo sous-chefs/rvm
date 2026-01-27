@@ -70,7 +70,9 @@ test/*
 
 # Beads Issue Tracking #
 ########################
-.beads
+.beads/
+.beads/*
+.beads/**/*
 
 # SCM #
 #######

@@ -1,10 +1,5 @@
 require 'chefspec'
-
-# Only load Berkshelf for specs that need it (resource specs)
-# Library:: specs don't need cookbook vendoring
-if ENV['BERKSHELF'] == 'true'
-  require 'chefspec/berkshelf'
-end
+require 'chefspec/berkshelf'
 
 RSpec.configure do |config|
   config.platform = 'ubuntu'
