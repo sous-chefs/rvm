@@ -39,10 +39,11 @@ action :install do
 
   # Install RVM system-wide
   execute 'install_rvm_system' do
-    command "#{rvm_installer_path} #{new_resource.version}"
+    command "#{rvm_installer_path} #{new_resource.version} --ignore-dotfiles"
     environment({
       'rvm_path' => '/usr/local/rvm',
       'DEBIAN_FRONTEND' => 'noninteractive',
+      'HOME' => '/root',
     })
     creates '/usr/local/rvm/bin/rvm'
   end
