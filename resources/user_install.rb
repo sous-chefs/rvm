@@ -1,42 +1,70 @@
 unified_mode true
+provides :rvm_user_install
+
+use '_partial/_user'
+use '_partial/_gpg'
+use '_partial/_rvm_install'
+
+property :user,
+         String,
+         name_property: true,
+         description: 'User to install RVM for'
+
+property :home_dir,
+         String,
+         description: 'Home directory for the user (defaults to /home/<user>)'
 
 action :install do
-  chef_gem 'rvm' do
-    action :install
-    version '>= 1.11.3.6'
-  end
+  user_home = new_resource.home_dir || user_home(new_resource.user)
+  rvm_path = ::File.join(user_home, '.rvm')
 
-  require 'rvm'
+  # Install GPG using the gpg cookbook
+  gpg_install 'rvm'
 
-  create_rvm_shell_chef_wrapper
-  create_rvm_chef_user_environment
-
-  include Chef::RVM::ShellHelpers
-  include Chef::RVM::StringHelpers
-
-  cmd = Mixlib::ShellOut.new('which gpg2 || which gpg')
-  cmd.run_command
-
-  if cmd.exitstatus == 0
-    gpg_command = cmd.stdout.chomp
-
-    exec = Chef::Resource::Execute.new 'Add RVM gpg key', run_context
-    exec.command "#{gpg_command} --keyserver hkp://keys.gnupg.net --recv-keys #{node['rvm']['gpg_key']}"
-    exec.user user['user']
-    exec.environment 'HOME' => user['home']
-    exec.guard_interpreter :bash
-    exec.not_if "#{gpg_command} -k #{node['rvm']['gpg_key']} > /dev/null", user: user['user'], environment: { 'HOME' => user['home'] }
-    exec.run_action :run
-  else
-    Chef::Log.info 'Skipping adding RVM key because gpg/gpg2 not installed'
-  end
-
-  rvm_installation(user.to_s) do
-    %w(installer_url installer_flags install_pkgs rvmrc_template_source
-      rvmrc_template_cookbook rvmrc_env action
-    ).each do |attr|
-      # if user hash attr is set, then set the resource attr
-      send(attr, opts[attr]) if opts.fetch(attr, false)
+  # Import RVM GPG keys for the user
+  new_resource.gpg_key.split.each do |key_fingerprint|
+    gpg_key "rvm_key_#{key_fingerprint}_#{new_resource.user}" do
+      user new_resource.user
+      keyserver new_resource.keyserver
+      key_fingerprint key_fingerprint
+      action :import
     end
+  end
+
+  # Download the RVM installer
+  remote_file rvm_installer_path do
+    source new_resource.installer_url
+    mode '0755'
+    action :create
+  end
+
+  # Install RVM for the user
+  execute "install_rvm_user_#{new_resource.user}" do
+    command "#{rvm_installer_path} #{new_resource.version}"
+    user new_resource.user
+    group Etc.getpwnam(new_resource.user).gid
+    environment({
+      'HOME' => user_home,
+      'rvm_path' => rvm_path,
+    })
+    creates ::File.join(rvm_path, 'bin', 'rvm')
+  end
+
+  # Create user rvmrc configuration
+  template ::File.join(user_home, '.rvmrc') do
+    source 'rvmrc.erb'
+    cookbook 'rvm'
+    owner new_resource.user
+    group Etc.getpwnam(new_resource.user).gid
+    mode '0644'
+    variables(rvmrc_env: new_resource.rvmrc_env.merge('rvm_path' => rvm_path))
+  end
+end
+
+action_class do
+  include RvmCookbook::RvmHelper
+
+  def rvm_installer_path
+    ::File.join(Chef::Config[:file_cache_path], 'rvm_installer.sh')
   end
 end

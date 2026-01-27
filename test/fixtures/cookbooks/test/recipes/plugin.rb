@@ -1,28 +1,23 @@
-version = '2.4.1'
+ruby_version = 'ruby-3.2.0'
 
-# Make sure that Vagarant user is on the box for dokken
+# Make sure that Vagrant user is on the box for dokken
 include_recipe 'test::dokken'
 
-rbenv_user_install 'vagrant'
+# Install RVM for user
+rvm_user_install 'vagrant'
 
-rbenv_system_install 'system'
+# Install RVM system-wide
+rvm_system_install 'system'
 
-rbenv_ruby version do
-  install_ruby_build false
+# Install Ruby for user
+rvm_ruby ruby_version do
   user 'vagrant'
+  default true
 end
 
-rbenv_global version do
+# Create a wrapper for the user's Ruby
+rvm_wrapper 'vagrant_ruby' do
+  ruby_string ruby_version
   user 'vagrant'
-end
-
-rbenv_plugin 'ruby-build' do
-  git_url 'https://github.com/rbenv/ruby-build.git'
-  user 'vagrant'
-end
-
-# This should get installed to the system_install
-rbenv_plugin 'user-gems' do
-  git_url 'git@github.com:mislav/rbenv-user-gems.git'
-  git_ref 'v1.0.1'
+  binaries %w(ruby gem rake bundle)
 end

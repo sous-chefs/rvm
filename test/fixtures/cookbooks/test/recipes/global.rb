@@ -1,14 +1,11 @@
-global_version = '2.4.1'
+global_version = 'ruby-3.2.0'
 
-# Install Rbenv Globally
-rbenv_system_install 'system'
+# Install RVM Globally
+rvm_system_install 'system'
 
-rbenv_ruby global_version do
-  verbose true
+rvm_ruby global_version do
+  default true
 end
 
-# Make sure that Vagarant user is on the box for dokken
+# Make sure that Vagrant user is on the box for dokken
 include_recipe 'test::dokken'
-
-# Set that Ruby as the global Ruby
-rbenv_global global_version

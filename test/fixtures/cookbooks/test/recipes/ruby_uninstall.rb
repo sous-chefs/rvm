@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
-system_version = '2.5.1'
+ruby_version = 'ruby-3.1.0'
 
-# Make sure that Vagarant user is on the box for dokken
+# Make sure that Vagrant user is on the box for dokken
 include_recipe 'test::dokken'
 
 # System Install
-rbenv_system_install 'system'
+rvm_system_install 'system'
 
 # Install system wide Ruby
-rbenv_ruby system_version
+rvm_ruby ruby_version
 
-# Set System global version
-rbenv_global system_version
+# Set as default
+rvm_ruby 'ruby-3.2.0' do
+  default true
+end
 
-# Uninstall Ruby
-rbenv_ruby system_version do
-  rbenv_action 'uninstall'
+# Uninstall the first Ruby
+rvm_ruby ruby_version do
+  action :uninstall
 end

@@ -1,51 +1,42 @@
-# Make sure that Vagarant user is on the box for dokken
+# Make sure that Vagrant user is on the box for dokken
 include_recipe 'test::dokken'
 
 # System Install
-rbenv_system_install 'system'
+rvm_system_install 'system'
+
 # Install several Rubies to a system wide location
-rbenv_ruby '2.4.1' do
-  verbose true
+rvm_ruby 'ruby-3.1.0'
+
+rvm_ruby 'ruby-3.2.0' do
+  default true
 end
 
-rbenv_ruby '2.7.1' do
-  verbose true
+# Install a gem for a specific Ruby
+rvm_gem 'mail' do
+  version '2.8.1'
+  ruby_string 'ruby-3.2.0'
 end
 
-# Set System global version
-rbenv_global '2.4.1'
-
-rbenv_gem 'mail' do
-  version '2.6.5'
-  rbenv_version '2.7.1'
+rvm_gem 'mail' do
+  version '2.8.1'
+  ruby_string 'ruby-3.1.0'
 end
 
-rbenv_gem 'mail' do
-  version '2.6.5'
-  rbenv_version '2.4.1'
-end
-
-rbenv_gem 'mail' do
-  version '2.6.5'
-  rbenv_version '2.4.1'
+rvm_gem 'mail' do
+  ruby_string 'ruby-3.1.0'
   action :remove
 end
 
 # User Install
-rbenv_user_install 'vagrant'
+rvm_user_install 'vagrant'
 
 # Install a Ruby to a user directory
-rbenv_ruby '2.7.1' do
+rvm_ruby 'ruby-3.2.0' do
   user 'vagrant'
+  default true
 end
 
-# Set the vagrant global version
-rbenv_global '2.7.1' do
+rvm_gem 'bundler' do
   user 'vagrant'
-end
-
-rbenv_gem 'bundler' do
-  version '1.15.4'
-  user 'vagrant'
-  rbenv_version '2.7.1'
+  ruby_string 'ruby-3.2.0'
 end
