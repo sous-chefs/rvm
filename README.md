@@ -1,8 +1,8 @@
 # RVM Cookbook
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/rvm.svg)](https://supermarket.chef.io/cookbooks/rvm)
-[![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
-[![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
+[![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](backers)
+[![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Manages system-wide and per-user [RVM][rvm]s and manages installed Rubies.
