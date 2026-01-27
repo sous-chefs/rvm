@@ -76,7 +76,8 @@ action_class do
   def rvm_install_packages
     case node['platform_family']
     when 'rhel', 'fedora', 'amazon'
-      %w(bash curl git tar bzip2 gzip)
+      # Don't install curl on RHEL - curl-minimal is already installed and conflicts
+      %w(bash git tar bzip2 gzip)
     when 'debian'
       %w(bash curl git-core tar bzip2 gzip)
     else
