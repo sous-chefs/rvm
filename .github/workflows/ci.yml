@@ -22,16 +22,26 @@ jobs:
     strategy:
       matrix:
         os:
-          - amazonlinux-2
-          - debian-9
-          - debian-10
-          - debian-11
-          - centos-7
-          - centos-8
-          - ubuntu-1804
-          - ubuntu-2004
+          - almalinux-9
+          - almalinux-10
+          - amazonlinux-2023
+          - centos-stream-9
+          - centos-stream-10
+          - debian-12
+          - debian-13
+          - fedora-latest
+          - opensuse-leap-15
+          - oraclelinux-8
+          - oraclelinux-9
+          - rockylinux-8
+          - rockylinux-9
+          - rockylinux-10
+          - ubuntu-20.04
+          - ubuntu-22.04
+          - ubuntu-24.04
         suite:
-          - "server-install"
+          - "system-install"
+          - "user-install"
       fail-fast: false
     steps:
       - name: Check out code
