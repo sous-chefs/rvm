@@ -18,10 +18,15 @@ action :install do
   user_home = new_resource.home_dir || user_home(new_resource.user)
   rvm_path = ::File.join(user_home, '.rvm')
 
-  # Enable CRB repository on EL9+ for development packages
+  # Enable CRB repository on RHEL 9+ for development packages
+  # CRB only exists on RHEL-based distros (not Fedora or Amazon Linux)
   execute 'enable_crb_repository' do
     command 'dnf config-manager --set-enabled crb'
-    only_if { platform_family?('rhel', 'fedora') && node['platform_version'].to_i >= 9 }
+    only_if do
+      platform_family?('rhel') &&
+        !platform?('fedora', 'amazon') &&
+        node['platform_version'].to_i >= 9
+    end
     not_if 'dnf repolist enabled | grep -q crb'
   end
 
@@ -112,6 +117,20 @@ action_class do
         libssl-dev
         libyaml-dev
         zlib1g-dev
+      )
+    when 'suse'
+      %w(
+        autoconf
+        automake
+        bison
+        gcc-c++
+        libffi-devel
+        libtool
+        readline-devel
+        sqlite3-devel
+        zlib-devel
+        libyaml-devel
+        libopenssl-devel
       )
     else
       []
