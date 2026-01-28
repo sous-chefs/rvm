@@ -116,51 +116,58 @@ action_class do
   end
 
   def ruby_build_packages
-    case node['platform_family']
-    when 'rhel', 'fedora', 'amazon'
-      %w(
-        autoconf
-        automake
-        bison
-        bzip2
-        gcc-c++
-        libffi-devel
-        libtool
-        readline-devel
-        sqlite-devel
-        zlib-devel
-        libyaml-devel
-        openssl-devel
-      )
-    when 'debian'
-      %w(
-        autoconf
-        automake
-        bison
-        build-essential
-        libffi-dev
-        libreadline-dev
-        libsqlite3-dev
-        libssl-dev
-        libyaml-dev
-        zlib1g-dev
-      )
-    when 'suse'
-      %w(
-        autoconf
-        automake
-        bison
-        gcc-c++
-        libffi-devel
-        libtool
-        readline-devel
-        sqlite3-devel
-        zlib-devel
-        libyaml-devel
-        libopenssl-devel
-      )
-    else
-      []
+    packages = case node['platform_family']
+               when 'rhel', 'fedora', 'amazon'
+                 %w(
+                   autoconf
+                   automake
+                   bison
+                   bzip2
+                   gcc-c++
+                   libffi-devel
+                   libtool
+                   readline-devel
+                   sqlite-devel
+                   zlib-devel
+                   openssl-devel
+                 )
+               when 'debian'
+                 %w(
+                   autoconf
+                   automake
+                   bison
+                   build-essential
+                   libffi-dev
+                   libreadline-dev
+                   libsqlite3-dev
+                   libssl-dev
+                   libyaml-dev
+                   zlib1g-dev
+                 )
+               when 'suse'
+                 %w(
+                   autoconf
+                   automake
+                   bison
+                   gcc-c++
+                   libffi-devel
+                   libtool
+                   readline-devel
+                   sqlite3-devel
+                   zlib-devel
+                   libyaml-devel
+                   libopenssl-devel
+                 )
+               else
+                 []
+               end
+
+    # Add libyaml-devel for RHEL 9+ (available in CRB)
+    # On EL8 and below, libyaml-devel is in PowerTools which we don't enable
+    if platform_family?('rhel', 'fedora', 'amazon') && node['platform_version'].to_i >= 9
+      packages << 'libyaml-devel'
     end
+
+    packages
   end
 end

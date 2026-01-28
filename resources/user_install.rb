@@ -18,6 +18,15 @@ action :install do
   user_home = new_resource.home_dir || user_home(new_resource.user)
   rvm_path = ::File.join(user_home, '.rvm')
 
+  # Install dnf-plugins-core for config-manager command on RHEL 9+
+  package 'dnf-plugins-core' do
+    only_if do
+      platform_family?('rhel') &&
+        !platform?('fedora', 'amazon') &&
+        node['platform_version'].to_i >= 9
+    end
+  end
+
   # Enable CRB repository on RHEL 9+ for development packages
   # CRB only exists on RHEL-based distros (not Fedora or Amazon Linux)
   execute 'enable_crb_repository' do
@@ -91,51 +100,50 @@ action_class do
   end
 
   def ruby_build_packages
-    case node['platform_family']
-    when 'rhel', 'fedora', 'amazon'
-      %w(
-        autoconf
-        automake
-        bison
-        bzip2
-        gcc-c++
-        libffi-devel
-        libtool
-        readline-devel
-        sqlite-devel
-        zlib-devel
-        libyaml-devel
-        openssl-devel
-      )
-    when 'debian'
-      %w(
-        autoconf
-        automake
-        bison
-        build-essential
-        libffi-dev
-        libreadline-dev
-        libsqlite3-dev
-        libssl-dev
-        libyaml-dev
-        zlib1g-dev
-      )
-    when 'suse'
-      %w(
-        autoconf
-        automake
-        bison
-        gcc-c++
-        libffi-devel
-        libtool
-        readline-devel
-        sqlite3-devel
-        zlib-devel
-        libyaml-devel
-        libopenssl-devel
-      )
-    else
-      []
-    end
+    packages = case node['platform_family']
+               when 'rhel', 'fedora', 'amazon'
+                 %w(
+                   autoconf
+                   automake
+                   bison
+                   bzip2
+                   gcc-c++
+                   libffi-devel
+                   libtool
+                   readline-devel
+                   sqlite-devel
+                   zlib-devel
+                   openssl-devel
+                 )
+               when 'debian'
+                 %w(
+                   autoconf
+                   automake
+                   bison
+                   build-essential
+                   libffi-dev
+                   libreadline-dev
+                   libsqlite3-dev
+                   libssl-dev
+                   libyaml-dev
+                   zlib1g-dev
+                 )
+               when 'suse'
+                 %w(
+                   autoconf
+                   automake
+                   bison
+                   gcc-c++
+                   libffi-devel
+                   libtool
+                   readline-devel
+                   sqlite3-devel
+                   zlib-devel
+                   libyaml-devel
+                   libopenssl-devel
+                 )
+               else
+                 []
+               end
   end
 end
