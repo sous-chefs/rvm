@@ -29,14 +29,35 @@ action :install do
 
   # Enable CRB repository on RHEL 9+ for development packages
   # CRB only exists on RHEL-based distros (not Fedora or Amazon Linux)
+  # Repository name varies by distribution
   execute 'enable_crb_repository' do
-    command 'dnf config-manager --set-enabled crb'
+    command lazy {
+      repo_name = case node['platform']
+                  when 'oracle'
+                    'ol9_codeready_builder'
+                  when 'rocky'
+                    'crb'
+                  else
+                    'crb'
+                  end
+      "dnf config-manager --set-enabled #{repo_name}"
+    }
     only_if do
       platform_family?('rhel') &&
         !platform?('fedora', 'amazon') &&
         node['platform_version'].to_i >= 9
     end
-    not_if 'dnf repolist enabled | grep -q crb'
+    not_if do
+      repo_name = case node['platform']
+                  when 'oracle'
+                    'ol9_codeready_builder'
+                  when 'rocky'
+                    'crb'
+                  else
+                    'crb'
+                  end
+      shell_out("dnf repolist enabled | grep -q #{repo_name}").exitstatus == 0
+    end
   end
 
   # Install Ruby build dependencies with cache flush to pick up CRB packages
