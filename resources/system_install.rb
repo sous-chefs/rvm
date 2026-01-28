@@ -30,6 +30,15 @@ action :install do
   # Install required packages for RVM itself
   package rvm_install_packages
 
+  # Install dnf-plugins-core for config-manager command on RHEL 9+
+  package 'dnf-plugins-core' do
+    only_if do
+      platform_family?('rhel') &&
+        !platform?('fedora', 'amazon') &&
+        node['platform_version'].to_i >= 9
+    end
+  end
+
   # Enable CRB repository on RHEL 9+ for development packages
   # CRB only exists on RHEL-based distros (not Fedora or Amazon Linux)
   execute 'enable_crb_repository' do
