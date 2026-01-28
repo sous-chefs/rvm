@@ -68,6 +68,12 @@ Rakefile
 spec/*
 test/*
 
+# Beads Issue Tracking #
+########################
+.beads/
+.beads/*
+.beads/**/*
+
 # SCM #
 #######
 .git

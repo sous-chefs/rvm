@@ -3,9 +3,5 @@ source 'https://supermarket.chef.io'
 metadata
 
 group :integration do
-  cookbook 'apt'
-  cookbook 'yum'
-  cookbook 'java'
-  cookbook 'user'
-  cookbook 'rvm_wrapper', path: 'test/fixtures/cookbooks/rvm_wrapper'
+  cookbook 'test', path: 'test/fixtures/cookbooks/test'
 end

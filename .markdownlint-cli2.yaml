@@ -7,3 +7,4 @@ config:
     maximum: 2
 ignores:
   - .github/copilot-instructions.md
+  - .beads/**
