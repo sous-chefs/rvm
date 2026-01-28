@@ -30,13 +30,10 @@ jobs:
           - debian-12
           - debian-13
           - fedora-latest
-          - opensuse-leap-15
-          - oraclelinux-8
+          # - opensuse-leap-15
           - oraclelinux-9
-          - rockylinux-8
           - rockylinux-9
           - rockylinux-10
-          - ubuntu-2004
           - ubuntu-2204
           - ubuntu-2404
         suite:
