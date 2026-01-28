@@ -30,6 +30,13 @@ action :install do
   # Install required packages for RVM itself
   package rvm_install_packages
 
+  # Enable CRB repository on EL9+ for development packages
+  execute 'enable_crb_repository' do
+    command 'dnf config-manager --set-enabled crb'
+    only_if { platform_family?('rhel', 'fedora') && node['platform_version'].to_i >= 9 }
+    not_if 'dnf repolist enabled | grep -q crb'
+  end
+
   # Install Ruby build dependencies
   # Pre-installing these avoids RVM autolibs issues on EL9 distributions
   package ruby_build_packages
@@ -45,10 +52,10 @@ action :install do
   execute 'install_rvm_system' do
     command "#{rvm_installer_path} #{new_resource.version} --ignore-dotfiles"
     environment({
-      'rvm_path' => '/usr/local/rvm',
-      'DEBIAN_FRONTEND' => 'noninteractive',
-      'HOME' => '/root',
-    })
+                  'rvm_path' => '/usr/local/rvm',
+                  'DEBIAN_FRONTEND' => 'noninteractive',
+                  'HOME' => '/root',
+                })
     creates '/usr/local/rvm/bin/rvm'
   end
 

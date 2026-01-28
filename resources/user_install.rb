@@ -18,6 +18,13 @@ action :install do
   user_home = new_resource.home_dir || user_home(new_resource.user)
   rvm_path = ::File.join(user_home, '.rvm')
 
+  # Enable CRB repository on EL9+ for development packages
+  execute 'enable_crb_repository' do
+    command 'dnf config-manager --set-enabled crb'
+    only_if { platform_family?('rhel', 'fedora') && node['platform_version'].to_i >= 9 }
+    not_if 'dnf repolist enabled | grep -q crb'
+  end
+
   # Install Ruby build dependencies
   # Pre-installing these avoids RVM autolibs issues on EL9 distributions
   package ruby_build_packages
@@ -48,10 +55,10 @@ action :install do
     user new_resource.user
     group Etc.getpwnam(new_resource.user).gid
     environment({
-      'HOME' => user_home,
-      'rvm_path' => rvm_path,
-      'DEBIAN_FRONTEND' => 'noninteractive',
-    })
+                  'HOME' => user_home,
+                  'rvm_path' => rvm_path,
+                  'DEBIAN_FRONTEND' => 'noninteractive',
+                })
     creates ::File.join(rvm_path, 'bin', 'rvm')
   end
 
