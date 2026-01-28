@@ -30,9 +30,11 @@ action :install do
     not_if 'dnf repolist enabled | grep -q crb'
   end
 
-  # Install Ruby build dependencies
+  # Install Ruby build dependencies with cache flush to pick up CRB packages
   # Pre-installing these avoids RVM autolibs issues on EL9 distributions
-  package ruby_build_packages
+  package ruby_build_packages do
+    flush_cache({ before: true }) if platform_family?('rhel') && node['platform_version'].to_i >= 9
+  end
 
   # Install GPG using the gpg cookbook
   gpg_install 'rvm'
