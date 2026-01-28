@@ -58,7 +58,10 @@ action :install do
     owner new_resource.user
     group Etc.getpwnam(new_resource.user).gid
     mode '0644'
-    variables(rvmrc_env: new_resource.rvmrc_env.merge('rvm_path' => rvm_path))
+    variables(rvmrc_env: new_resource.rvmrc_env.merge(
+      'rvm_path' => rvm_path,
+      'rvm_autolibs_flag' => new_resource.autolib_mode.to_s
+    ))
   end
 end
 

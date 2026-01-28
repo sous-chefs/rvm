@@ -53,7 +53,10 @@ action :install do
     source 'rvmrc.erb'
     cookbook 'rvm'
     mode '0644'
-    variables(rvmrc_env: new_resource.rvmrc_env.merge('rvm_path' => '/usr/local/rvm'))
+    variables(rvmrc_env: new_resource.rvmrc_env.merge(
+      'rvm_path' => '/usr/local/rvm',
+      'rvm_autolibs_flag' => new_resource.autolib_mode.to_s
+    ))
   end
 
   # Add users to rvm group
