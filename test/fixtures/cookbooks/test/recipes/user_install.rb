@@ -10,41 +10,8 @@ end
 # Make sure that Vagrant user is on the box for dokken
 include_recipe 'test::dokken'
 
-# Pre-install Ruby build dependencies to avoid RVM autolibs issues
-# RVM's autolibs has known issues on EL9 distributions
-case node['platform_family']
-when 'rhel', 'fedora', 'amazon'
-  package %w(
-    autoconf
-    automake
-    bison
-    bzip2
-    gcc-c++
-    libffi-devel
-    libtool
-    readline-devel
-    sqlite-devel
-    zlib-devel
-    libyaml-devel
-    openssl-devel
-  )
-when 'debian'
-  package %w(
-    autoconf
-    automake
-    bison
-    build-essential
-    libffi-dev
-    libreadline-dev
-    libsqlite3-dev
-    libssl-dev
-    libyaml-dev
-    zlib1g-dev
-  )
-end
-
-# Install RVM for the vagrant user with autolibs disabled
-# since we're pre-installing dependencies
+# Install RVM for the vagrant user
+# Build dependencies are installed automatically by the resource
 rvm_user_install 'vagrant' do
   autolib_mode 0
 end

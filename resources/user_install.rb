@@ -18,6 +18,10 @@ action :install do
   user_home = new_resource.home_dir || user_home(new_resource.user)
   rvm_path = ::File.join(user_home, '.rvm')
 
+  # Install Ruby build dependencies
+  # Pre-installing these avoids RVM autolibs issues on EL9 distributions
+  package ruby_build_packages
+
   # Install GPG using the gpg cookbook
   gpg_install 'rvm'
 
@@ -70,5 +74,40 @@ action_class do
 
   def rvm_installer_path
     ::File.join(Chef::Config[:file_cache_path], 'rvm_installer.sh')
+  end
+
+  def ruby_build_packages
+    case node['platform_family']
+    when 'rhel', 'fedora', 'amazon'
+      %w(
+        autoconf
+        automake
+        bison
+        bzip2
+        gcc-c++
+        libffi-devel
+        libtool
+        readline-devel
+        sqlite-devel
+        zlib-devel
+        libyaml-devel
+        openssl-devel
+      )
+    when 'debian'
+      %w(
+        autoconf
+        automake
+        bison
+        build-essential
+        libffi-dev
+        libreadline-dev
+        libsqlite3-dev
+        libssl-dev
+        libyaml-dev
+        zlib1g-dev
+      )
+    else
+      []
+    end
   end
 end

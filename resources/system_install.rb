@@ -27,8 +27,12 @@ action :install do
     end
   end
 
-  # Install required packages
+  # Install required packages for RVM itself
   package rvm_install_packages
+
+  # Install Ruby build dependencies
+  # Pre-installing these avoids RVM autolibs issues on EL9 distributions
+  package ruby_build_packages
 
   # Download the RVM installer
   remote_file rvm_installer_path do
@@ -85,6 +89,41 @@ action_class do
       %w(bash curl git-core tar bzip2 gzip)
     else
       %w(bash curl git tar bzip2 gzip)
+    end
+  end
+
+  def ruby_build_packages
+    case node['platform_family']
+    when 'rhel', 'fedora', 'amazon'
+      %w(
+        autoconf
+        automake
+        bison
+        bzip2
+        gcc-c++
+        libffi-devel
+        libtool
+        readline-devel
+        sqlite-devel
+        zlib-devel
+        libyaml-devel
+        openssl-devel
+      )
+    when 'debian'
+      %w(
+        autoconf
+        automake
+        bison
+        build-essential
+        libffi-dev
+        libreadline-dev
+        libsqlite3-dev
+        libssl-dev
+        libyaml-dev
+        zlib1g-dev
+      )
+    else
+      []
     end
   end
 end
