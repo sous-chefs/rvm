@@ -47,3 +47,10 @@ Policyfile.lock.json
 # vagrant stuff
 .vagrant/
 .vagrant.d/
+
+# beads issue tracking runtime files (socket files cause Berkshelf issues)
+# The .beads/ directory itself is tracked, but runtime files are not
+.beads/bd.sock
+.beads/*.db
+.beads/*.db-*
+.beads/daemon.*

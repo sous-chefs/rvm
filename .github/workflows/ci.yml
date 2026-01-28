@@ -4,12 +4,11 @@ name: ci
 "on":
   pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@5.0.3
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@5.0.8
     permissions:
       actions: write
       checks: write
@@ -23,12 +22,23 @@ jobs:
     strategy:
       matrix:
         os:
-          - "centos-7"
-          - "debian-9"
-          - "ubuntu-1604"
-          - "ubuntu-1804"
+          - almalinux-9
+          - almalinux-10
+          - amazonlinux-2023
+          - centos-stream-9
+          - centos-stream-10
+          - debian-12
+          - debian-13
+          - fedora-latest
+          # - opensuse-leap-15
+          - oraclelinux-9
+          - rockylinux-9
+          - rockylinux-10
+          - ubuntu-2204
+          - ubuntu-2404
         suite:
-          - "server-install"
+          - "system-install"
+          - "user-install"
       fail-fast: false
     steps:
       - name: Check out code

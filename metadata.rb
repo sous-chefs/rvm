@@ -9,6 +9,8 @@ issues_url        'https://github.com/sous-chefs/rvm/issues'
 
 chef_version      '>= 15.3'
 
+depends 'gpg', '>= 1.0'
+
 supports 'amazon'
 supports 'centos'
 supports 'debian'
