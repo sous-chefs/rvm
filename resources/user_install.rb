@@ -121,50 +121,50 @@ action_class do
   end
 
   def ruby_build_packages
-    packages = case node['platform_family']
-               when 'rhel', 'fedora', 'amazon'
-                 %w(
-                   autoconf
-                   automake
-                   bison
-                   bzip2
-                   gcc-c++
-                   libffi-devel
-                   libtool
-                   readline-devel
-                   sqlite-devel
-                   zlib-devel
-                   openssl-devel
-                 )
-               when 'debian'
-                 %w(
-                   autoconf
-                   automake
-                   bison
-                   build-essential
-                   libffi-dev
-                   libreadline-dev
-                   libsqlite3-dev
-                   libssl-dev
-                   libyaml-dev
-                   zlib1g-dev
-                 )
-               when 'suse'
-                 %w(
-                   autoconf
-                   automake
-                   bison
-                   gcc-c++
-                   libffi-devel
-                   libtool
-                   readline-devel
-                   sqlite3-devel
-                   zlib-devel
-                   libyaml-devel
-                   libopenssl-devel
-                 )
-               else
-                 []
-               end
+    case node['platform_family']
+    when 'rhel', 'fedora', 'amazon'
+      %w(
+        autoconf
+        automake
+        bison
+        bzip2
+        gcc-c++
+        libffi-devel
+        libtool
+        readline-devel
+        sqlite-devel
+        zlib-devel
+        openssl-devel
+      )
+    when 'debian'
+      %w(
+        autoconf
+        automake
+        bison
+        build-essential
+        libffi-dev
+        libreadline-dev
+        libsqlite3-dev
+        libssl-dev
+        libyaml-dev
+        zlib1g-dev
+      )
+    when 'suse'
+      %w(
+        autoconf
+        automake
+        bison
+        gcc-c++
+        libffi-devel
+        libtool
+        readline-devel
+        sqlite3-devel
+        zlib-devel
+        libyaml-devel
+        libopenssl-devel
+      )
+    else
+      []
+    end
   end
 end
