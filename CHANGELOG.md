@@ -1,6 +1,16 @@
 # Changelog
 
 
+## [2.0.10](https://github.com/sous-chefs/rvm/compare/v2.0.9...v2.0.10) (2026-01-28)
+
+
+### Bug Fixes
+
+* 54 ([07d840a](https://github.com/sous-chefs/rvm/commit/07d840a997df5a9c59c9ce4e488dc854b43acb26))
+* cheffile declaration outdated ([71cc539](https://github.com/sous-chefs/rvm/commit/71cc539f38186cc588281fd8097e7f6d791a6396))
+* cheffile declaration outdated ([fde5ed0](https://github.com/sous-chefs/rvm/commit/fde5ed066d38cdfe942b8718b02a196defb9c959))
+* **ci:** Update workflows to use release pipeline ([#457](https://github.com/sous-chefs/rvm/issues/457)) ([cc90498](https://github.com/sous-chefs/rvm/commit/cc9049814dac600dab9580bf2e7eb4e866aac46f))
+
 ## 2.0.4 - *2023-09-29*
 
 
