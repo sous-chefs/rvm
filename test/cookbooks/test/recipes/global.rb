@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 global_version = 'ruby-3.2.0'
 
 # Install RVM Globally

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 unified_mode true
 provides :rvm_user_install
 
@@ -18,64 +20,67 @@ action :install do
   user_home = new_resource.home_dir || user_home(new_resource.user)
   rvm_path = ::File.join(user_home, '.rvm')
 
-  # Install dnf-plugins-core for config-manager command on RHEL 9+
-  package 'dnf-plugins-core' do
-    only_if do
-      platform_family?('rhel') &&
-        !platform?('fedora', 'amazon') &&
-        node['platform_version'].to_i >= 9
+  if new_resource.install_packages
+    # Install dnf-plugins-core for config-manager command on RHEL 9+
+    package 'dnf-plugins-core' do
+      only_if do
+        platform_family?('rhel') &&
+          !platform?('fedora', 'amazon') &&
+          node['platform_version'].to_i >= 9
+      end
+    end
+
+    # Enable CRB repository on RHEL 9+ for development packages
+    # CRB only exists on RHEL-based distros (not Fedora or Amazon Linux)
+    # Repository name varies by distribution
+    execute 'enable_crb_repository' do
+      command lazy {
+        repo_name = case node['platform']
+                    when 'oracle'
+                      'ol9_codeready_builder'
+                    when 'rocky'
+                      'crb'
+                    else
+                      'crb'
+                    end
+        "dnf config-manager --set-enabled #{repo_name}"
+      }
+      only_if do
+        platform_family?('rhel') &&
+          !platform?('fedora', 'amazon') &&
+          node['platform_version'].to_i >= 9
+      end
+      not_if do
+        repo_name = case node['platform']
+                    when 'oracle'
+                      'ol9_codeready_builder'
+                    when 'rocky'
+                      'crb'
+                    else
+                      'crb'
+                    end
+        shell_out("dnf repolist enabled | grep -q #{repo_name}").exitstatus == 0
+      end
+    end
+
+    # Install Ruby build dependencies with cache flush to pick up CRB packages
+    # Pre-installing these avoids RVM autolibs issues on EL9 distributions
+    package ruby_build_packages do
+      flush_cache({ before: true }) if platform_family?('rhel') && node['platform_version'].to_i >= 9
     end
   end
 
-  # Enable CRB repository on RHEL 9+ for development packages
-  # CRB only exists on RHEL-based distros (not Fedora or Amazon Linux)
-  # Repository name varies by distribution
-  execute 'enable_crb_repository' do
-    command lazy {
-      repo_name = case node['platform']
-                  when 'oracle'
-                    'ol9_codeready_builder'
-                  when 'rocky'
-                    'crb'
-                  else
-                    'crb'
-                  end
-      "dnf config-manager --set-enabled #{repo_name}"
-    }
-    only_if do
-      platform_family?('rhel') &&
-        !platform?('fedora', 'amazon') &&
-        node['platform_version'].to_i >= 9
-    end
-    not_if do
-      repo_name = case node['platform']
-                  when 'oracle'
-                    'ol9_codeready_builder'
-                  when 'rocky'
-                    'crb'
-                  else
-                    'crb'
-                  end
-      shell_out("dnf repolist enabled | grep -q #{repo_name}").exitstatus == 0
-    end
-  end
+  if new_resource.manage_gpg_keys
+    package gpg_packages
 
-  # Install Ruby build dependencies with cache flush to pick up CRB packages
-  # Pre-installing these avoids RVM autolibs issues on EL9 distributions
-  package ruby_build_packages do
-    flush_cache({ before: true }) if platform_family?('rhel') && node['platform_version'].to_i >= 9
-  end
-
-  # Install GPG using the gpg cookbook
-  gpg_install 'rvm'
-
-  # Import RVM GPG keys for the user
-  new_resource.gpg_key.split.each do |key_fingerprint|
-    gpg_key "rvm_key_#{key_fingerprint}_#{new_resource.user}" do
-      user new_resource.user
-      keyserver new_resource.keyserver
-      key_fingerprint key_fingerprint
-      action :import
+    # Import RVM GPG keys for the user
+    new_resource.gpg_key.split.each do |key_fingerprint|
+      execute "rvm_import_key_#{key_fingerprint}_#{new_resource.user}" do
+        command "gpg --keyserver #{new_resource.keyserver} --recv-keys #{key_fingerprint}"
+        user new_resource.user
+        environment 'HOME' => user_home
+        not_if "gpg --list-keys #{key_fingerprint}", user: new_resource.user, environment: { 'HOME' => user_home }
+      end
     end
   end
 

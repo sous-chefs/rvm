@@ -1,0 +1,7 @@
+---
+name: user_install
+title: RVM User Install Resource Tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies the RVM user install resource
+version: 1.0.0

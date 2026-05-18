@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RvmCookbook
   module RvmHelper
     # Returns the RVM installation path for a user or system
@@ -90,6 +92,19 @@ module RvmCookbook
         "bash -l -c 'source #{rvm_path(user)}/scripts/rvm && #{cmd}'"
       else
         "bash -l -c 'source /usr/local/rvm/scripts/rvm && #{cmd}'"
+      end
+    end
+
+    def gpg_packages
+      case node['platform_family']
+      when 'debian'
+        %w(gnupg dirmngr)
+      when 'rhel', 'fedora', 'amazon'
+        %w(gnupg2)
+      when 'suse'
+        %w(gpg2)
+      else
+        %w(gnupg)
       end
     end
   end

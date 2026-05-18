@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../libraries/rvm_helper'
 
 describe RvmCookbook::RvmHelper do
