@@ -1,6 +1,17 @@
 # Changelog
 
 
+## [3.0.0](https://github.com/sous-chefs/rvm/compare/v2.0.10...v3.0.0) (2026-05-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate rvm to custom resources ([#466](https://github.com/sous-chefs/rvm/issues/466))
+
+### Features
+
+* migrate rvm to custom resources ([#466](https://github.com/sous-chefs/rvm/issues/466)) ([8264d78](https://github.com/sous-chefs/rvm/commit/8264d78662c41c26cbb8bf2e39f035476e250d93))
+
 ## [2.0.10](https://github.com/sous-chefs/rvm/compare/v2.0.9...v2.0.10) (2026-01-28)
 
 
