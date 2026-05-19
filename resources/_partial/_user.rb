@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Shared user property for resources that can operate on system or user RVM
 property :user,
          String,

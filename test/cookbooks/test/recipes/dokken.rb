@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Make sure Vagrant user is on the box. This should fix the dokken user install
 user 'vagrant'
 

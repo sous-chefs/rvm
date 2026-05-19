@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'rvm_system_install' do
@@ -8,10 +10,6 @@ describe 'rvm_system_install' do
   end
 
   before do
-    # Stub gpg cookbook resources
-    allow_any_instance_of(Chef::Recipe).to receive(:gpg_install).and_return(true)
-    allow_any_instance_of(Chef::Recipe).to receive(:gpg_key).and_return(true)
-
     # Stub RVM helper methods
     allow_any_instance_of(RvmCookbook::RvmHelper).to receive(:rvm_installed?).and_return(false)
 

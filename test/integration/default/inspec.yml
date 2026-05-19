@@ -1,0 +1,7 @@
+---
+name: default
+title: RVM Default Resource Tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies the RVM system install resource
+version: 1.0.0

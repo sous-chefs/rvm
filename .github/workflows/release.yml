@@ -9,13 +9,13 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
-  packages: write
   attestations: write
+  artifact-metadata: write
   id-token: write
 
 jobs:
   release:
-    uses: sous-chefs/.github/.github/workflows/release-cookbook.yml@main
+    uses: sous-chefs/.github/.github/workflows/release-cookbook.yml@6.0.0
     secrets:
       token: ${{ secrets.PORTER_GITHUB_TOKEN }}
       supermarket_user: ${{ secrets.CHEF_SUPERMARKET_USER }}

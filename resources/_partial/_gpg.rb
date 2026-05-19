@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Shared GPG properties for RVM installation resources
 property :gpg_key,
          String,

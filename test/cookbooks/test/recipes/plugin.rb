@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ruby_version = 'ruby-3.2.0'
 
 # Make sure that Vagrant user is on the box for dokken

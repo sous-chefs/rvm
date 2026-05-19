@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Shared properties for RVM installation resources
 property :installer_url,
          String,
@@ -18,3 +20,13 @@ property :rvmrc_env,
          Hash,
          default: { 'rvm_gem_options' => '--no-document' },
          description: 'Hash of rvmrc environment options'
+
+property :install_packages,
+         [true, false],
+         default: true,
+         description: 'Install platform prerequisite and Ruby build dependency packages'
+
+property :manage_gpg_keys,
+         [true, false],
+         default: true,
+         description: 'Install GPG tooling and import RVM installer verification keys'

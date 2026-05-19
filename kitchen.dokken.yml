@@ -7,7 +7,7 @@ transport: { name: dokken }
 provisioner: { name: dokken }
 
 platforms:
-  - name: debian-9
+  - name: almalinux-8
     driver:
       image: dokken/almalinux-8
       pid_one_command: /usr/lib/systemd/systemd
@@ -52,11 +52,6 @@ platforms:
       image: dokken/fedora-latest
       pid_one_command: /usr/lib/systemd/systemd
 
-  - name: opensuse-leap-15
-    driver:
-      image: dokken/opensuse-leap-15
-      pid_one_command: /usr/lib/systemd/systemd
-
   - name: oraclelinux-8
     driver:
       image: dokken/oraclelinux-8
@@ -81,11 +76,6 @@ platforms:
     driver:
       image: dokken/rockylinux-10
       pid_one_command: /usr/lib/systemd/systemd
-
-  - name: ubuntu-20.04
-    driver:
-      image: dokken/ubuntu-20.04
-      pid_one_command: /bin/systemd
 
   - name: ubuntu-22.04
     driver:

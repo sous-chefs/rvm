@@ -31,9 +31,13 @@ Chef repository structure like the [Opscode repo][chef_repo] is also assumed.
 - [rvm_user_install](documentation/rvm_user_install.md)
 - [rvm_ruby](documentation/rvm_ruby.md)
 - [rvm_gem](documentation/rvm_gem.md)
-- [rvm_gemset](documentation/rvm_gem_set.md)
+- [rvm_gemset](documentation/rvm_gemset.md)
 - [rvm_alias](documentation/rvm_alias.md)
 - [rvm_wrapper](documentation/rvm_wrapper.md)
+
+## Migration
+
+See [migration.md](migration.md) for the breaking change from legacy node attributes to resource properties.
 
 ## Contributing
 
