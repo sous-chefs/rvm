@@ -45,7 +45,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v6
       - name: Install Chef
-        uses: sous-chefs/.github/.github/actions/install-workstation@6.0.0
+        uses: sous-chefs/.github/.github/actions/install-workstation@8.0.1
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:
