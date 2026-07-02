@@ -31,18 +31,21 @@ platforms:
 
 suites:
   - name: default
+    named_run_list: default
     run_list: recipe[test::default]
     verifier:
       inspec_tests:
         - path: test/integration/default
 
   - name: system_install
+    named_run_list: system_install
     run_list: recipe[test::system_install]
     verifier:
       inspec_tests:
         - path: test/integration/default
 
   - name: user_install
+    named_run_list: user_install
     run_list: recipe[test::user_install]
     verifier:
       inspec_tests:
