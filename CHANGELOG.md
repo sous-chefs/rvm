@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [3.0.1](https://github.com/sous-chefs/rvm/compare/v3.0.0...v3.0.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* migrate to Policyfile ([#474](https://github.com/sous-chefs/rvm/issues/474)) ([0f5cece](https://github.com/sous-chefs/rvm/commit/0f5ceceddc5932f7b713b7490f07908ae100751e))
+
 ## [3.0.0](https://github.com/sous-chefs/rvm/compare/v2.0.10...v3.0.0) (2026-05-19)
 
 
